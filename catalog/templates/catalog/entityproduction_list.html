@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Production List</h1>
+  {% if entityproduction_list %}
+  <ul>
+    {% for production in entityproduction_list %}
+      <li>
+        <a href="{{ production.get_absolute_url }}">{{ production.display_name_and_season }}</a> ({{production.name}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no productions in the catalog.</p>
+  {% endif %}
+{% endblock %}
