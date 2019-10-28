@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>People List</h1>
+  {% if entityperson_list %}
+  <ul>
+    {% for person in entityperson_list %}
+      <li>
+        <a href="{{ person.get_absolute_url }}">{{ person.sort_name }}</a> ({{person.display_full_name}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no people in the catalog.</p>
+  {% endif %}
+{% endblock %}
