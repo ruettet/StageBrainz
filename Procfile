@@ -1,0 +1,1 @@
+web: gunicorn stagebrainz.wsgi --log-file -
