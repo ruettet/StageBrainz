@@ -1,49 +1,30 @@
 from django.contrib import admin
 from catalog.models import EntityShow, EntityShowType, \
-    EntityVenue, EntityVenueType, EntityVenueAlias, EntityVenueAliasType, \
     EntityProduction, EntityProductionType, \
     EntitySeason, \
-    EntityPerson, EntityPersonType, EntityPersonAlias, EntityPersonAliasType, \
-    EntityOrganisation, EntityOrganisationType, EntityOrganisationAlias, EntityOrganisationAliasType, \
+    EntityOrganity, EntityOrganityType, EntityOrganityAlias, EntityOrganityAliasType, \
     EntityWork, EntityWorkType, EntityWorkAlias, EntityWorkAliasType, \
     EntityCharacter, EntityCharacterType, EntityCharacterAlias, EntityCharacterAliasType, \
     EntityGenre, EntityGenreType, EntityGenreAlias, EntityGenreAliasType, \
     EntityUrl, EntityUrlType, \
     RelationShowShow, RelationShowShowType, \
-    RelationShowVenue, RelationShowVenueType,\
     RelationShowProduction, RelationShowProductionType, \
-    RelationShowPerson, RelationShowPersonType, \
-    RelationShowOrganisation, RelationShowOrganisationType, \
+    RelationShowOrganity, RelationShowOrganityType, \
     RelationShowWork, RelationShowWorkType, \
     RelationShowCharacter, RelationShowCharacterType, \
     RelationShowGenre, RelationShowGenreType, \
     RelationShowUrl, RelationShowUrlType, \
-    RelationVenueVenue, RelationVenueVenueType, \
-    RelationVenueProduction, RelationVenueProductionType, \
-    RelationVenuePerson, RelationVenuePersonType, \
-    RelationVenueOrganisation, RelationVenueOrganisationType, \
-    RelationVenueWork, RelationVenueWorkType, \
-    RelationVenueCharacter, RelationVenueCharacterType, \
-    RelationVenueGenre, RelationVenueGenreType, \
-    RelationVenueUrl, RelationVenueUrlType, \
     RelationProductionProduction, RelationProductionProductionType, \
-    RelationProductionPerson, RelationProductionPersonType, \
-    RelationProductionOrganisation, RelationProductionOrganisationType, \
+    RelationProductionOrganity, RelationProductionOrganityType, \
     RelationProductionWork, RelationProductionWorkType, \
     RelationProductionCharacter, RelationProductionCharacterType, \
     RelationProductionGenre, RelationProductionGenreType, \
     RelationProductionUrl, RelationProductionUrlType, \
-    RelationPersonPerson, RelationPersonPersonType, \
-    RelationPersonOrganisation, RelationPersonOrganisationType, \
-    RelationPersonWork, RelationPersonWorkType, \
-    RelationPersonCharacter, RelationPersonCharacterType, \
-    RelationPersonGenre, RelationPersonGenreType, \
-    RelationPersonUrl, RelationPersonUrlType, \
-    RelationOrganisationOrganisation, RelationOrganisationOrganisationType, \
-    RelationOrganisationWork, RelationOrganisationWorkType, \
-    RelationOrganisationCharacter, RelationOrganisationCharacterType, \
-    RelationOrganisationGenre, RelationOrganisationGenreType, \
-    RelationOrganisationUrl, RelationOrganisationUrlType, \
+    RelationOrganityOrganity, RelationOrganityOrganityType, \
+    RelationOrganityWork, RelationOrganityWorkType, \
+    RelationOrganityCharacter, RelationOrganityCharacterType, \
+    RelationOrganityGenre, RelationOrganityGenreType, \
+    RelationOrganityUrl, RelationOrganityUrlType, \
     RelationWorkWork, RelationWorkWorkType, \
     RelationWorkCharacter, RelationWorkCharacterType, \
     RelationWorkGenre, RelationWorkGenreType, \
@@ -57,26 +38,10 @@ from catalog.models import EntityShow, EntityShowType, \
 
 
 # Register your models here.
+
 # Define the admin class
-# inlines
-class RelationShowVenueInline(admin.TabularInline):
-    model = RelationShowVenue
-    ordering = ('show', )
-
-
-class VenueAliasInline(admin.TabularInline):
-    model = EntityVenueAlias
-
 
 # relations
-class RelationShowVenueAdmin(admin.ModelAdmin):
-    list_display = ('display_show_name', 'display_venue_name', 'display_show_when')
-
-
-class RelationShowVenueTypeAdmin(admin.ModelAdmin):
-    pass
-
-
 class RelationShowShowAdmin(admin.ModelAdmin):
     pass
 
@@ -93,19 +58,11 @@ class RelationShowProductionTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationShowPersonAdmin(admin.ModelAdmin):
+class RelationShowOrganityAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationShowPersonTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationShowOrganisationAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationShowOrganisationTypeAdmin(admin.ModelAdmin):
+class RelationShowOrganityTypeAdmin(admin.ModelAdmin):
     pass
 
 
@@ -141,70 +98,6 @@ class RelationShowUrlTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationVenueVenueAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueVenueTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueProductionAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueProductionTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenuePersonAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenuePersonTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueOrganisationAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueOrganisationTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueWorkAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueWorkTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueCharacterAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueCharacterTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueGenreAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueGenreTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueUrlAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationVenueUrlTypeAdmin(admin.ModelAdmin):
-    pass
-
-
 class RelationProductionProductionAdmin(admin.ModelAdmin):
     pass
 
@@ -213,19 +106,11 @@ class RelationProductionProductionTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationProductionPersonAdmin(admin.ModelAdmin):
+class RelationProductionOrganityAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationProductionPersonTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationProductionOrganisationAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationProductionOrganisationTypeAdmin(admin.ModelAdmin):
+class RelationProductionOrganityTypeAdmin(admin.ModelAdmin):
     pass
 
 
@@ -261,91 +146,43 @@ class RelationProductionUrlTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonPersonAdmin(admin.ModelAdmin):
+class RelationOrganityOrganityAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonPersonTypeAdmin(admin.ModelAdmin):
+class RelationOrganityOrganityTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonOrganisationAdmin(admin.ModelAdmin):
+class RelationOrganityWorkAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonOrganisationTypeAdmin(admin.ModelAdmin):
+class RelationOrganityWorkTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonWorkAdmin(admin.ModelAdmin):
+class RelationOrganityCharacterAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonWorkTypeAdmin(admin.ModelAdmin):
+class RelationOrganityCharacterTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonCharacterAdmin(admin.ModelAdmin):
+class RelationOrganityGenreAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonCharacterTypeAdmin(admin.ModelAdmin):
+class RelationOrganityGenreTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonGenreAdmin(admin.ModelAdmin):
+class RelationOrganityUrlAdmin(admin.ModelAdmin):
     pass
 
 
-class RelationPersonGenreTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationPersonUrlAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationPersonUrlTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationOrganisationAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationOrganisationTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationWorkAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationWorkTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationCharacterAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationCharacterTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationGenreAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationGenreTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationUrlAdmin(admin.ModelAdmin):
-    pass
-
-
-class RelationOrganisationUrlTypeAdmin(admin.ModelAdmin):
+class RelationOrganityUrlTypeAdmin(admin.ModelAdmin):
     pass
 
 
@@ -439,23 +276,6 @@ class EntityShowTypeAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 
-class EntityVenueAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    inlines = [VenueAliasInline]
-
-
-class EntityVenueTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class EntityVenueAliasAdmin(admin.ModelAdmin):
-    pass
-
-
-class EntityVenueAliasTypeAdmin(admin.ModelAdmin):
-    pass
-
-
 class EntityProductionAdmin(admin.ModelAdmin):
     pass
 
@@ -468,35 +288,19 @@ class EntitySeasonAdmin(admin.ModelAdmin):
     pass
 
 
-class EntityPersonAdmin(admin.ModelAdmin):
-    list_filter = ('person_type',)
+class EntityOrganityAdmin(admin.ModelAdmin):
+    list_filter = ('organity_type',)
 
 
-class EntityPersonTypeAdmin(admin.ModelAdmin):
+class EntityOrganityTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class EntityPersonAliasAdmin(admin.ModelAdmin):
+class EntityOrganityAliasAdmin(admin.ModelAdmin):
     pass
 
 
-class EntityPersonAliasTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class EntityOrganisationAdmin(admin.ModelAdmin):
-    list_filter = ('organisation_type',)
-
-
-class EntityOrganisationTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-class EntityOrganisationAliasAdmin(admin.ModelAdmin):
-    pass
-
-
-class EntityOrganisationAliasTypeAdmin(admin.ModelAdmin):
+class EntityOrganityAliasTypeAdmin(admin.ModelAdmin):
     pass
 
 
@@ -561,12 +365,6 @@ class EntityUrlTypeAdmin(admin.ModelAdmin):
 admin.site.register(EntityShow, EntityShowAdmin)
 admin.site.register(EntityShowType, EntityShowTypeAdmin)
 
-# venues
-admin.site.register(EntityVenue, EntityVenueAdmin)
-admin.site.register(EntityVenueType, EntityVenueTypeAdmin)
-admin.site.register(EntityVenueAlias, EntityVenueAliasAdmin)
-admin.site.register(EntityVenueAliasType, EntityVenueAliasTypeAdmin)
-
 # productions
 admin.site.register(EntityProduction, EntityProductionAdmin)
 admin.site.register(EntityProductionType, EntityProductionTypeAdmin)
@@ -574,17 +372,11 @@ admin.site.register(EntityProductionType, EntityProductionTypeAdmin)
 # seasons
 admin.site.register(EntitySeason, EntitySeasonAdmin)
 
-# people
-admin.site.register(EntityPerson, EntityPersonAdmin)
-admin.site.register(EntityPersonType, EntityPersonTypeAdmin)
-admin.site.register(EntityPersonAlias, EntityPersonAliasAdmin)
-admin.site.register(EntityPersonAliasType, EntityPersonAliasTypeAdmin)
-
 # organisations
-admin.site.register(EntityOrganisation, EntityOrganisationAdmin)
-admin.site.register(EntityOrganisationType, EntityOrganisationTypeAdmin)
-admin.site.register(EntityOrganisationAlias, EntityOrganisationAliasAdmin)
-admin.site.register(EntityOrganisationAliasType, EntityOrganisationAliasTypeAdmin)
+admin.site.register(EntityOrganity, EntityOrganityAdmin)
+admin.site.register(EntityOrganityType, EntityOrganityTypeAdmin)
+admin.site.register(EntityOrganityAlias, EntityOrganityAliasAdmin)
+admin.site.register(EntityOrganityAliasType, EntityOrganityAliasTypeAdmin)
 
 # works
 admin.site.register(EntityWork, EntityWorkAdmin)
@@ -611,14 +403,10 @@ admin.site.register(EntityUrlType, EntityUrlTypeAdmin)
 # relations
 admin.site.register(RelationShowShow, RelationShowShowAdmin)
 admin.site.register(RelationShowShowType, RelationShowShowTypeAdmin)
-admin.site.register(RelationShowVenue, RelationShowVenueAdmin)
-admin.site.register(RelationShowVenueType, RelationShowVenueTypeAdmin)
 admin.site.register(RelationShowProduction, RelationShowProductionAdmin)
 admin.site.register(RelationShowProductionType, RelationShowProductionTypeAdmin)
-admin.site.register(RelationShowPerson, RelationShowPersonAdmin)
-admin.site.register(RelationShowPersonType, RelationShowPersonTypeAdmin)
-admin.site.register(RelationShowOrganisation, RelationShowOrganisationAdmin)
-admin.site.register(RelationShowOrganisationType, RelationShowOrganisationTypeAdmin)
+admin.site.register(RelationShowOrganity, RelationShowOrganityAdmin)
+admin.site.register(RelationShowOrganityType, RelationShowOrganityTypeAdmin)
 admin.site.register(RelationShowWork, RelationShowWorkAdmin)
 admin.site.register(RelationShowWorkType, RelationShowWorkTypeAdmin)
 admin.site.register(RelationShowCharacter, RelationShowCharacterAdmin)
@@ -627,28 +415,11 @@ admin.site.register(RelationShowGenre, RelationShowGenreAdmin)
 admin.site.register(RelationShowGenreType, RelationShowGenreTypeAdmin)
 admin.site.register(RelationShowUrl, RelationShowUrlAdmin)
 admin.site.register(RelationShowUrlType, RelationShowUrlTypeAdmin)
-admin.site.register(RelationVenueVenue, RelationVenueVenueAdmin)
-admin.site.register(RelationVenueVenueType, RelationVenueVenueTypeAdmin)
-admin.site.register(RelationVenueProduction, RelationVenueProductionAdmin)
-admin.site.register(RelationVenueProductionType, RelationVenueProductionTypeAdmin)
-admin.site.register(RelationVenuePerson, RelationVenuePersonAdmin)
-admin.site.register(RelationVenuePersonType, RelationVenuePersonTypeAdmin)
-admin.site.register(RelationVenueOrganisation, RelationVenueOrganisationAdmin)
-admin.site.register(RelationVenueOrganisationType, RelationVenueOrganisationTypeAdmin)
-admin.site.register(RelationVenueWork, RelationVenueWorkAdmin)
-admin.site.register(RelationVenueWorkType, RelationVenueWorkTypeAdmin)
-admin.site.register(RelationVenueCharacter, RelationVenueCharacterAdmin)
-admin.site.register(RelationVenueCharacterType, RelationVenueCharacterTypeAdmin)
-admin.site.register(RelationVenueGenre, RelationVenueGenreAdmin)
-admin.site.register(RelationVenueGenreType, RelationVenueGenreTypeAdmin)
-admin.site.register(RelationVenueUrl, RelationVenueUrlAdmin)
-admin.site.register(RelationVenueUrlType, RelationVenueUrlTypeAdmin)
+
 admin.site.register(RelationProductionProduction, RelationProductionProductionAdmin)
 admin.site.register(RelationProductionProductionType, RelationProductionProductionTypeAdmin)
-admin.site.register(RelationProductionPerson, RelationProductionPersonAdmin)
-admin.site.register(RelationProductionPersonType, RelationProductionPersonTypeAdmin)
-admin.site.register(RelationProductionOrganisation, RelationProductionOrganisationAdmin)
-admin.site.register(RelationProductionOrganisationType, RelationProductionOrganisationTypeAdmin)
+admin.site.register(RelationProductionOrganity, RelationProductionOrganityAdmin)
+admin.site.register(RelationProductionOrganityType, RelationProductionOrganityTypeAdmin)
 admin.site.register(RelationProductionWork, RelationProductionWorkAdmin)
 admin.site.register(RelationProductionWorkType, RelationProductionWorkTypeAdmin)
 admin.site.register(RelationProductionCharacter, RelationProductionCharacterAdmin)
@@ -657,28 +428,16 @@ admin.site.register(RelationProductionGenre, RelationProductionGenreAdmin)
 admin.site.register(RelationProductionGenreType, RelationProductionGenreTypeAdmin)
 admin.site.register(RelationProductionUrl, RelationProductionUrlAdmin)
 admin.site.register(RelationProductionUrlType, RelationProductionUrlTypeAdmin)
-admin.site.register(RelationPersonPerson, RelationPersonPersonAdmin)
-admin.site.register(RelationPersonPersonType, RelationPersonPersonTypeAdmin)
-admin.site.register(RelationPersonOrganisation, RelationPersonOrganisationAdmin)
-admin.site.register(RelationPersonOrganisationType, RelationPersonOrganisationTypeAdmin)
-admin.site.register(RelationPersonWork, RelationPersonWorkAdmin)
-admin.site.register(RelationPersonWorkType, RelationPersonWorkTypeAdmin)
-admin.site.register(RelationPersonCharacter, RelationPersonCharacterAdmin)
-admin.site.register(RelationPersonCharacterType, RelationPersonCharacterTypeAdmin)
-admin.site.register(RelationPersonGenre, RelationPersonGenreAdmin)
-admin.site.register(RelationPersonGenreType, RelationPersonGenreTypeAdmin)
-admin.site.register(RelationPersonUrl, RelationPersonUrlAdmin)
-admin.site.register(RelationPersonUrlType, RelationPersonUrlTypeAdmin)
-admin.site.register(RelationOrganisationOrganisation, RelationOrganisationOrganisationAdmin)
-admin.site.register(RelationOrganisationOrganisationType, RelationOrganisationOrganisationTypeAdmin)
-admin.site.register(RelationOrganisationWork, RelationOrganisationWorkAdmin)
-admin.site.register(RelationOrganisationWorkType, RelationOrganisationWorkTypeAdmin)
-admin.site.register(RelationOrganisationCharacter, RelationOrganisationCharacterAdmin)
-admin.site.register(RelationOrganisationCharacterType, RelationOrganisationCharacterTypeAdmin)
-admin.site.register(RelationOrganisationGenre, RelationOrganisationGenreAdmin)
-admin.site.register(RelationOrganisationGenreType, RelationOrganisationGenreTypeAdmin)
-admin.site.register(RelationOrganisationUrl, RelationOrganisationUrlAdmin)
-admin.site.register(RelationOrganisationUrlType, RelationOrganisationUrlTypeAdmin)
+admin.site.register(RelationOrganityOrganity, RelationOrganityOrganityAdmin)
+admin.site.register(RelationOrganityOrganityType, RelationOrganityOrganityTypeAdmin)
+admin.site.register(RelationOrganityWork, RelationOrganityWorkAdmin)
+admin.site.register(RelationOrganityWorkType, RelationOrganityWorkTypeAdmin)
+admin.site.register(RelationOrganityCharacter, RelationOrganityCharacterAdmin)
+admin.site.register(RelationOrganityCharacterType, RelationOrganityCharacterTypeAdmin)
+admin.site.register(RelationOrganityGenre, RelationOrganityGenreAdmin)
+admin.site.register(RelationOrganityGenreType, RelationOrganityGenreTypeAdmin)
+admin.site.register(RelationOrganityUrl, RelationOrganityUrlAdmin)
+admin.site.register(RelationOrganityUrlType, RelationOrganityUrlTypeAdmin)
 admin.site.register(RelationWorkWork, RelationWorkWorkAdmin)
 admin.site.register(RelationWorkWorkType, RelationWorkWorkAdmin)
 admin.site.register(RelationWorkCharacter, RelationWorkCharacterAdmin)
