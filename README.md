@@ -9,9 +9,10 @@ As in Musicbrainz, StageBrainz has a limited number of core entities:
 - People: persons active in performing arts
 - Organisations: organisations active in performing arts
 - Venues: venues presenting performing arts shows
-- Works: conceptual creations, e.g. a theater text, from which stage productions can be derived
 - Productions: a stage production that will be performed repeatedly over the course of a season
 - Shows: the actual performances of a stage production
+- Works: conceptual creations, e.g. a theater text, from which stage productions can be derived
+- Characters: fictional characters in works, e.g. Hamlet
 
 And a number of auxiliary entities
 - Genres: all sorts of genres for performing arts, e.g. dance, theater, theater for a young audience, ...
@@ -31,18 +32,19 @@ INSERT UML TO SHOW ALIAS + ALIASTYPE RELATION
 
 Furthermore, each entity can be related to all other entities, including itself. It is therefore possible to make every kind of relation:
 
-|              | People       | Organiations | Venues       | Works        | Productions  | Shows        | Genres       | Languages    | Locations    | Urls         |
-| ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ |
-| People       | x            |              |              |              |              |              |              |              |              |              |
-| Organiations | x            | x            |              |              |              |              |              |              |              |              |
-| Venues       | x            | x            | x            |              |              |              |              |              |              |              |
-| Works        | x            | x            | x            | x            |              |              |              |              |              |              |
-| Productions  | x            | x            | x            | x            | x            |              |              |              |              |              |
-| Shows        | x            | x            | x            | x            | x            | x            |              |              |              |              |
-| Genres       | x            | x            | x            | x            | x            | x            | x            |              |              |              |
-| Languages    | x            | x            | x            | x            | x            | x            | x            | x            |              |              |
-| Locations    | x            | x            | x            | x            | x            | x            | x            | x            | x            |              |
-| Urls         | x            | x            | x            | x            | x            | x            | x            | x            | x            | x            |
+|              | People       | Organiations | Venues       | Works        | Characters   | Poductions   | Shows        | Genres       | Languages    | Locations    | Urls |
+| ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ---- |
+| People       | x            |              |              |              |              |              |              |              |              |              |      |
+| Organiations | x            | x            |              |              |              |              |              |              |              |              |      |
+| Venues       | x            | x            | x            |              |              |              |              |              |              |              |      |
+| Works        | x            | x            | x            | x            |              |              |              |              |              |              |      |
+| Characters   | x            | x            | x            | x            | x            |              |              |              |              |              |      |
+| Productions  | x            | x            | x            | x            | x            | x            |              |              |              |              |      |
+| Shows        | x            | x            | x            | x            | x            | x            | x            |              |              |              |      |
+| Genres       | x            | x            | x            | x            | x            | x            | x            | x            |              |              |      |
+| Languages    | x            | x            | x            | x            | x            | x            | x            | x            | x            |              |      |
+| Locations    | x            | x            | x            | x            | x            | x            | x            | x            | x            | x            |      |
+| Urls         | x            | x            | x            | x            | x            | x            | x            | x            | x            | x            | x    |
 
 Every relation in itself has a Type.
 
