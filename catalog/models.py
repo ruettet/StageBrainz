@@ -244,6 +244,16 @@ class EntityUrlType(models.Model):
 
 
 # Relations
+class RelationType(models.Model):
+    name = models.CharField(max_length=200, help_text='A name for the x - y relation type', default='relation type')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
 class RelationShowShow(models.Model):
     show_a = models.ForeignKey(EntityShow, on_delete=models.PROTECT, related_name='%(class)s_show_a')
     show_a_name = models.CharField(max_length=200, help_text='If first show was credited differently', blank=True, null=True)
@@ -257,11 +267,8 @@ class RelationShowShow(models.Model):
         return self.show_a.name + ' <' + str(self.relation_type.name) + '>' + self.show_b.name
 
 
-class RelationShowShowType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the show - show relation type')
-
-    def __str__(self):
-        return self.name
+class RelationShowShowType(RelationType):
+    pass
 
 
 class RelationShowProduction(models.Model):
@@ -287,11 +294,8 @@ class RelationShowProduction(models.Model):
         return self.production.name if self.production_name is None else self.production_name
 
 
-class RelationShowProductionType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the show - production relation type')
-
-    def __str__(self):
-        return self.name
+class RelationShowProductionType(RelationType):
+    pass
 
 
 class RelationShowOrganity(models.Model):
@@ -317,12 +321,8 @@ class RelationShowOrganity(models.Model):
         return self.organity.name if self.organity_name is None else self.organity_name
 
 
-class RelationShowOrganityType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the show - organity relation type')
-
-    def __str__(self):
-        return self.name
-
+class RelationShowOrganityType(RelationType):
+    pass
 
 class RelationShowWork(models.Model):
     show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
@@ -347,11 +347,8 @@ class RelationShowWork(models.Model):
         return self.work.name if self.work_name is None else self.work_name
 
 
-class RelationShowWorkType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the show - work relation type')
-
-    def __str__(self):
-        return self.name
+class RelationShowWorkType(RelationType):
+    pass
 
 
 class RelationShowCharacter(models.Model):
@@ -377,12 +374,8 @@ class RelationShowCharacter(models.Model):
         return self.character.name if self.character_name is None else self.character_name
 
 
-class RelationShowCharacterType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the show - character relation type')
-
-    def __str__(self):
-        return self.name
-
+class RelationShowCharacterType(RelationType):
+    pass
 
 class RelationShowGenre(models.Model):
     show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
@@ -407,12 +400,8 @@ class RelationShowGenre(models.Model):
         return self.genre.name if self.genre_name is None else self.genre_name
 
 
-class RelationShowGenreType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the show - genre relation type')
-
-    def __str__(self):
-        return self.name
-
+class RelationShowGenreType(RelationType):
+    pass
 
 class RelationShowUrl(models.Model):
     show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
@@ -437,11 +426,8 @@ class RelationShowUrl(models.Model):
         return self.url.name if self.url_name is None else self.url_name
 
 
-class RelationShowUrlType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the show - url relation type')
-
-    def __str__(self):
-        return self.name
+class RelationShowUrlType(RelationType):
+    pass
 
 
 class RelationProductionProduction(models.Model):
@@ -457,11 +443,8 @@ class RelationProductionProduction(models.Model):
         return self.production_a.name + ' <' + str(self.relation_type.name) + '>' + self.production_b.name
 
 
-class RelationProductionProductionType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the production - production relation type')
-
-    def __str__(self):
-        return self.name
+class RelationProductionProductionType(RelationType):
+    pass
 
 
 class RelationProductionOrganity(models.Model):
@@ -487,11 +470,8 @@ class RelationProductionOrganity(models.Model):
         return self.organity.name if self.organity_name is None else self.organity_name
 
 
-class RelationProductionOrganityType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the production - organity relation type')
-
-    def __str__(self):
-        return self.name
+class RelationProductionOrganityType(RelationType):
+    pass
 
 
 class RelationProductionWork(models.Model):
@@ -517,11 +497,8 @@ class RelationProductionWork(models.Model):
         return self.work.name if self.work_name is None else self.work_name
 
 
-class RelationProductionWorkType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the production - work relation type')
-
-    def __str__(self):
-        return self.name
+class RelationProductionWorkType(RelationType):
+    pass
 
 
 class RelationProductionCharacter(models.Model):
@@ -547,11 +524,8 @@ class RelationProductionCharacter(models.Model):
         return self.character.name if self.character_name is None else self.character_name
 
 
-class RelationProductionCharacterType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the production - character relation type')
-
-    def __str__(self):
-        return self.name
+class RelationProductionCharacterType(RelationType):
+    pass
 
 
 class RelationProductionGenre(models.Model):
@@ -577,11 +551,8 @@ class RelationProductionGenre(models.Model):
         return self.genre.name if self.genre_name is None else self.genre_name
 
 
-class RelationProductionGenreType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the production - genre relation type')
-
-    def __str__(self):
-        return self.name
+class RelationProductionGenreType(RelationType):
+    pass
 
 
 class RelationProductionUrl(models.Model):
@@ -607,11 +578,8 @@ class RelationProductionUrl(models.Model):
         return self.url.name if self.url_name is None else self.url_name
 
 
-class RelationProductionUrlType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the production - url relation type')
-
-    def __str__(self):
-        return self.name
+class RelationProductionUrlType(RelationType):
+    pass
 
 
 class RelationOrganityOrganity(models.Model):
@@ -627,11 +595,8 @@ class RelationOrganityOrganity(models.Model):
         return self.organity_a.name + ' <' + str(self.relation_type.name) + '> ' + self.organity_b.name
 
 
-class RelationOrganityOrganityType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the organity - organity relation type')
-
-    def __str__(self):
-        return self.name
+class RelationOrganityOrganityType(RelationType):
+    pass
 
 
 class RelationOrganityWork(models.Model):
@@ -656,11 +621,8 @@ class RelationOrganityWork(models.Model):
         return self.work.name if self.work_name is None else self.work_name
 
 
-class RelationOrganityWorkType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the organity - work relation type')
-
-    def __str__(self):
-        return self.name
+class RelationOrganityWorkType(RelationType):
+    pass
 
 
 class RelationOrganityCharacter(models.Model):
@@ -685,11 +647,8 @@ class RelationOrganityCharacter(models.Model):
         return self.character.name if self.character_name is None else self.character_name
 
 
-class RelationOrganityCharacterType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the organity - character relation type')
-
-    def __str__(self):
-        return self.name
+class RelationOrganityCharacterType(RelationType):
+    pass
 
 
 class RelationOrganityGenre(models.Model):
@@ -714,11 +673,8 @@ class RelationOrganityGenre(models.Model):
         return self.genre.name if self.genre_name is None else self.genre_name
 
 
-class RelationOrganityGenreType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the organity - genre relation type')
-
-    def __str__(self):
-        return self.name
+class RelationOrganityGenreType(RelationType):
+    pass
 
 
 class RelationOrganityUrl(models.Model):
@@ -743,11 +699,8 @@ class RelationOrganityUrl(models.Model):
         return self.url.name if self.genre_name is None else self.genre_name
 
 
-class RelationOrganityUrlType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the organity - url relation type')
-
-    def __str__(self):
-        return self.name
+class RelationOrganityUrlType(RelationType):
+    pass
 
 
 class RelationWorkWork(models.Model):
@@ -763,11 +716,8 @@ class RelationWorkWork(models.Model):
         return self.work_a.name + ' <' + str(self.relation_type.name) + '> ' + self.work_b.name
 
 
-class RelationWorkWorkType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the work - work relation type')
-
-    def __str__(self):
-        return self.name
+class RelationWorkWorkType(RelationType):
+    pass
 
 
 class RelationWorkCharacter(models.Model):
@@ -792,11 +742,8 @@ class RelationWorkCharacter(models.Model):
         return self.character.name if self.character_name is None else self.character_name
 
 
-class RelationWorkCharacterType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the work - character relation type')
-
-    def __str__(self):
-        return self.name
+class RelationWorkCharacterType(RelationType):
+    pass
 
 
 class RelationWorkGenre(models.Model):
@@ -821,11 +768,8 @@ class RelationWorkGenre(models.Model):
         return self.genre.name if self.genre_name is None else self.genre_name
 
 
-class RelationWorkGenreType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the work - genre relation type')
-
-    def __str__(self):
-        return self.name
+class RelationWorkGenreType(RelationType):
+    pass
 
 
 class RelationWorkUrl(models.Model):
@@ -850,11 +794,8 @@ class RelationWorkUrl(models.Model):
         return self.url.name if self.url_name is None else self.url_name
 
 
-class RelationWorkUrlType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the work - url relation type')
-
-    def __str__(self):
-        return self.name
+class RelationWorkUrlType(RelationType):
+    pass
 
 
 class RelationCharacterCharacter(models.Model):
@@ -870,11 +811,8 @@ class RelationCharacterCharacter(models.Model):
         return self.character_a.name + ' <' + str(self.relation_type.name) + '> ' + self.character_b.name
 
 
-class RelationCharacterCharacterType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the character - character relation type')
-
-    def __str__(self):
-        return self.name
+class RelationCharacterCharacterType(RelationType):
+    pass
 
 
 class RelationCharacterGenre(models.Model):
@@ -899,11 +837,8 @@ class RelationCharacterGenre(models.Model):
         return self.genre.name if self.genre_name is None else self.genre_name
 
 
-class RelationCharacterGenreType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the character - genre relation type')
-
-    def __str__(self):
-        return self.name
+class RelationCharacterGenreType(RelationType):
+    pass
 
 
 class RelationCharacterUrl(models.Model):
@@ -928,11 +863,8 @@ class RelationCharacterUrl(models.Model):
         return self.url.name if self.url_name is None else self.url_name
 
 
-class RelationCharacterUrlType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the character - url relation type')
-
-    def __str__(self):
-        return self.name
+class RelationCharacterUrlType(RelationType):
+    pass
 
 
 class RelationGenreGenre(models.Model):
@@ -948,11 +880,8 @@ class RelationGenreGenre(models.Model):
         return self.genre_a.name + ' <' + str(self.relation_type.name) + '> ' + self.genre_b.name
 
 
-class RelationGenreGenreType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the genre - genre relation type')
-
-    def __str__(self):
-        return self.name
+class RelationGenreGenreType(RelationType):
+    pass
 
 
 class RelationGenreUrl(models.Model):
@@ -977,11 +906,8 @@ class RelationGenreUrl(models.Model):
         return self.url.name if self.url_name is None else self.url_name
 
 
-class RelationGenreUrlType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the genre - url relation type')
-
-    def __str__(self):
-        return self.name
+class RelationGenreUrlType(RelationType):
+    pass
 
 
 class RelationUrlUrl(models.Model):
@@ -997,8 +923,5 @@ class RelationUrlUrl(models.Model):
         return self.url_a.name + ' <' + str(self.relation_type.name) + '> ' + self.url_b.name
 
 
-class RelationUrlUrlType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the url - url relation type')
-
-    def __str__(self):
-        return self.name
+class RelationUrlUrlType(RelationType):
+    pass
