@@ -2,11 +2,11 @@
 
 {% block content %}
   <h1>Organisation List</h1>
-  {% if entityorganisation_list %}
+  {% if entityorganity_list %}
   <ul>
-    {% for organisation in entityorganisation_list %}
+    {% for organity in entityorganity_list %}
       <li>
-        <a href="{{ organisation.get_absolute_url }}">{{ organisation.name }}</a> ({{organisation.name}})
+        <a href="{{ organity.get_absolute_url }}">{{ organity.name }}</a> ({{organity.name}})
       </li>
     {% endfor %}
   </ul>
