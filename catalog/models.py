@@ -253,6 +253,7 @@ class Relation(models.Model):
     relation_name = models.CharField(max_length=200, help_text='A name for the relation', blank=True, null=True)
     begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
     end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
+    highlighted_relation = models.BooleanField(null=True, blank=True)
 
     def __str__(self):
         str_entity_a_name = self.display_entity_a_name()
