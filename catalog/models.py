@@ -244,6 +244,39 @@ class EntityUrlType(models.Model):
 
 
 # Relations
+class Relation(models.Model):
+    entity_a = None
+    entity_b = None
+    relation_type = None
+    entity_a_name = models.CharField(max_length=200, help_text='If first entity was credited differently', blank=True, null=True)
+    entity_b_name = models.CharField(max_length=200, help_text='If second entity was credited differently', blank=True, null=True)
+    relation_name = models.CharField(max_length=200, help_text='A name for the relation', blank=True, null=True)
+    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
+    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
+
+    def __str__(self):
+        str_entity_a_name = self.display_entity_a_name()
+        str_entity_b_name = self.display_entity_b_name()
+        str_relation = self.display_relation_name()
+        return str_entity_a_name + ' <' + str_relation + '> ' + str_entity_b_name
+
+    def display_entity_a_name(self):
+        return str(self.entity_a) if self.entity_a_name is None else self.entity_a_name
+
+    def display_entity_b_name(self):
+        return str(self.entity_b) if self.entity_b_name is None else self.entity_b_name
+
+    def display_relation_name(self):
+        if self.relation_name is not None:
+            return self.relation_name
+        if self.relation_type is not None:
+            return self.relation_type.name
+        return "not set"
+
+    class Meta:
+        abstract = True
+
+
 class RelationType(models.Model):
     name = models.CharField(max_length=200, help_text='A name for the x - y relation type', default='relation type')
 
@@ -254,673 +287,280 @@ class RelationType(models.Model):
         abstract = True
 
 
-class RelationShowShow(models.Model):
-    show_a = models.ForeignKey(EntityShow, on_delete=models.PROTECT, related_name='%(class)s_show_a')
-    show_a_name = models.CharField(max_length=200, help_text='If first show was credited differently', blank=True, null=True)
-    show_b = models.ForeignKey(EntityShow, on_delete=models.PROTECT, related_name='%(class)s_show_b')
-    show_b_name = models.CharField(max_length=200, help_text='If second show was credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-    relation_type = models.ForeignKey('RelationShowShowType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.show_a.name + ' <' + str(self.relation_type.name) + '>' + self.show_b.name
+class RelationShowShow(Relation):
+    entity_a = models.ForeignKey('EntityShow', on_delete=models.PROTECT, related_name='%(app_label)s_%(class)s_show_a')
+    entity_b = models.ForeignKey('EntityShow', on_delete=models.PROTECT, related_name='%(app_label)s_%(class)s_show_b')
+    relation_type = models.ForeignKey('RelationShowShowType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationShowShowType(RelationType):
     pass
 
 
-class RelationShowProduction(models.Model):
-    show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
-    show_name = models.CharField(max_length=200, help_text='If show was credited differently', blank=True, null=True)
-    production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    production_name = models.CharField(max_length=200, help_text='If production was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationShowProductionType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_show_name = self.display_show_name()
-        str_production_name = self.display_production_name()
-        str_show_when = self.show.display_show_when()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_show_name + ' <' + str_relation + '> ' + str_production_name + ', ' + str_show_when
-
-    def display_show_name(self):
-        return self.show.name if self.show_name is None else self.show_name
-
-    def display_production_name(self):
-        return self.production.name if self.production_name is None else self.production_name
+class RelationShowProduction(Relation):
+    entity_a = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationShowProductionType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationShowProductionType(RelationType):
     pass
 
 
-class RelationShowOrganity(models.Model):
-    show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
-    show_name = models.CharField(max_length=200, help_text='If show was credited differently', blank=True, null=True)
-    organity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
-    organity_name = models.CharField(max_length=200, help_text='If person was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationShowOrganityType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_show_name = self.display_show_name()
-        str_organity_name = self.display_organity_name()
-        str_show_when = self.show.display_show_when()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_show_name + ' <' + str_relation + '> ' + str_organity_name + ', ' + str_show_when
-
-    def display_show_name(self):
-        return self.show.name if self.show_name is None else self.show_name
-
-    def display_organity_name(self):
-        return self.organity.name if self.organity_name is None else self.organity_name
+class RelationShowOrganity(Relation):
+    entity_a = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    relation_type = models.ForeignKey('RelationShowOrganityType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationShowOrganityType(RelationType):
     pass
 
-class RelationShowWork(models.Model):
-    show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
-    show_name = models.CharField(max_length=200, help_text='If show was credited differently', blank=True, null=True)
-    work = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
-    work_name = models.CharField(max_length=200, help_text='If work was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationShowWorkType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
 
-    def __str__(self):
-        str_show_name = self.display_show_name()
-        str_work_name = self.display_work_name()
-        str_show_when = self.show.display_show_when()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_show_name + ' <' + str_relation + '> ' + str_work_name + ', ' + str_show_when
-
-    def display_show_name(self):
-        return self.show.name if self.show_name is None else self.show_name
-
-    def display_work_name(self):
-        return self.work.name if self.work_name is None else self.work_name
+class RelationShowWork(Relation):
+    entity_a = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationShowWorkType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationShowWorkType(RelationType):
     pass
 
 
-class RelationShowCharacter(models.Model):
-    show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
-    show_name = models.CharField(max_length=200, help_text='If show was credited differently', blank=True, null=True)
-    character = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
-    character_name = models.CharField(max_length=200, help_text='If character was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationShowCharacterType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_show_name = self.display_show_name()
-        str_character_name = self.display_character_name()
-        str_show_when = self.show.display_show_when()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_show_name + ' <' + str_relation + '> ' + str_character_name + ', ' + str_show_when
-
-    def display_show_name(self):
-        return self.show.name if self.show_name is None else self.show_name
-
-    def display_character_name(self):
-        return self.character.name if self.character_name is None else self.character_name
+class RelationShowCharacter(Relation):
+    entity_a = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationShowCharacterType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationShowCharacterType(RelationType):
     pass
 
-class RelationShowGenre(models.Model):
-    show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
-    show_name = models.CharField(max_length=200, help_text='If show was credited differently', blank=True, null=True)
-    genre = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
-    genre_name = models.CharField(max_length=200, help_text='If genre was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationShowGenreType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
 
-    def __str__(self):
-        str_show_name = self.display_show_name()
-        str_genre_name = self.display_genre_name()
-        str_show_when = self.show.display_show_when()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_show_name + ' <' + str_relation + '> ' + str_genre_name + ', ' + str_show_when
-
-    def display_show_name(self):
-        return self.show.name if self.show_name is None else self.show_name
-
-    def display_genre_name(self):
-        return self.genre.name if self.genre_name is None else self.genre_name
+class RelationShowGenre(Relation):
+    entity_a = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationShowGenreType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationShowGenreType(RelationType):
     pass
 
-class RelationShowUrl(models.Model):
-    show = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
-    show_name = models.CharField(max_length=200, help_text='If show was credited differently', blank=True, null=True)
-    url = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
-    url_name = models.CharField(max_length=200, help_text='If url was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationShowUrlType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
 
-    def __str__(self):
-        str_show_name = self.display_show_name()
-        str_url_name = self.display_url_name()
-        str_show_when = self.show.display_show_when()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_show_name + ' <' + str_relation + '> ' + str_url_name + ', ' + str_show_when
-
-    def display_show_name(self):
-        return self.show.name if self.show_name is None else self.show_name
-
-    def display_url_name(self):
-        return self.url.name if self.url_name is None else self.url_name
+class RelationShowUrl(Relation):
+    entity_a = models.ForeignKey('EntityShow', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationShowUrlType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationShowUrlType(RelationType):
     pass
 
 
-class RelationProductionProduction(models.Model):
-    production_a = models.ForeignKey(EntityProduction, on_delete=models.PROTECT, related_name='%(class)s_production_a')
-    production_a_name = models.CharField(max_length=200, help_text='If first production was credited differently', blank=True, null=True)
-    production_b = models.ForeignKey(EntityProduction, on_delete=models.PROTECT, related_name='%(class)s_production_b')
-    production_b_name = models.CharField(max_length=200, help_text='If second production was credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-    relation_type = models.ForeignKey('RelationProductionProductionType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.production_a.name + ' <' + str(self.relation_type.name) + '>' + self.production_b.name
+class RelationProductionProduction(Relation):
+    entity_a = models.ForeignKey(EntityProduction, on_delete=models.PROTECT, related_name='%(class)s_production_a')
+    entity_b = models.ForeignKey(EntityProduction, on_delete=models.PROTECT, related_name='%(class)s_production_b')
+    relation_type = models.ForeignKey('RelationProductionProductionType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationProductionProductionType(RelationType):
     pass
 
 
-class RelationProductionOrganity(models.Model):
-    production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    production_name = models.CharField(max_length=200, help_text='If production was credited differently', blank=True, null=True)
-    organity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
-    organity_name = models.CharField(max_length=200, help_text='If organity was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationProductionOrganityType', on_delete=models.PROTECT)
-    relation_str = models.CharField(max_length=200, help_text='If relation is credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_production_name = self.display_production_name()
-        str_organity_name = self.display_organity_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_production_name + ' <' + str_relation + '> ' + str_organity_name
-
-    def display_production_name(self):
-        return self.production.name if self.production_name is None else self.production_name
-
-    def display_organity_name(self):
-        return self.organity.name if self.organity_name is None else self.organity_name
+class RelationProductionOrganity(Relation):
+    entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    relation_type = models.ForeignKey('RelationProductionOrganityType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationProductionOrganityType(RelationType):
     pass
 
 
-class RelationProductionWork(models.Model):
-    production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    production_name = models.CharField(max_length=200, help_text='If production was credited differently', blank=True, null=True)
-    work = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
-    work_name = models.CharField(max_length=200, help_text='If work was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationProductionWorkType', on_delete=models.PROTECT)
-    relation_str = models.CharField(max_length=200, help_text='If relation is credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_production_name = self.display_production_name()
-        str_work_name = self.display_work_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_production_name + ' <' + str_relation + '> ' + str_work_name
-
-    def display_production_name(self):
-        return self.production.name if self.production_name is None else self.production_name
-
-    def display_work_name(self):
-        return self.work.name if self.work_name is None else self.work_name
+class RelationProductionWork(Relation):
+    entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationProductionWorkType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationProductionWorkType(RelationType):
     pass
 
 
-class RelationProductionCharacter(models.Model):
-    production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    production_name = models.CharField(max_length=200, help_text='If production was credited differently', blank=True, null=True)
-    character = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
-    character_name = models.CharField(max_length=200, help_text='If character was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationProductionCharacterType', on_delete=models.PROTECT)
-    relation_str = models.CharField(max_length=200, help_text='If relation is credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_production_name = self.display_production_name()
-        str_character_name = self.display_character_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_production_name + ' <' + str_relation + '> ' + str_character_name
-
-    def display_production_name(self):
-        return self.production.name if self.production_name is None else self.production_name
-
-    def display_character_name(self):
-        return self.character.name if self.character_name is None else self.character_name
+class RelationProductionCharacter(Relation):
+    entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationProductionCharacterType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationProductionCharacterType(RelationType):
     pass
 
 
-class RelationProductionGenre(models.Model):
-    production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    production_name = models.CharField(max_length=200, help_text='If production was credited differently', blank=True, null=True)
-    genre = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
-    genre_name = models.CharField(max_length=200, help_text='If genre was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationProductionGenreType', on_delete=models.PROTECT)
-    relation_str = models.CharField(max_length=200, help_text='If relation is credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_production_name = self.display_production_name()
-        str_genre_name = self.display_genre_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_production_name + ' <' + str_relation + '> ' + str_genre_name
-
-    def display_production_name(self):
-        return self.production.name if self.production_name is None else self.production_name
-
-    def display_genre_name(self):
-        return self.genre.name if self.genre_name is None else self.genre_name
+class RelationProductionGenre(Relation):
+    entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationProductionGenreType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationProductionGenreType(RelationType):
     pass
 
 
-class RelationProductionUrl(models.Model):
-    production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    production_name = models.CharField(max_length=200, help_text='If production was credited differently', blank=True, null=True)
-    url = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
-    url_name = models.CharField(max_length=200, help_text='If url was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationProductionUrlType', on_delete=models.PROTECT)
-    relation_str = models.CharField(max_length=200, help_text='If relation is credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_production_name = self.display_production_name()
-        str_url_name = self.display_url_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_production_name + ' <' + str_relation + '> ' + str_url_name
-
-    def display_production_name(self):
-        return self.production.name if self.production_name is None else self.production_name
-
-    def display_url_name(self):
-        return self.url.name if self.url_name is None else self.url_name
+class RelationProductionUrl(Relation):
+    entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationProductionUrlType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationProductionUrlType(RelationType):
     pass
 
 
-class RelationOrganityOrganity(models.Model):
-    organity_a = models.ForeignKey(EntityOrganity, on_delete=models.PROTECT, related_name='%(class)s_organity_a')
-    organity_a_name = models.CharField(max_length=200, help_text='If first organity was credited differently', blank=True, null=True)
-    organity_b = models.ForeignKey(EntityOrganity, on_delete=models.PROTECT, related_name='%(class)s_organity_b')
-    organity_b_name = models.CharField(max_length=200, help_text='If second organity was credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-    relation_type = models.ForeignKey('RelationOrganityOrganityType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.organity_a.name + ' <' + str(self.relation_type.name) + '> ' + self.organity_b.name
+class RelationOrganityOrganity(Relation):
+    entity_a = models.ForeignKey(EntityOrganity, on_delete=models.PROTECT, related_name='%(class)s_organity_a')
+    entity_b = models.ForeignKey(EntityOrganity, on_delete=models.PROTECT, related_name='%(class)s_organity_b')
+    relation_type = models.ForeignKey('RelationOrganityOrganityType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationOrganityOrganityType(RelationType):
     pass
 
 
-class RelationOrganityWork(models.Model):
-    organity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
-    organity_name = models.CharField(max_length=200, help_text='If organity was credited differently', blank=True, null=True)
-    work = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
-    work_name = models.CharField(max_length=200, help_text='If work was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationOrganityWorkType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_organity_name = self.display_organity_name()
-        str_work_name = self.display_work_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_organity_name + ' <' + str_relation + '> ' + str_work_name
-
-    def display_organity_name(self):
-        return self.organity.name if self.organity_name is None else self.organity_name
-
-    def display_work_name(self):
-        return self.work.name if self.work_name is None else self.work_name
+class RelationOrganityWork(Relation):
+    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_b = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationOrganityWorkType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationOrganityWorkType(RelationType):
     pass
 
 
-class RelationOrganityCharacter(models.Model):
-    organity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
-    organity_name = models.CharField(max_length=200, help_text='If organity was credited differently', blank=True, null=True)
-    character = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
-    character_name = models.CharField(max_length=200, help_text='If character was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationOrganityCharacterType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_organity_name = self.display_organity_name()
-        str_character_name = self.display_character_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_organity_name + ' <' + str_relation + '> ' + str_character_name
-
-    def display_organity_name(self):
-        return self.organity.name if self.organity_name is None else self.organity_name
-
-    def display_character_name(self):
-        return self.character.name if self.character_name is None else self.character_name
+class RelationOrganityCharacter(Relation):
+    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationOrganityCharacterType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationOrganityCharacterType(RelationType):
     pass
 
 
-class RelationOrganityGenre(models.Model):
-    organity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
-    organity_name = models.CharField(max_length=200, help_text='If organity was credited differently', blank=True, null=True)
-    genre = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
-    genre_name = models.CharField(max_length=200, help_text='If genre was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationOrganityGenreType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_organity_name = self.display_organity_name()
-        str_genre_name = self.display_genre_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_organity_name + ' <' + str_relation + '> ' + str_genre_name
-
-    def display_organity_name(self):
-        return self.organity.name if self.organity_name is None else self.organity_name
-
-    def display_genre_name(self):
-        return self.genre.name if self.genre_name is None else self.genre_name
+class RelationOrganityGenre(Relation):
+    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationOrganityGenreType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationOrganityGenreType(RelationType):
     pass
 
 
-class RelationOrganityUrl(models.Model):
-    organity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
-    organity_name = models.CharField(max_length=200, help_text='If organity was credited differently', blank=True, null=True)
-    url = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
-    genre_name = models.CharField(max_length=200, help_text='If url was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationOrganityUrlType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_organity_name = self.display_organity_name()
-        str_url_name = self.display_url_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_organity_name + ' <' + str_relation + '> ' + str_url_name
-
-    def display_organity_name(self):
-        return self.organity.name if self.organity_name is None else self.organity_name
-
-    def display_url_name(self):
-        return self.url.name if self.genre_name is None else self.genre_name
+class RelationOrganityUrl(Relation):
+    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_b = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationOrganityUrlType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationOrganityUrlType(RelationType):
     pass
 
 
-class RelationWorkWork(models.Model):
-    work_a = models.ForeignKey(EntityWork, on_delete=models.PROTECT, related_name='%(class)s_work_a')
-    work_a_name = models.CharField(max_length=200, help_text='If first work was credited differently', blank=True, null=True)
-    work_b = models.ForeignKey(EntityWork, on_delete=models.PROTECT, related_name='%(class)s_work_b')
-    work_b_name = models.CharField(max_length=200, help_text='If second work was credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-    relation_type = models.ForeignKey('RelationWorkWorkType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.work_a.name + ' <' + str(self.relation_type.name) + '> ' + self.work_b.name
+class RelationWorkWork(Relation):
+    entity_a = models.ForeignKey(EntityWork, on_delete=models.PROTECT, related_name='%(class)s_work_a')
+    entity_b = models.ForeignKey(EntityWork, on_delete=models.PROTECT, related_name='%(class)s_work_b')
+    relation_type = models.ForeignKey('RelationWorkWorkType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationWorkWorkType(RelationType):
     pass
 
 
-class RelationWorkCharacter(models.Model):
-    work = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
-    work_name = models.CharField(max_length=200, help_text='If work was credited differently', blank=True, null=True)
-    character = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
-    character_name = models.CharField(max_length=200, help_text='If character was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationWorkCharacterType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_work_name = self.display_work_name()
-        str_character_name = self.display_character_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_work_name + ' <' + str_relation + '> ' + str_character_name
-
-    def display_work_name(self):
-        return self.work.name if self.work_name is None else self.work_name
-
-    def display_character_name(self):
-        return self.character.name if self.character_name is None else self.character_name
+class RelationWorkCharacter(Relation):
+    entity_a = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationWorkCharacterType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationWorkCharacterType(RelationType):
     pass
 
 
-class RelationWorkGenre(models.Model):
-    work = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
-    work_name = models.CharField(max_length=200, help_text='If work was credited differently', blank=True, null=True)
-    genre = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
-    genre_name = models.CharField(max_length=200, help_text='If genre was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationWorkGenreType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_work_name = self.display_work_name()
-        str_genre_name = self.display_genre_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_work_name + ' <' + str_relation + '> ' + str_genre_name
-
-    def display_work_name(self):
-        return self.work.name if self.work_name is None else self.work_name
-
-    def display_genre_name(self):
-        return self.genre.name if self.genre_name is None else self.genre_name
+class RelationWorkGenre(Relation):
+    entity_a = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationWorkGenreType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationWorkGenreType(RelationType):
     pass
 
 
-class RelationWorkUrl(models.Model):
-    work = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
-    work_name = models.CharField(max_length=200, help_text='If work was credited differently', blank=True, null=True)
-    url = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
-    url_name = models.CharField(max_length=200, help_text='If url was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationWorkUrlType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_work_name = self.display_work_name()
-        str_url_name = self.display_url_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_work_name + ' <' + str_relation + '> ' + str_url_name
-
-    def display_work_name(self):
-        return self.work.name if self.work_name is None else self.work_name
-
-    def display_url_name(self):
-        return self.url.name if self.url_name is None else self.url_name
+class RelationWorkUrl(Relation):
+    entity_a = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationWorkUrlType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationWorkUrlType(RelationType):
     pass
 
 
-class RelationCharacterCharacter(models.Model):
-    character_a = models.ForeignKey(EntityCharacter, on_delete=models.PROTECT, related_name='%(class)s_character_a')
-    character_a_name = models.CharField(max_length=200, help_text='If first character was credited differently', blank=True, null=True)
-    character_b = models.ForeignKey(EntityCharacter, on_delete=models.PROTECT, related_name='%(class)s_character_b')
-    character_b_name = models.CharField(max_length=200, help_text='If second character was credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-    relation_type = models.ForeignKey('RelationCharacterCharacterType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.character_a.name + ' <' + str(self.relation_type.name) + '> ' + self.character_b.name
+class RelationCharacterCharacter(Relation):
+    entity_a = models.ForeignKey(EntityCharacter, on_delete=models.PROTECT, related_name='%(class)s_character_a')
+    entity_b = models.ForeignKey(EntityCharacter, on_delete=models.PROTECT, related_name='%(class)s_character_b')
+    relation_type = models.ForeignKey('RelationCharacterCharacterType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationCharacterCharacterType(RelationType):
     pass
 
 
-class RelationCharacterGenre(models.Model):
-    character = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
-    character_name = models.CharField(max_length=200, help_text='If character was credited differently', blank=True, null=True)
-    genre = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
-    genre_name = models.CharField(max_length=200, help_text='If genre was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationCharacterGenreType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_character_name = self.display_character_name()
-        str_genre_name = self.display_genre_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_character_name + ' <' + str_relation + '> ' + str_genre_name
-
-    def display_character_name(self):
-        return self.character.name if self.character_name is None else self.character_name
-
-    def display_genre_name(self):
-        return self.genre.name if self.genre_name is None else self.genre_name
+class RelationCharacterGenre(Relation):
+    entity_a = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationCharacterGenreType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationCharacterGenreType(RelationType):
     pass
 
 
-class RelationCharacterUrl(models.Model):
-    character = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
-    character_name = models.CharField(max_length=200, help_text='If character was credited differently', blank=True, null=True)
-    url = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
-    url_name = models.CharField(max_length=200, help_text='If url was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationCharacterUrlType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_character_name = self.display_character_name()
-        str_url_name = self.display_url_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_character_name + ' <' + str_relation + '> ' + str_url_name
-
-    def display_character_name(self):
-        return self.character.name if self.character_name is None else self.character_name
-
-    def display_url_name(self):
-        return self.url.name if self.url_name is None else self.url_name
+class RelationCharacterUrl(Relation):
+    entity_a = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationCharacterUrlType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationCharacterUrlType(RelationType):
     pass
 
 
-class RelationGenreGenre(models.Model):
-    genre_a = models.ForeignKey(EntityGenre, on_delete=models.PROTECT, related_name='%(class)s_genre_a')
-    genre_a_name = models.CharField(max_length=200, help_text='If first genre was credited differently', blank=True, null=True)
-    genre_b = models.ForeignKey(EntityGenre, on_delete=models.PROTECT, related_name='%(class)s_genre_b')
-    genre_b_name = models.CharField(max_length=200, help_text='If second genre was credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-    relation_type = models.ForeignKey('RelationGenreGenreType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.genre_a.name + ' <' + str(self.relation_type.name) + '> ' + self.genre_b.name
+class RelationGenreGenre(Relation):
+    entity_a = models.ForeignKey(EntityGenre, on_delete=models.PROTECT, related_name='%(class)s_genre_a')
+    entity_b = models.ForeignKey(EntityGenre, on_delete=models.PROTECT, related_name='%(class)s_genre_b')
+    relation_type = models.ForeignKey('RelationGenreGenreType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationGenreGenreType(RelationType):
     pass
 
 
-class RelationGenreUrl(models.Model):
-    genre = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
-    genre_name = models.CharField(max_length=200, help_text='If genre was credited differently', blank=True, null=True)
-    url = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
-    url_name = models.CharField(max_length=200, help_text='If url was credited differently', blank=True, null=True)
-    relation_type = models.ForeignKey('RelationGenreUrlType', on_delete=models.PROTECT)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-
-    def __str__(self):
-        str_genre_name = self.display_genre_name()
-        str_url_name = self.display_url_name()
-        str_relation = self.relation_type.name if self.relation_type.name is not None else 'not set'
-        return str_genre_name + ' <' + str_relation + '> ' + str_url_name
-
-    def display_genre_name(self):
-        return self.genre.name if self.genre_name is None else self.genre_name
-
-    def display_url_name(self):
-        return self.url.name if self.url_name is None else self.url_name
+class RelationGenreUrl(Relation):
+    entity_a = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
+    relation_type = models.ForeignKey('RelationGenreUrlType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationGenreUrlType(RelationType):
     pass
 
 
-class RelationUrlUrl(models.Model):
-    url_a = models.ForeignKey(EntityUrl, on_delete=models.PROTECT, related_name='%(class)s_url_a')
-    url_a_name = models.CharField(max_length=200, help_text='If first url was credited differently', blank=True, null=True)
-    url_b = models.ForeignKey(EntityUrl, on_delete=models.PROTECT, related_name='%(class)s_url_b')
-    url_b_name = models.CharField(max_length=200, help_text='If second url was credited differently', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
-    relation_type = models.ForeignKey('RelationUrlUrlType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.url_a.name + ' <' + str(self.relation_type.name) + '> ' + self.url_b.name
+class RelationUrlUrl(Relation):
+    entity_a = models.ForeignKey(EntityUrl, on_delete=models.PROTECT, related_name='%(class)s_url_a')
+    entity_b = models.ForeignKey(EntityUrl, on_delete=models.PROTECT, related_name='%(class)s_url_b')
+    relation_type = models.ForeignKey('RelationUrlUrlType', on_delete=models.PROTECT, blank=True, null=True)
 
 
 class RelationUrlUrlType(RelationType):

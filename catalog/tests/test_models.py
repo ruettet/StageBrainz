@@ -6,6 +6,7 @@ from django.test import TestCase
 from datetime import datetime
 
 from catalog.models import EntityShow, EntityProduction, EntitySeason, EntityOrganity
+from catalog.models import RelationShowShow, RelationShowShowType
 
 
 class EntityShowModelTest(TestCase):
@@ -90,3 +91,45 @@ class EntityProductionModelTest(TestCase):
     def test_get_absolute_url(self):
         production = EntityProduction.objects.get(id=1)
         self.assertEquals(production.get_absolute_url(), '/catalog/productions/1')
+
+
+class RelationShowShowTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        show_a = EntityShow.objects.create(name='show_a', when_date=datetime(2016, 1, 1))
+        show_a.save()
+        show_b = EntityShow.objects.create(name='show_b', when_date=datetime(2017, 1, 1))
+        show_b.save()
+        rsst = RelationShowShowType(name='test')
+        rsst.save()
+        rss_with_relation_with_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst, relation_name="test_name")
+        rss_without_relation_with_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_name="test_name")
+        rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst)
+        rss_without_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b)
+        rss_with_relation_with_relation_name.save()
+        rss_without_relation_with_relation_name.save()
+        rss_with_relation_without_relation_name.save()
+        rss_without_relation_without_relation_name.save()
+
+    def test_entity_names(self):
+        rss = RelationShowShow.objects.get(id=1)
+        self.assertEquals(rss.entity_a.name, 'show_a')
+        self.assertEquals(rss.entity_b.name, 'show_b')
+
+    def test_relation_type_name(self):
+        rss = RelationShowShow.objects.get(id=1)
+        self.assertEquals(rss.relation_type.name, 'test')
+
+    def test_relation_name(self):
+        rss = RelationShowShow.objects.get(id=1)
+        self.assertEquals(str(rss), 'show_a <test_name> show_b')
+
+        rss = RelationShowShow.objects.get(id=2)
+        self.assertEquals(str(rss), 'show_a <test_name> show_b')
+
+        rss = RelationShowShow.objects.get(id=3)
+        self.assertEquals(str(rss), 'show_a <test> show_b')
+
+        rss = RelationShowShow.objects.get(id=4)
+        self.assertEquals(str(rss), 'show_a <not set> show_b')
