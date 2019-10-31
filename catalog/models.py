@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
+from partial_date import PartialDateField
 
 
 # Create your models here.
@@ -49,7 +50,7 @@ class EntityAliasType(models.Model):
 
 
 class EntityShow(Entity):
-    when_date = models.DateField()
+    when_date = PartialDateField(blank=True, null=True, default=None)
     when_time = models.TimeField(blank=True, null=True)
     entity_type = models.ManyToManyField('EntityShowType', blank=True)
 
@@ -58,7 +59,7 @@ class EntityShow(Entity):
         return output
 
     def display_show_when(self):
-        date_iso = self.when_date.isoformat()
+        date_iso = str(self.when_date)
         return date_iso + ", " + self.when_time.isoformat() if self.when_time is not None else date_iso
 
     class Meta:
@@ -89,14 +90,14 @@ class EntityProductionType(EntityType):
 class Season(models.Model):
     """"Model representing a traditional season"""
     name = models.CharField(max_length=200, help_text='Enter a name for the entity', default='not yet set')
-    begin_date = models.DateField()
-    end_date = models.DateField()
+    begin_date = PartialDateField(blank=True, null=True, default=None)
+    end_date = PartialDateField(blank=True, null=True, default=None)
 
 
 class EntityOrganity(Entity):
     entity_type = models.ManyToManyField('EntityOrganityType', blank=True)
-    start_date = models.DateField(blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
+    start_date = PartialDateField(blank=True, null=True, default=None)
+    end_date = PartialDateField(blank=True, null=True, default=None)
 
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this production"""
@@ -196,8 +197,8 @@ class Relation(models.Model):
     entity_a_name = models.CharField(max_length=200, help_text='If first entity was credited differently', blank=True, null=True)
     entity_b_name = models.CharField(max_length=200, help_text='If second entity was credited differently', blank=True, null=True)
     relation_name = models.CharField(max_length=200, help_text='A name for the relation', blank=True, null=True)
-    begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
-    end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
+    begin_date = PartialDateField(blank=True, null=True, default=None)
+    end_date = PartialDateField(blank=True, null=True, default=None)
     highlighted_relation = models.BooleanField(null=True, blank=True)
     inverted_relation = models.BooleanField(default=False)
     context_of_production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT, related_name='%(app_label)s_%(class)s_context_production', null=True, blank=True)
