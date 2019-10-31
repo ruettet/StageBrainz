@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from datetime import datetime
 
-from catalog.models import EntityShow, EntityProduction, EntitySeason, EntityOrganity
+from catalog.models import EntityShow, EntityProduction, Season, EntityOrganity
 from catalog.models import RelationShowShow, RelationShowShowType
 
 
@@ -13,7 +13,7 @@ class EntityShowModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        EntityShow.objects.create(name='show', when_date=datetime(1970,1,1,1,0,0).date(), when_time=datetime(1970,1,1,1,0,0).time())
+        EntityShow.objects.create(name='show', when_date=datetime(1970, 1, 1, 1, 0, 0).date(), when_time=datetime(1970, 1, 1, 1, 0, 0).time())
         EntityShow.objects.create(name='show', when_date=datetime(1970, 1, 1, 1, 0, 0).date())
 
     def test_name_label(self):
@@ -70,8 +70,8 @@ class EntityProductionModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        EntitySeason.objects.create(name='2015-2016', begin_date=datetime(2015,1,1), end_date=datetime(2015,12,31))
-        EntityProduction.objects.create(name='production', season=EntitySeason.objects.get(id=1))
+        Season.objects.create(name='2015-2016', begin_date=datetime(2015, 1, 1), end_date=datetime(2015, 12, 31))
+        EntityProduction.objects.create(name='production', season=Season.objects.get(id=1))
 
     def test_name_label(self):
         production = EntityProduction.objects.get(id=1)
