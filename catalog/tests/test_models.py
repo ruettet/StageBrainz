@@ -107,7 +107,7 @@ class RelationShowShowTest(TestCase):
         rss_without_relation_with_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_name="test_name")
         rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst)
         rss_without_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b)
-        inverted_rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_b, entity_b=show_a, relation_type=rsst, inverted_relation=True)
+        inverted_rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst, inverted_relation=True)
         rss_with_relation_with_relation_name.save()
         rss_without_relation_with_relation_name.save()
         rss_with_relation_without_relation_name.save()

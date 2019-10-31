@@ -260,7 +260,7 @@ class Relation(models.Model):
         str_entity_a_name = self.display_entity_a_name()
         str_entity_b_name = self.display_entity_b_name()
         str_relation = self.display_relation_name()
-        return str_entity_a_name + ' <' + str_relation + '> ' + str_entity_b_name
+        return str_entity_a_name + ' <' + str_relation + '> ' + str_entity_b_name if not self.inverted_relation else str_entity_b_name + ' <' + str_relation + '> ' + str_entity_a_name
 
     def display_entity_a_name(self):
         return str(self.entity_a) if self.entity_a_name is None else self.entity_a_name
