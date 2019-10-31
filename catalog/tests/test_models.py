@@ -101,16 +101,18 @@ class RelationShowShowTest(TestCase):
         show_a.save()
         show_b = EntityShow.objects.create(name='show_b', when_date=datetime(2017, 1, 1))
         show_b.save()
-        rsst = RelationShowShowType(name='test')
+        rsst = RelationShowShowType(name='test', inverted_name='inverted test')
         rsst.save()
         rss_with_relation_with_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst, relation_name="test_name")
         rss_without_relation_with_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_name="test_name")
         rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst)
         rss_without_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b)
+        inverted_rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_b, entity_b=show_a, relation_type=rsst, inverted_relation=True)
         rss_with_relation_with_relation_name.save()
         rss_without_relation_with_relation_name.save()
         rss_with_relation_without_relation_name.save()
         rss_without_relation_without_relation_name.save()
+        inverted_rss_with_relation_without_relation_name.save()
 
     def test_entity_names(self):
         rss = RelationShowShow.objects.get(id=1)
@@ -121,15 +123,22 @@ class RelationShowShowTest(TestCase):
         rss = RelationShowShow.objects.get(id=1)
         self.assertEquals(rss.relation_type.name, 'test')
 
-    def test_relation_name(self):
+    def test_relation_name_with_relation_with_name(self):
         rss = RelationShowShow.objects.get(id=1)
         self.assertEquals(str(rss), 'show_a <test_name> show_b')
 
+    def test_relation_name_without_relation_with_name(self):
         rss = RelationShowShow.objects.get(id=2)
         self.assertEquals(str(rss), 'show_a <test_name> show_b')
 
+    def test_relation_name_without_relation_without_name(self):
         rss = RelationShowShow.objects.get(id=3)
         self.assertEquals(str(rss), 'show_a <test> show_b')
 
+    def test_relation_name_without_relation_without_name(self):
         rss = RelationShowShow.objects.get(id=4)
         self.assertEquals(str(rss), 'show_a <not set> show_b')
+
+    def test_inverted_relation_name_with_relation_without_name(self):
+        rss = RelationShowShow.objects.get(id=5)
+        self.assertEquals(str(rss), 'show_b <inverted test> show_a')

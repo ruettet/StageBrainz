@@ -254,6 +254,7 @@ class Relation(models.Model):
     begin_date = models.DateField(blank=True, null=True, help_text='When did the relation start?')
     end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
     highlighted_relation = models.BooleanField(null=True, blank=True)
+    inverted_relation = models.BooleanField(default=False)
 
     def __str__(self):
         str_entity_a_name = self.display_entity_a_name()
@@ -271,7 +272,7 @@ class Relation(models.Model):
         if self.relation_name is not None:
             return self.relation_name
         if self.relation_type is not None:
-            return self.relation_type.name
+            return self.relation_type.name if not self.inverted_relation else self.relation_type.inverted_name
         return "not set"
 
     class Meta:
@@ -280,6 +281,7 @@ class Relation(models.Model):
 
 class RelationType(models.Model):
     name = models.CharField(max_length=200, help_text='A name for the x - y relation type', default='relation type')
+    inverted_name = models.CharField(max_length=200, help_text='A name for the y - x relation type (inverted)', default='inverted relation type')
 
     def __str__(self):
         return self.name
