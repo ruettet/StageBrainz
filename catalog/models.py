@@ -93,6 +93,9 @@ class Season(models.Model):
     begin_date = PartialDateField(blank=True, null=True, default=None)
     end_date = PartialDateField(blank=True, null=True, default=None)
 
+    def __str__(self):
+        return self.name
+
 
 class EntityOrganity(Entity):
     entity_type = models.ManyToManyField('EntityOrganityType', blank=True)
