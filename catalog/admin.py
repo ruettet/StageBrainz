@@ -1,7 +1,7 @@
 from django.contrib import admin
 from catalog.models import EntityShow, EntityShowType, \
     EntityProduction, EntityProductionType, \
-    EntitySeason, \
+    Season, \
     EntityOrganity, EntityOrganityType, EntityOrganityAlias, EntityOrganityAliasType, \
     EntityWork, EntityWorkType, EntityWorkAlias, EntityWorkAliasType, \
     EntityCharacter, EntityCharacterType, EntityCharacterAlias, EntityCharacterAliasType, \
@@ -289,7 +289,7 @@ class EntitySeasonAdmin(admin.ModelAdmin):
 
 
 class EntityOrganityAdmin(admin.ModelAdmin):
-    list_filter = ('organity_type',)
+    list_filter = ('entity_type',)
 
 
 class EntityOrganityTypeAdmin(admin.ModelAdmin):
@@ -305,7 +305,7 @@ class EntityOrganityAliasTypeAdmin(admin.ModelAdmin):
 
 
 class EntityWorkAdmin(admin.ModelAdmin):
-    list_filter = ('work_type',)
+    list_filter = ('entity_type',)
 
 
 class EntityWorkTypeAdmin(admin.ModelAdmin):
@@ -321,7 +321,7 @@ class EntityWorkAliasTypeAdmin(admin.ModelAdmin):
 
 
 class EntityCharacterAdmin(admin.ModelAdmin):
-    list_filter = ('character_type',)
+    list_filter = ('entity_type',)
 
 
 class EntityCharacterTypeAdmin(admin.ModelAdmin):
@@ -337,7 +337,7 @@ class EntityCharacterAliasTypeAdmin(admin.ModelAdmin):
 
 
 class EntityGenreAdmin(admin.ModelAdmin):
-    list_filter = ('genre_type',)
+    list_filter = ('entity_type',)
 
 
 class EntityGenreTypeAdmin(admin.ModelAdmin):
@@ -353,7 +353,7 @@ class EntityGenreAliasTypeAdmin(admin.ModelAdmin):
 
 
 class EntityUrlAdmin(admin.ModelAdmin):
-    list_filter = ('url_type',)
+    list_filter = ('entity_type',)
 
 
 class EntityUrlTypeAdmin(admin.ModelAdmin):
@@ -370,7 +370,7 @@ admin.site.register(EntityProduction, EntityProductionAdmin)
 admin.site.register(EntityProductionType, EntityProductionTypeAdmin)
 
 # seasons
-admin.site.register(EntitySeason, EntitySeasonAdmin)
+admin.site.register(Season, EntitySeasonAdmin)
 
 # organisations
 admin.site.register(EntityOrganity, EntityOrganityAdmin)

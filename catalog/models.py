@@ -3,16 +3,55 @@ from django.urls import reverse # Used to generate URLs by reversing the URL pat
 
 
 # Create your models here.
-class EntityShow(models.Model):
-    """Model representing a show, i.e. a performance of a Production"""
-    name = models.CharField(max_length=200, help_text='Enter a name for the show')
-    when_date = models.DateField()
-    when_time = models.TimeField(blank=True, null=True)
-    show_type = models.ManyToManyField('EntityShowType', blank=True)
+class Entity(models.Model):
+    entity_type = None
+    name = models.CharField(max_length=200, help_text='Enter a name for the entity', default='not yet set')
+    sort_name = models.CharField(max_length=200, help_text='Sort on this name', default='not yet set')
+    disambiguation = models.CharField(max_length=200, help_text='A disambiguation line', blank=True, null=True)
 
     def __str__(self):
-        """"String for representing the model object"""
         return self.name
+
+    class Meta:
+        abstract = True
+
+
+class EntityType(models.Model):
+    name = models.CharField(max_length=200, help_text='Enter a name for a show type')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class EntityAlias(models.Model):
+    super_entity = None
+    alias_type = None
+    name = models.CharField(max_length=200, help_text='Enter an alias for the organity')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class EntityAliasType(models.Model):
+    name = models.CharField(max_length=200, help_text='A work alias type')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class EntityShow(Entity):
+    when_date = models.DateField()
+    when_time = models.TimeField(blank=True, null=True)
+    entity_type = models.ManyToManyField('EntityShowType', blank=True)
 
     def display_show_name_with_date_and_time(self):
         output = self.name + ", " + self.display_show_when()
@@ -26,23 +65,14 @@ class EntityShow(models.Model):
         ordering = ['-when_date', '-when_time']
 
 
-class EntityShowType(models.Model):
-    """Model representing show types, i.e. a premiere"""
-    name = models.CharField(max_length=200, help_text='Enter a name for a show type')
-
-    def __str__(self):
-        return self.name
+class EntityShowType(EntityType):
+    pass
 
 
-class EntityProduction(models.Model):
+class EntityProduction(Entity):
     """"Model representing stage productions, which must be an instantiation of a work in a season"""
-    name = models.CharField(max_length=200, help_text='Title of the stage production')
-    disambiguation = models.CharField(max_length=200, help_text='A disambiguation line', blank=True, null=True)
-    season = models.ForeignKey('EntitySeason', on_delete=models.PROTECT)
-    production_type = models.ManyToManyField('EntityProductionType', blank=True)
-
-    def __str__(self):
-        return self.name
+    season = models.ForeignKey('Season', on_delete=models.PROTECT)
+    entity_type = models.ManyToManyField('EntityProductionType', blank=True)
 
     def display_name_and_season(self):
         return str(self.name) + " (" + self.season.name + ")"
@@ -52,195 +82,110 @@ class EntityProduction(models.Model):
         return reverse('productions-detail', args=[str(self.id)])
 
 
-class EntityProductionType(models.Model):
-    """"Model representing stage production types, e.g. """
-    name = models.CharField(max_length=200, help_text='Enter a name for a production type')
-
-    def __str__(self):
-        return self.name
+class EntityProductionType(EntityType):
+    pass
 
 
-class EntitySeason(models.Model):
+class Season(models.Model):
     """"Model representing a traditional season"""
-    name = models.CharField(max_length=200, help_text='Enter a name for the season')
+    name = models.CharField(max_length=200, help_text='Enter a name for the entity', default='not yet set')
     begin_date = models.DateField()
     end_date = models.DateField()
 
-    def __str__(self):
-        return self.name
 
-
-class EntityOrganity(models.Model):
-    name = models.CharField(max_length=200, help_text='Name of an organity')
-    sort_name = models.CharField(max_length=200, help_text='Sort on this name', default='not yet set')
-    disambiguation = models.CharField(max_length=200, help_text='A disambiguation line', blank=True, null=True)
-    organity_type = models.ManyToManyField('EntityOrganityType', blank=True)
-
-    def __str__(self):
-        return self.name
+class EntityOrganity(Entity):
+    entity_type = models.ManyToManyField('EntityOrganityType', blank=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this production"""
         return reverse('organities-detail', args=[str(self.id)])
 
 
-class EntityOrganityType(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter a name for an organity type')
-
-    def __str__(self):
-        return self.name
+class EntityOrganityType(EntityType):
+    pass
 
 
-class EntityOrganityAlias(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter an alias for the organity')
-    organity = models.ForeignKey(EntityOrganity, on_delete=models.PROTECT)
+class EntityOrganityAlias(EntityAlias):
+    super_entity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
     alias_type = models.ForeignKey('EntityOrganityAliasType', on_delete=models.PROTECT)
 
-    def __str__(self):
-        return self.name
+
+class EntityOrganityAliasType(EntityAliasType):
+    pass
 
 
-class EntityOrganityAliasType(models.Model):
-    name = models.CharField(max_length=200, help_text='An organity alias type')
-
-    def __str__(self):
-        return self.name
-
-
-class EntityWork(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter a name for the work')
-    disambiguation = models.CharField(max_length=200, help_text='A Disambiguation Line', blank=True, null=True)
-    work_type = models.ManyToManyField('EntityWorkType', blank=True)
-
-    def __str__(self):
-        """"String for representing the model object"""
-        return self.name
+class EntityWork(Entity):
+    entity_type = models.ManyToManyField('EntityWorkType', blank=True)
 
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this venue"""
         return reverse('work-detail', args=[str(self.id)])
 
 
-class EntityWorkType(models.Model):
-    """"Model representing work types, i.e. Theatertext, Novel"""
-    name = models.CharField(max_length=200, help_text='Enter a name for a work type')
-
-    def __str__(self):
-        return self.name
+class EntityWorkType(EntityType):
+    pass
 
 
-class EntityWorkAlias(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter an alias for the work')
-    work = models.ForeignKey(EntityWork, on_delete=models.PROTECT)
+class EntityWorkAlias(EntityAlias):
+    super_entity = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
     alias_type = models.ForeignKey('EntityWorkAliasType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.name
 
 
 class EntityWorkAliasType(models.Model):
-    name = models.CharField(max_length=200, help_text='A work alias type')
-
-    def __str__(self):
-        return self.name
+    pass
 
 
-class EntityCharacter(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter a name for the character')
-    disambiguation = models.CharField(max_length=200, help_text='A disambiguation line', blank=True, null=True)
-    character_type = models.ManyToManyField('EntityCharacterType', blank=True)
-
-    def __str__(self):
-        """"String for representing the model object"""
-        return self.name
+class EntityCharacter(Entity):
+    entity_type = models.ManyToManyField('EntityCharacterType', blank=True)
 
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this character"""
         return reverse('character-detail', args=[str(self.id)])
 
 
-class EntityCharacterType(models.Model):
-    """"Model representing work types, i.e. Theatertext, Novel"""
-    name = models.CharField(max_length=200, help_text='Enter a name for a character type')
-
-    def __str__(self):
-        return self.name
+class EntityCharacterType(EntityType):
+    pass
 
 
 class EntityCharacterAlias(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter an alias for the character')
-    character = models.ForeignKey(EntityCharacter, on_delete=models.PROTECT)
+    super_entity = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
     alias_type = models.ForeignKey('EntityCharacterAliasType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.name
 
 
 class EntityCharacterAliasType(models.Model):
-    name = models.CharField(max_length=200, help_text='A character alias type')
-
-    def __str__(self):
-        return self.name
+    pass
 
 
-class EntityGenre(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter a name for the genre')
-    genre_type = models.ManyToManyField('EntityGenreType', blank=True)
-
-    def __str__(self):
-        """"String for representing the model object"""
-        return self.name
-
-    def get_absolute_url(self):
-        """"Returns the url to access a detail record for this character"""
-        return reverse('genre-detail', args=[str(self.id)])
+class EntityGenre(Entity):
+    entity_type = models.ManyToManyField('EntityGenreType', blank=True)
 
 
-class EntityGenreType(models.Model):
-    """"Model representing work types, i.e. Theatertext, Novel"""
-    name = models.CharField(max_length=200, help_text='Enter a name for a genre type')
-
-    def __str__(self):
-        return self.name
+class EntityGenreType(EntityType):
+    pass
 
 
-class EntityGenreAlias(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter an alias for the genre')
-    genre = models.ForeignKey(EntityGenre, on_delete=models.PROTECT)
+class EntityGenreAlias(EntityAlias):
+    super_entity = models.ForeignKey(EntityGenre, on_delete=models.PROTECT)
     alias_type = models.ForeignKey('EntityGenreAliasType', on_delete=models.PROTECT)
 
-    def __str__(self):
-        return self.name
+
+class EntityGenreAliasType(EntityAliasType):
+    pass
 
 
-class EntityGenreAliasType(models.Model):
-    name = models.CharField(max_length=200, help_text='A genre alias type')
-
-    def __str__(self):
-        return self.name
-
-
-class EntityUrl(models.Model):
-    """Model representing a show, i.e. a performance of a Production"""
+class EntityUrl(Entity):
     href = models.CharField(max_length=200, help_text='Enter the url')
-    name = models.CharField(max_length=200, help_text='Enter a name for the url', blank=True, null=True)
-    url_type = models.ManyToManyField('EntityUrlType', blank=True)
-
-    def __str__(self):
-        """"String for representing the model object"""
-        return self.name
+    entity_type = models.ManyToManyField('EntityUrlType', blank=True)
 
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this show"""
         return reverse('url-detail', args=[str(self.id)])
 
 
-class EntityUrlType(models.Model):
-    """Model representing show types, i.e. a premiere"""
-    name = models.CharField(max_length=200, help_text='Enter a name for a url type')
-
-    def __str__(self):
-        return self.name
+class EntityUrlType(EntityType):
+    pass
 
 
 # Relations
