@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.test import TestCase
 
 from datetime import datetime
+from partial_date import PartialDate
 
 from catalog.models import EntityShow, EntityProduction, Season, EntityOrganity
 from catalog.models import RelationShowShow, RelationShowShowType
@@ -13,8 +14,8 @@ class EntityShowModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        EntityShow.objects.create(name='show', when_date=datetime(1970, 1, 1, 1, 0, 0).date(), when_time=datetime(1970, 1, 1, 1, 0, 0).time())
-        EntityShow.objects.create(name='show', when_date=datetime(1970, 1, 1, 1, 0, 0).date())
+        EntityShow.objects.create(name='show', when_date=PartialDate(datetime(1970, 1, 1, 1, 0, 0).date()), when_time=datetime(1970, 1, 1, 1, 0, 0).time())
+        EntityShow.objects.create(name='show', when_date=PartialDate(datetime(1970, 1, 1, 1, 0, 0).date()))
 
     def test_name_label(self):
         show = EntityShow.objects.get(id=1)
@@ -70,7 +71,7 @@ class EntityProductionModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        Season.objects.create(name='2015-2016', begin_date=datetime(2015, 1, 1), end_date=datetime(2015, 12, 31))
+        Season.objects.create(name='2015-2016', begin_date=PartialDate(datetime(2015, 1, 1)), end_date=PartialDate(datetime(2015, 12, 31)))
         EntityProduction.objects.create(name='production', season=Season.objects.get(id=1))
 
     def test_name_label(self):
@@ -97,9 +98,9 @@ class RelationShowShowTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        show_a = EntityShow.objects.create(name='show_a', when_date=datetime(2016, 1, 1))
+        show_a = EntityShow.objects.create(name='show_a', when_date=PartialDate(datetime(2016, 1, 1)))
         show_a.save()
-        show_b = EntityShow.objects.create(name='show_b', when_date=datetime(2017, 1, 1))
+        show_b = EntityShow.objects.create(name='show_b', when_date=PartialDate(datetime(2017, 1, 1)))
         show_b.save()
         rsst = RelationShowShowType(name='test', inverted_name='inverted test')
         rsst.save()
