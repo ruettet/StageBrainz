@@ -200,6 +200,11 @@ class Relation(models.Model):
     end_date = models.DateField(blank=True, null=True, help_text='When did the relation end?')
     highlighted_relation = models.BooleanField(null=True, blank=True)
     inverted_relation = models.BooleanField(default=False)
+    context_of_production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT, related_name='%(app_label)s_%(class)s_context_production', null=True, blank=True)
+    context_of_show = models.ForeignKey('EntityShow', on_delete=models.PROTECT, related_name='%(app_label)s_%(class)s_context_show', null=True, blank=True)
+    context_of_work = models.ForeignKey('EntityWork', on_delete=models.PROTECT, related_name='%(app_label)s_%(class)s_context_work', null=True, blank=True)
+    context_of_character = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT, related_name='%(app_label)s_%(class)s_context_character', null=True, blank=True)
+    context_of_organity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, related_name='%(app_label)s_%(class)s_context_organity', null=True, blank=True)
 
     def __str__(self):
         str_entity_a_name = self.display_entity_a_name()
