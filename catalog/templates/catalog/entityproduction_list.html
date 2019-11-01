@@ -6,7 +6,7 @@
   <ul>
     {% for production in entityproduction_list %}
       <li>
-        <a href="{{ production.get_absolute_url }}">{{ production.display_name_and_season }}</a> ({{production.name}})
+        <a href="{{ production.get_absolute_url }}">{{ production.name }}</a> ({{production.name}})
       </li>
     {% endfor %}
   </ul>
