@@ -78,6 +78,9 @@ class EntityProduction(Entity):
     def display_name_and_season(self):
         return str(self.name) + " (" + self.season.name + ")"
 
+    def display_name_and_season_and_highlighted_organity_relation(self):
+        pass
+
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this production"""
         return reverse('productions-detail', args=[str(self.id)])
