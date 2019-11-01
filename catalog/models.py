@@ -62,6 +62,10 @@ class EntityShow(Entity):
         date_iso = str(self.when_date)
         return date_iso + ", " + self.when_time.isoformat() if self.when_time is not None else date_iso
 
+    def get_absolute_url(self):
+        """"Returns the url to access a detail record for this show"""
+        return reverse('shows-detail', args=[str(self.id)])
+
     class Meta:
         ordering = ['-when_date', '-when_time']
 
@@ -329,7 +333,7 @@ class RelationProductionProductionType(RelationType):
 
 class RelationProductionOrganity(Relation):
     entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_b = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
     relation_type = models.ForeignKey('RelationProductionOrganityType', on_delete=models.PROTECT, blank=True, null=True)
 
 
@@ -388,7 +392,7 @@ class RelationOrganityOrganityType(RelationType):
 
 
 class RelationOrganityWork(Relation):
-    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
     entity_b = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
     relation_type = models.ForeignKey('RelationOrganityWorkType', on_delete=models.PROTECT, blank=True, null=True)
 
@@ -398,7 +402,7 @@ class RelationOrganityWorkType(RelationType):
 
 
 class RelationOrganityCharacter(Relation):
-    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
     entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
     relation_type = models.ForeignKey('RelationOrganityCharacterType', on_delete=models.PROTECT, blank=True, null=True)
 
@@ -408,7 +412,7 @@ class RelationOrganityCharacterType(RelationType):
 
 
 class RelationOrganityGenre(Relation):
-    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
     entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
     relation_type = models.ForeignKey('RelationOrganityGenreType', on_delete=models.PROTECT, blank=True, null=True)
 
@@ -418,7 +422,7 @@ class RelationOrganityGenreType(RelationType):
 
 
 class RelationOrganityUrl(Relation):
-    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, default='provide a value here')
+    entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
     entity_b = models.ForeignKey('EntityUrl', on_delete=models.PROTECT)
     relation_type = models.ForeignKey('RelationOrganityUrlType', on_delete=models.PROTECT, blank=True, null=True)
 

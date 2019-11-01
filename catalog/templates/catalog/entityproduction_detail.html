@@ -11,19 +11,27 @@
         {% endfor %}
     </p>
 
+<!-- display credits -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Credits</h4>
             {% for relation in entityproduction.relationproductionorganity_set.all %}
                 <hr>
                     <p>{{relation.relation_type.name}} <a href="{% url 'organities-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a> ({{relation.context_of_character.name}})</p>
             {% endfor %}
+
+        {% if perms.catalog.can_add_relation_production_organity %}- <a href="{% url 'production_organity_create' entityproduction.id %}">Add a credit to this production</a> {% endif %}
     </div>
 
+<!-- display connected shows -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Shows</h4>
             {% for relation in entityproduction.relationshowproduction_set.all %}
                 <hr>
                     <p>{{relation.entity_a.name}}, {{relation.entity_a.when_date}}, {{relation.entity_a.when_time}} ({{relation.entity_a.entity_type.all|join:", "}})</p>
             {% endfor %}
+        {% if perms.catalog.can_add_relation_show_production %}- <a href="{% url 'production_show_create' entityproduction.id %}">Add a show to this production</a> {% endif %}
     </div>
+
+    {% if perms.catalog.can_edit_entity_production %}- <a href="{% url 'production_update' entityproduction.id %}">Update this production</a> {% endif %}
+
 {% endblock %}

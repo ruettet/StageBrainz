@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Show List</h1>
+  {% if entityshow_list %}
+  <ul>
+    {% for show in entityshow_list %}
+      <li>
+        <a href="{{ show.get_absolute_url }}">{{ show.name }}</a> ({{show.when_date}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no shows in the catalog.</p>
+  {% endif %}
+{% endblock %}

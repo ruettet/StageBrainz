@@ -4,6 +4,7 @@
   <h1>Organity: {{ entityorganity.name }}</h1>
 
   <p><strong>Name:</strong> {{ entityorganity.name }}</p>
+  <p><strong>Start date:</strong> {{ entityorganity.start_date }}</p>
 
 <!--  <div style="margin-left:20px;margin-top:20px">
     <h4>Copies</h4>
@@ -18,4 +19,7 @@
       <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
     {% endfor %}
   </div>-->
+
+{% if perms.catalog.can_edit_entity_organity %}- <a href="{% url 'organity_update' entityorganity.id %}">Update this organity</a> {% endif %}
+
 {% endblock %}
