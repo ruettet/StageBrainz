@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Show: {{ entityshow.name }}</h1>
+
+  <p><strong>Name:</strong> {{ entityshow.name }}</p>
+  <p><strong>Date:</strong> {{ entityshow.when_date }}</p>
+
+{% if perms.catalog.can_edit_entity_show %}- <a href="{% url 'show_update' entityshow.id %}">Update this show</a> {% endif %}
+
+{% endblock %}
