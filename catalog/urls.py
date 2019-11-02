@@ -49,3 +49,9 @@ urlpatterns += [
     path('production_show/<int:pk>/update/', views.RelationProductionShowUpdate.as_view(), name='production_show_update'),
     path('production_show/<int:pk>/delete/', views.RelationProductionShowDelete.as_view(), name='production_show_delete'),
 ]
+
+urlpatterns += [
+    path('show_organity/create/<int:showid>', views.RelationShowOrganityCreate.as_view(), name='show_organity_create'),
+    path('show_organity/<int:pk>/update/', views.RelationShowOrganityUpdate.as_view(), name='show_organity_update'),
+    path('show_organity/<int:pk>/delete/', views.RelationShowOrganityDelete.as_view(), name='show_organity_delete'),
+]

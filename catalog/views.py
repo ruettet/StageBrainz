@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
 from catalog.models import EntityOrganity, EntityProduction, EntityShow
-from catalog.models import RelationProductionOrganity, RelationShowProduction
+from catalog.models import RelationProductionOrganity, RelationShowProduction, RelationShowOrganity
 
 
 # Create your views here.
@@ -123,7 +123,10 @@ class RelationProductionOrganityUpdate(UpdateView):
 
 class RelationProductionOrganityDelete(DeleteView):
     model = RelationProductionOrganity
-    success_url = reverse_lazy('productions')
+
+    def get_success_url(self):
+        relation = get_object_or_404(RelationProductionOrganity, pk=self.kwargs.get("pk"))
+        return reverse_lazy('productions-detail', kwargs={"pk": relation.entity_a.id})
 
 
 # Production to Show
@@ -153,4 +156,39 @@ class RelationProductionShowUpdate(UpdateView):
 
 class RelationProductionShowDelete(DeleteView):
     model = RelationShowProduction
-    success_url = reverse_lazy('shows')
+
+    def get_success_url(self):
+        relation = get_object_or_404(RelationShowProduction, pk=self.kwargs.get("pk"))
+        return reverse_lazy('productions-detail', kwargs={"pk": relation.entity_b.id})
+
+
+# Show to organity
+class RelationShowOrganityCreate(CreateView):
+    model = RelationShowOrganity
+    fields = '__all__'
+
+    def get_initial(self):
+        show = get_object_or_404(EntityShow, pk=self.kwargs.get("showid"))
+        return {
+            'entity_a': show,
+        }
+
+    def get_success_url(self):
+        return reverse_lazy('shows-detail', kwargs={"pk": self.kwargs.get("showid")})
+
+
+class RelationShowOrganityUpdate(UpdateView):
+    model = RelationShowOrganity
+    fields = '__all__'
+
+    def get_success_url(self):
+        relation = get_object_or_404(RelationShowProduction, pk=self.kwargs.get("pk"))
+        return reverse_lazy('shows-detail', kwargs={"pk": relation.entity_a.id})
+
+
+class RelationShowOrganityDelete(DeleteView):
+    model = RelationShowOrganity
+
+    def get_success_url(self):
+        relation = get_object_or_404(RelationShowProduction, pk=self.kwargs.get("pk"))
+        return reverse_lazy('shows-detail', kwargs={"pk": relation.entity_a.id})
