@@ -15,6 +15,7 @@ class Entity(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ['sort_name']
 
 
 class EntityType(models.Model):
@@ -266,6 +267,9 @@ class RelationShowProduction(Relation):
     entity_b = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
     relation_type = models.ForeignKey('RelationShowProductionType', on_delete=models.PROTECT, blank=True, null=True)
 
+    class Meta:
+        ordering = ['entity_a']
+
 
 class RelationShowProductionType(RelationType):
     pass
@@ -335,6 +339,9 @@ class RelationProductionOrganity(Relation):
     entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
     entity_b = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
     relation_type = models.ForeignKey('RelationProductionOrganityType', on_delete=models.PROTECT, blank=True, null=True)
+
+    class Meta:
+        ordering = ['-highlighted_relation', 'entity_b']
 
 
 class RelationProductionOrganityType(RelationType):
