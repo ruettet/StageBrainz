@@ -8,6 +8,23 @@
 
     <!-- display connected shows -->
     <div style="margin-left:20px;margin-top:20px">
+        <h4>Productions</h4>
+            <ul>
+                {% for relation in entityshow.relationshowproduction_set.all %}
+                    <li>
+                        <a href="{% url 'productions-detail' relation.entity_b.pk %}">
+                            {{relation.entity_b.name}}
+                        </a>
+                        {% if relation.context_of_organity %}in the context of <a href="{% url 'organities-detail' relation.context_of_organity.pk %}">{{relation.context_of_organity}}</a>{% endif %}
+                        {% if perms.catalog.can_change_relation_show_production %}[<a href="{% url 'production_show_update' relation.pk %}">edit</a>]{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% if perms.catalog.can_add_relation_show_production %}<p>Add shows to production via production page.</p> {% endif %}
+    </div>
+
+    <!-- display connected shows -->
+    <div style="margin-left:20px;margin-top:20px">
         <h4>Organities</h4>
             <ul>
                 {% for relation in entityshow.relationshoworganity_set.all %}

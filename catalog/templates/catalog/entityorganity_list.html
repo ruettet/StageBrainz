@@ -6,7 +6,7 @@
   <ul>
     {% for organity in entityorganity_list %}
       <li>
-        <a href="{{ organity.get_absolute_url }}">{{ organity.name }}</a> ({{organity.name}})
+        <a href="{{ organity.get_absolute_url }}">{{ organity.sort_name }}</a> ({{organity.name}}{% if organity.disambiguation %}, {{organity.disambiguation}}{% endif %})
       </li>
     {% endfor %}
   </ul>

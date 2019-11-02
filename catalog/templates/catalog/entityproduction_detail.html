@@ -8,14 +8,14 @@
             {% endif %}
         {% endfor %}
     </h1>
-
+    <p>Disambiguation text: {{entityproduction.disambiguation}}</p>
     <p>Production type: {{ entityproduction.entity_type.all|join:"," }}</p>
-
     <p>Season: {{ entityproduction.season.name }}</p>
 
     <!-- display credits -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Credits</h4>
+        {% if perms.catalog.can_add_relation_production_organity %}<p><a href="{% url 'production_organity_create' entityproduction.id %}">Add a credit to this production</a></p>{% endif %}
             <ul>
                 {% for relation in entityproduction.relationproductionorganity_set.all %}
                     <li>
@@ -28,12 +28,12 @@
                     </li>
                 {% endfor %}
             </ul>
-        {% if perms.catalog.can_add_relation_production_organity %}- <a href="{% url 'production_organity_create' entityproduction.id %}">Add a credit to this production</a> {% endif %}
     </div>
 
     <!-- display connected shows -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Shows</h4>
+            {% if perms.catalog.can_add_relation_show_production %}<p><a href="{% url 'production_show_create' entityproduction.id %}">Add a show to this production</a></p>{% endif %}
             <ul>
                 {% for relation in entityproduction.relationshowproduction_set.all %}
                     <li>
@@ -46,13 +46,11 @@
                     </li>
                 {% endfor %}
             </ul>
-        {% if perms.catalog.can_add_relation_show_production %}- <a href="{% url 'production_show_create' entityproduction.id %}">Add a show to this production</a> {% endif %}
-    </div>
 
-    <div>
-        <p>{{entityproduction.disambiguation}}</p>
     </div>
-
-    {% if perms.catalog.can_edit_entity_production %}- <a href="{% url 'production_update' entityproduction.id %}">Update this production</a> {% endif %}
+    <hr>
+    <div style="margin-left:20px;margin-top:20px">
+        {% if perms.catalog.can_edit_entity_production %}<p></p><a href="{% url 'production_update' entityproduction.id %}">Update this production</a></p>{% endif %}
+    </div>
 
 {% endblock %}
