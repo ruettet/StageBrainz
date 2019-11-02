@@ -1,11 +1,14 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
+from django.views.generic import TemplateView
 
+urlpatterns = [
+    path('about/', TemplateView.as_view(template_name="about.html"), name='about'),
+    path('data_input/', TemplateView.as_view(template_name="datainput.html"), name='datainput'),
 ]
 
-urlpatterns = [
+urlpatterns += [
     path('', views.index, name='index'),
 ]
 
