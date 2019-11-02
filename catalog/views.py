@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from catalog.models import EntityOrganity, EntityProduction, EntityShow
 from catalog.models import RelationProductionOrganity, RelationShowProduction
@@ -116,6 +116,10 @@ class RelationProductionOrganityUpdate(UpdateView):
     model = RelationProductionOrganity
     fields = '__all__'
 
+    def get_success_url(self):
+        relation = get_object_or_404(RelationProductionOrganity, pk=self.kwargs.get("pk"))
+        return reverse_lazy('productions-detail', kwargs={"pk": relation.entity_a.id})
+
 
 class RelationProductionOrganityDelete(DeleteView):
     model = RelationProductionOrganity
@@ -135,12 +139,16 @@ class RelationProductionShowCreate(CreateView):
         }
 
     def get_success_url(self):
-        return reverse_lazy('shows')
+        return reverse_lazy('productions-detail', kwargs={"pk": self.kwargs.get("productionid")})
 
 
 class RelationProductionShowUpdate(UpdateView):
     model = RelationShowProduction
     fields = '__all__'
+
+    def get_success_url(self):
+        relation = get_object_or_404(RelationShowProduction, pk=self.kwargs.get("pk"))
+        return reverse_lazy('productions-detail', kwargs={"pk": relation.entity_b.id})
 
 
 class RelationProductionShowDelete(DeleteView):
