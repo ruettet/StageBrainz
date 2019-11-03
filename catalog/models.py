@@ -173,6 +173,10 @@ class EntityCharacterAliasType(models.Model):
 class EntityGenre(Entity):
     entity_type = models.ManyToManyField('EntityGenreType', blank=True)
 
+    def get_absolute_url(self):
+        """"Returns the url to access a detail record for this genre"""
+        return reverse('genres-detail', args=[str(self.id)])
+
 
 class EntityGenreType(EntityType):
     pass
