@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Url: {{ entityurl.name }}</h1>
+
+    <p><strong>Url:</strong> {{ entityurl.name }}</p>
+    <p><strong>Href:</strong> {{ entityurl.href }}</p>
+
+    <hr>
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Available edit actions</h4>
+        <ul>
+            {% if perms.catalog.can_edit_entity_url %}<li><a href="{% url 'url_update' entityurl.id %}">Update this url</a></li>{% endif %}
+            {% if perms.catalog.can_delete_entity_url %}<li><a href="{% url 'url_delete' entityurl.id %}">Delete this url</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_url_url %}<li><a href="{% url 'url_url_create' entityurl.id %}">Relate a url to this url</a></li>{% endif %}
+        </ul>
+    </div>
+{% endblock %}

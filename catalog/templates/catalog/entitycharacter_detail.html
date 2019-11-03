@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Character: {{ entitycharacter.name }}</h1>
+
+    <p><strong>Name:</strong> {{ entitycharacter.name }}</p>
+
+    <hr>
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Available edit actions</h4>
+        <ul>
+            {% if perms.catalog.can_edit_entity_character %}<li><a href="{% url 'character_update' entitycharacter.id %}">Update this character</a></li>{% endif %}
+            {% if perms.catalog.can_delete_entity_character %}<li><a href="{% url 'character_delete' entitycharacter.id %}">Delete this character</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_character_character %}<li><a href="{% url 'production_character_create' entitycharacter.id %}">Relate a character to this character</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_character_genre %}<li><a href="{% url 'character_genre_create' entitycharacter.id %}">Relate a genre to this character</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_character_url %}<li><a href="{% url 'character_url_create' entitycharacter.id %}">Relate a url to this character</a></li>{% endif %}
+        </ul>
+    </div>
+{% endblock %}

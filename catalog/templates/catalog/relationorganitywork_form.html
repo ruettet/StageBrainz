@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Relate Work to a new Organity</h2>
+  {% if perms.catalog.can_add_entity_organity %}
+    <p>- <a target="_blank" href="{% url 'organity_create' %}">Create organity</a></p>
+  {% else %}
+    <p>You are not allowed to create new organities.</p>
+  {% endif %}
+<h2>Relate Work to an existing Organity</h2>
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

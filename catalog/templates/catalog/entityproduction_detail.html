@@ -15,7 +15,6 @@
     <!-- display credits -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Credits</h4>
-        {% if perms.catalog.can_add_relation_production_organity %}<p><a href="{% url 'production_organity_create' entityproduction.id %}">Add a credit to this production</a></p>{% endif %}
             <ul>
                 {% for relation in entityproduction.relationproductionorganity_set.all %}
                     <li>
@@ -33,7 +32,6 @@
     <!-- display connected shows -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Shows</h4>
-            {% if perms.catalog.can_add_relation_show_production %}<p><a href="{% url 'production_show_create' entityproduction.id %}">Add a show to this production</a></p>{% endif %}
             <ul>
                 {% for relation in entityproduction.relationshowproduction_set.all %}
                     <li>
@@ -50,7 +48,18 @@
     </div>
     <hr>
     <div style="margin-left:20px;margin-top:20px">
-        {% if perms.catalog.can_edit_entity_production %}<p></p><a href="{% url 'production_update' entityproduction.id %}">Update this production</a></p>{% endif %}
+        <h4>Available edit actions</h4>
+        <ul>
+            {% if perms.catalog.can_edit_entity_production %}<li><a href="{% url 'production_update' entityproduction.id %}">Update this production</a></li>{% endif %}
+            {% if perms.catalog.can_delete_entity_production %}<li><a href="{% url 'production_delete' entityproduction.id %}">Delete this production</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_production_organity %}<li><a href="{% url 'production_organity_create' entityproduction.id %}">Relate an organity to this production</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_production_production %}<li><a href="{% url 'production_production_create' entityproduction.id %}">Relate a production to this production</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_show_production %}<li><a href="{% url 'production_show_create' entityproduction.id %}">Relate a show to this production</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_production_work %}<li><a href="{% url 'production_work_create' entityproduction.id %}">Relate a work to this production</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_production_character %}<li><a href="{% url 'production_character_create' entityproduction.id %}">Relate a character to this production</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_production_genre %}<li><a href="{% url 'production_genre_create' entityproduction.id %}">Relate a genre to this production</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_production_url %}<li><a href="{% url 'production_url_create' entityproduction.id %}">Relate a url to this production</a></li>{% endif %}
+        </ul>
     </div>
 
 {% endblock %}

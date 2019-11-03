@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Work List</h1>
+  {% if entitywork_list %}
+  <ul>
+    {% for work in entitywork_list %}
+      <li>
+        <a href="{{ work.get_absolute_url }}">{{ work.sort_name }}</a> ({{work.name}}{% if work.disambiguation %}, {{work.disambiguation}}{% endif %})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no works in the catalog.</p>
+  {% endif %}
+{% endblock %}

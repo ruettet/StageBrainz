@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Genre: {{ entitygenre.name }}</h1>
+
+    <p><strong>Name:</strong> {{ entitygenre.name }}</p>
+
+    <hr>
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Available edit actions</h4>
+        <ul>
+            {% if perms.catalog.can_edit_entity_genre %}<li><a href="{% url 'genre_update' entitygenre.id %}">Update this genre</a></li>{% endif %}
+            {% if perms.catalog.can_delete_entity_genre %}<li><a href="{% url 'genre_delete' entitygenre.id %}">Delete this genre</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_genre_genre %}<li><a href="{% url 'genre_genre_create' entitygenre.id %}">Relate a genre to this genre</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_genre_url %}<li><a href="{% url 'genre_url_create' entitygenre.id %}">Relate a url to this genre</a></li>{% endif %}
+        </ul>
+    </div>
+{% endblock %}

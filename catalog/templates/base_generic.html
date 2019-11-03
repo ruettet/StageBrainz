@@ -24,7 +24,11 @@
                     <ul>
                         {% if perms.catalog.can_add_entity_production %}<li><a href="{% url 'production_create' %}">Create production</a></li> {% endif %}
                     </ul>
-                    <li><a href="{% url 'shows' %}">Show calender</a></li>
+                    <li><a href="{% url 'works' %}">All works</a></li>
+                    <ul>
+                        {% if perms.catalog.can_add_entity_work %}<li><a href="{% url 'work_create' %}">Create work</a></li> {% endif %}
+                    </ul>
+                    <li><a href="{% url 'shows' %}">All shows</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'datainput' %}">Data input guidelines</a></li>
                     {% if user.is_authenticated %}
