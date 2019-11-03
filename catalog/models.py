@@ -133,7 +133,7 @@ class EntityWork(Entity):
 
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this venue"""
-        return reverse('work-detail', args=[str(self.id)])
+        return reverse('works-detail', args=[str(self.id)])
 
 
 class EntityWorkType(EntityType):
