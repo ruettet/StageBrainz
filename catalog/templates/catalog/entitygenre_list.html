@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Genre List</h1>
+  {% if entitygenre_list %}
+  <ul>
+    {% for genre in entitygenre_list %}
+      <li>
+        <a href="{{ genre.get_absolute_url }}">{{ genre.sort_name }}</a> ({{genre.name}}{% if genre.disambiguation %}, {{genre.disambiguation}}{% endif %})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no genres in the catalog.</p>
+  {% endif %}
+{% endblock %}

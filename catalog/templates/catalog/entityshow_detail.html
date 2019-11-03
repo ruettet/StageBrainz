@@ -20,7 +20,6 @@
                     </li>
                 {% endfor %}
             </ul>
-        {% if perms.catalog.can_add_relation_show_production %}<p>Add shows to production via production page.</p> {% endif %}
     </div>
 
     <!-- display connected shows -->
@@ -38,9 +37,20 @@
                     </li>
                 {% endfor %}
             </ul>
-        {% if perms.catalog.can_add_relation_show_production %}- <a href="{% url 'show_organity_create' entityshow.id %}">Relate an organity to this show</a> {% endif %}
     </div>
 
-{% if perms.catalog.can_edit_entity_show %}- <a href="{% url 'show_update' entityshow.id %}">Update this show</a> {% endif %}
-
+    <hr>
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Available edit actions</h4>
+        <ul>
+            {% if perms.catalog.can_edit_entity_show %}<li><a href="{% url 'show_update' entityshow.id %}">Update this show</a></li>{% endif %}
+            {% if perms.catalog.can_delete_entity_show %}<li><a href="{% url 'show_delete' entityshow.id %}">Delete this show</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_show_organity %}<li><a href="{% url 'show_organity_create' entityshow.id %}">Relate an organity to this show</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_show_show %}<li><a href="{% url 'show_show_create' entityshow.id %}">Relate a show to this show</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_show_work %}<li><a href="{% url 'show_work_create' entityshow.id %}">Relate a work to this show</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_show_character %}<li><a href="{% url 'show_character_create' entityshow.id %}">Relate a character to this show</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_show_genre %}<li><a href="{% url 'show_genre_create' entityshow.id %}">Relate a genre to this show</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_show_url %}<li><a href="{% url 'show_url_create' entityshow.id %}">Relate a url to this show</a></li>{% endif %}
+        </ul>
+    </div>
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Work: {{ entitywork.name }}</h1>
+
+    <p><strong>Name:</strong> {{ entitywork.name }}</p>
+
+<!-- display credits -->
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Credits</h4>
+        {% if perms.catalog.can_add_relation_organity_work %}<p><a href="{% url 'work_organity_create' entitywork.id %}">Add a credit to this work</a></p>{% endif %}
+            <ul>
+                {% for relation in entitywork.relationorganitywork_set.all %}
+                    <li>
+                        {{relation.display_relation_name}}
+                        <a href="{% url 'organities-detail' relation.entity_a.pk %}">
+                            {{relation.entity_a.name}}
+                        </a>
+                        {% if relation.context_of_character.name %}({{relation.context_of_character.name}}){% endif %}
+                        {% if perms.catalog.can_change_relation_organity_work %}[<a href="{% url 'work_organity_update' relation.pk %}">edit</a>]{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
+
+    <hr>
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Available edit actions</h4>
+        <ul>
+            {% if perms.catalog.can_edit_entity_work %}<li><a href="{% url 'work_update' entitywork.id %}">Update this work</a></li>{% endif %}
+            {% if perms.catalog.can_delete_entity_work %}<li><a href="{% url 'work_delete' entitywork.id %}">Delete this work</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_work_organity %}<li><a href="{% url 'work_organity_create' entitywork.id %}">Relate an organity to this work</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_work_work %}<li><a href="{% url 'work_work_create' entitywork.id %}">Relate a work to this work</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_work_character %}<li><a href="{% url 'work_character_create' entitywork.id %}">Relate a character to this work</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_work_genre %}<li><a href="{% url 'work_genre_create' entitywork.id %}">Relate a genre to this work</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_work_url %}<li><a href="{% url 'work_url_create' entitywork.id %}">Relate a url to this work</a></li>{% endif %}
+        </ul>
+    </div>
+{% endblock %}

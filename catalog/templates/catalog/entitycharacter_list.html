@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Character List</h1>
+  {% if entitycharacter_list %}
+  <ul>
+    {% for character in entitycharacter_list %}
+      <li>
+        <a href="{{ character.get_absolute_url }}">{{ character.sort_name }}</a> ({{character.name}}{% if character.disambiguation %}, {{character.disambiguation}}{% endif %})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no characters in the catalog.</p>
+  {% endif %}
+{% endblock %}

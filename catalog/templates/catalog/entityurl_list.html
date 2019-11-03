@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Url List</h1>
+  {% if entityurl_list %}
+  <ul>
+    {% for url in entityurl_list %}
+      <li>
+        <a href="{{ url.get_absolute_url }}">{{ url.sort_name }}</a> ({{url.name}}{% if url.disambiguation %}, {{url.disambiguation}}{% endif %})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no urls in the catalog.</p>
+  {% endif %}
+{% endblock %}
