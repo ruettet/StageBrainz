@@ -54,7 +54,11 @@
                     <li>
                         <a href="{% url 'shows-detail' relation.entity_a.pk %}">
                             {{relation.entity_a.when_date}}{% if relation.entity_a.when_time %}, {{relation.entity_a.when_time}}{% endif %}
-                        </a>
+                        </a> in
+                        {% for relation in relation.entity_a.relationshoworganity_set.all %}
+                            {% if relation.relation_type.name == "Was held in" %}<a href="{% url 'organities-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>{% endif %}
+                        {% endfor %},
+                        {{relation.entity_a.when_date}}{% if relation.entity_a.when_time %}, {{relation.entity_a.when_time}}{% endif %}
                         ({{relation.entity_a.entity_type.all|join:","}})
                         {% if relation.context_of_organity %}in the context of <a href="{% url 'organities-detail' relation.context_of_organity.pk %}">{{relation.context_of_organity}}</a>{% endif %}
                         {% if perms.catalog.can_change_relation_show_production %}[<a href="{% url 'production_show_update' relation.pk %}">edit</a>]{% endif %}
