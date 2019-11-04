@@ -8,10 +8,8 @@
             {% endif %}
         {% endfor %}
     </h1>
-    <p>Disambiguation text: {{entityproduction.disambiguation}}</p>
     <p>Production type: {{ entityproduction.entity_type.all|join:"," }}</p>
     <p>Season: {{ entityproduction.season.name }}</p>
-
     <p>
         Based on work:
         {% for relation in entityproduction.relationproductionwork_set.all %}
@@ -20,17 +18,6 @@
             <a href="{% url 'production_work_delete' relation.pk %}">[delete]</a>
         {% endfor %}
     </p>
-
-
-    <p>
-        Productions:
-        {% for relation in entityproduction.productiona.all %}
-            {{relation.entity_b.name}}
-            <a href="{% url 'production_production_update' relation.pk %}">[edit]</a>
-            <a href="{% url 'production_production_delete' relation.pk %}">[delete]</a>
-        {% endfor %}
-    </p>
-
     <p>
         Genre:
         {% for relation in entityproduction.relationproductiongenre_set.all %}
@@ -39,15 +26,6 @@
             <a href="{% url 'production_genre_delete' relation.pk %}">[delete]</a>
         {% endfor %}
     </p>
-    <p>
-        Hyperlinks:
-        {% for relation in entityproduction.relationproductionurl_set.all %}
-            <a href="{{relation.entity_b.href}}">{{relation.entity_b.name}}</a>
-            <a href="{% url 'production_url_update' relation.pk %}">[edit]</a>
-            <a href="{% url 'production_url_delete' relation.pk %}">[delete]</a>
-        {% endfor %}
-    </p>
-
     <hr>
 
     <!-- display credits -->
@@ -86,6 +64,36 @@
             </ul>
 
     </div>
+    <hr>
+    <div>
+        <p>Disambiguation text: {{entityproduction.disambiguation}}</p>
+        <p>Sort on: {{entityproduction.sort_name}}</p>
+        <p>
+            Related productions:
+            {% for relation in entityproduction.productiona.all %}
+                <a href="{% url 'productions-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a> ({{relation.relation_type}})
+                <a href="{% url 'production_production_update' relation.pk %}">[edit]</a>
+                <a href="{% url 'production_production_delete' relation.pk %}">[delete]</a>
+            {% endfor %}
+        </p>
+        <p>
+            Special characters:
+            {% for relation in entityproduction.relationproductioncharacter_set.all %}
+                {{relation.entity_b.name}}
+                <a href="{% url 'production_character_update' relation.pk %}">[edit]</a>
+                <a href="{% url 'production_character_delete' relation.pk %}">[delete]</a>
+            {% endfor %}
+        </p>
+        <p>
+            External links:
+            {% for relation in entityproduction.relationproductionurl_set.all %}
+                <a href="{{relation.entity_b.href}}">{{relation.entity_b.name}}</a>
+                <a href="{% url 'production_url_update' relation.pk %}">[edit]</a>
+                <a href="{% url 'production_url_delete' relation.pk %}">[delete]</a>
+            {% endfor %}
+        </p>
+    </div>
+
     <hr>
     <div style="margin-left:20px;margin-top:20px">
         <h4>Available edit actions</h4>
