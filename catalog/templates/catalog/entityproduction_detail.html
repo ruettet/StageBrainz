@@ -13,6 +13,16 @@
     <p>Season: {{ entityproduction.season.name }}</p>
 
     <p>
+        Based on work:
+        {% for relation in entityproduction.relationproductionwork_set.all %}
+            <a href="{% url 'works-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+            <a href="{% url 'production_work_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'production_work_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+    </p>
+
+
+    <p>
         Productions:
         {% for relation in entityproduction.productiona.all %}
             {{relation.entity_b.name}}
