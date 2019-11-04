@@ -16,6 +16,7 @@
                 {% block sidebar %}
                 <ul class="sidebar-nav">
                     <li><a href="{% url 'index' %}">Home</a></li>
+                    <hr>
                     <li><a href="{% url 'organities' %}">All organities</a></li>
                     <ul>
                         {% if perms.catalog.can_add_entity_organity %}<li><a href="{% url 'organity_create' %}">Create organity</a></li> {% endif %}
@@ -29,8 +30,10 @@
                         {% if perms.catalog.can_add_entity_work %}<li><a href="{% url 'work_create' %}">Create work</a></li> {% endif %}
                     </ul>
                     <li><a href="{% url 'shows' %}">All shows</a></li>
+                    <hr>
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'datainput' %}">Data input guidelines</a></li>
+                    <hr>
                     {% if user.is_authenticated %}
                     <li>User: {{ user.get_username }}</li>
                     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
