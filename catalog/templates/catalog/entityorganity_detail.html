@@ -6,6 +6,15 @@
     <p><strong>Name:</strong> {{ entityorganity.name }}</p>
     <p><strong>Start date:</strong> {{ entityorganity.start_date }}</p>
 
+    <p>
+        Organities:
+        {% for relation in entityorganity.organitya.all %}
+            {{relation.entity_b.name}}
+            <a href="{% url 'organity_organity_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'organity_organity_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+    </p>
+
     <hr>
     <div style="margin-left:20px;margin-top:20px">
         <h4>Available edit actions</h4>
