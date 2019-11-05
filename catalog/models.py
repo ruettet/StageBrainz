@@ -192,7 +192,7 @@ class EntityGenreAliasType(EntityAliasType):
 
 
 class EntityUrl(Entity):
-    href = models.CharField(max_length=200, help_text='Enter the url')
+    href = models.URLField(max_length=200, help_text='Enter the url')
     entity_type = models.ManyToManyField('EntityUrlType', blank=True)
 
     def get_absolute_url(self):
