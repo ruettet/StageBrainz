@@ -1,7 +1,7 @@
 from django.contrib import admin
 from catalog.models import EntityShow, EntityShowType, \
     EntityProduction, EntityProductionType, \
-    Season, \
+    Season, Locale, \
     EntityOrganity, EntityOrganityType, EntityOrganityAlias, EntityOrganityAliasType, \
     EntityWork, EntityWorkType, EntityWorkAlias, EntityWorkAliasType, \
     EntityCharacter, EntityCharacterType, EntityCharacterAlias, EntityCharacterAliasType, \
@@ -284,7 +284,11 @@ class EntityProductionTypeAdmin(admin.ModelAdmin):
     pass
 
 
-class EntitySeasonAdmin(admin.ModelAdmin):
+class SeasonAdmin(admin.ModelAdmin):
+    pass
+
+
+class LocaleAdmin(admin.ModelAdmin):
     pass
 
 
@@ -370,7 +374,8 @@ admin.site.register(EntityProduction, EntityProductionAdmin)
 admin.site.register(EntityProductionType, EntityProductionTypeAdmin)
 
 # seasons
-admin.site.register(Season, EntitySeasonAdmin)
+admin.site.register(Season, SeasonAdmin)
+admin.site.register(Locale, LocaleAdmin)
 
 # organisations
 admin.site.register(EntityOrganity, EntityOrganityAdmin)

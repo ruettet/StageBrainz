@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
+from django.utils.translation import ugettext_lazy as _
 
-from catalog.models import EntityOrganity, EntityProduction, EntityShow, EntityWork, EntityCharacter, EntityGenre, EntityUrl
+from catalog.models import EntityOrganity, EntityOrganityAlias, EntityProduction, EntityShow, EntityWork, EntityCharacter, EntityGenre, EntityUrl
 from catalog.models import \
     RelationOrganityOrganity, RelationOrganityCharacter, RelationOrganityGenre, RelationProductionOrganity, RelationShowOrganity, RelationOrganityUrl, RelationOrganityWork, \
     RelationProductionProduction, RelationShowProduction, RelationProductionGenre, RelationProductionWork, RelationProductionCharacter, RelationProductionUrl, \
@@ -61,6 +62,35 @@ class EntityOrganityDelete(DeleteView):
     success_url = reverse_lazy('organities')
 
 
+# Organitie aliasas
+class EntityOrganityaliasDetailView(generic.DetailView):
+    model = EntityOrganityAlias
+
+
+class EntityOrganityAliasCreate(CreateView):
+    model = EntityOrganityAlias
+    fields = '__all__'
+
+    def get_initial(self):
+        organity = get_object_or_404(EntityOrganity, pk=self.kwargs.get("organityid"))
+        return {
+            'super_entity': organity,
+        }
+
+    def get_success_url(self):
+        return reverse_lazy('organities-detail', kwargs={"pk": self.kwargs.get("organityid")})
+
+
+class EntityOrganityAliasUpdate(UpdateView):
+    model = EntityOrganityAlias
+    fields = '__all__'
+
+
+class EntityOrganityAliasDelete(DeleteView):
+    model = EntityOrganityAlias
+    success_url = reverse_lazy('organities')
+
+
 # Productions
 class EntityProductionListView(generic.ListView):
     model = EntityProduction
@@ -72,12 +102,12 @@ class EntityProductionDetailView(generic.DetailView):
 
 class EntityProductionCreate(CreateView):
     model = EntityProduction
-    fields = '__all__'
+    fields = ['name', 'sort_name', 'disambiguation', 'entity_type', 'season']
 
 
 class EntityProductionUpdate(UpdateView):
     model = EntityProduction
-    fields = '__all__'
+    fields = ['name', 'sort_name', 'disambiguation', 'entity_type', 'season']
 
 
 class EntityProductionDelete(DeleteView):
@@ -241,7 +271,7 @@ class RelationOrganityOrganityDelete(DeleteView):
 # Organity to Production
 class RelationProductionOrganityCreate(CreateView):
     model = RelationProductionOrganity
-    fields = '__all__'
+    fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'context_of_character', 'context_of_character_str', 'highlighted_relation', 'begin_date', 'end_date']
 
     def get_initial(self):
         production = get_object_or_404(EntityProduction, pk=self.kwargs.get("productionid"))
@@ -255,7 +285,7 @@ class RelationProductionOrganityCreate(CreateView):
 
 class RelationProductionOrganityUpdate(UpdateView):
     model = RelationProductionOrganity
-    fields = '__all__'
+    fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'context_of_character', 'context_of_character_str', 'highlighted_relation', 'begin_date', 'end_date']
 
     def get_success_url(self):
         relation = get_object_or_404(RelationProductionOrganity, pk=self.kwargs.get("pk"))

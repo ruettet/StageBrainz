@@ -3,25 +3,13 @@
 {% block content %}
     <h1>Organity: {{ entityorganity.name }}</h1>
 
-    <p>Name: {{ entityorganity.name }}</p>
-    <p>Period: {{ entityorganity.start_date }} -- {{ entityorganity.end_date }}</p>
-    <p>Organity type: {{ entityorganity.entity_type.all|join:"," }}</p>
-    <p>
-        Characters:
-        {% for relation in entityorganity.relationorganitygenre_set.all %}
-            {{relation.entity_b.name}}
-            <a href="{% url 'organity_genre_update' relation.pk %}">[edit]</a>
-            <a href="{% url 'organity_genre_delete' relation.pk %}">[delete]</a>
-        {% endfor %}
-    </p>
-    <p>
-        Genre:
-        {% for relation in entityproduction.relationproductiongenre_set.all %}
-            {{relation.entity_b.name}}
-            <a href="{% url 'production_genre_update' relation.pk %}">[edit]</a>
-            <a href="{% url 'production_genre_delete' relation.pk %}">[delete]</a>
-        {% endfor %}
-    </p>
+    <div style="margin-left:20px;margin-top:20px">
+        <p>Name: {{ entityorganity.name }}</p>
+        <p>Period: {{ entityorganity.start_date }} -- {{ entityorganity.end_date }}</p>
+        <p>Organity type: {{ entityorganity.entity_type.all|join:"," }}</p>
+        <p>Sort name: {{ entityorganity.sort_name }}</p>
+        <p>Disambiguation: {{ entityorganity.disambiguation }}</p>
+    </div>
 
     <hr>
 
@@ -30,9 +18,11 @@
         <h4>Works</h4>
             <ul>
                 {% for relation in entityorganity.relationorganitywork_set.all %}
-                    <li><a href="{% url 'works-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
-                    <a href="{% url 'work_organity_update' relation.pk %}">[edit]</a>
-                    <a href="{% url 'work_organity_delete' relation.pk %}">[delete]</a></li>
+                    <li>
+                        <a href="{% url 'works-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+                        ({{relation.relation_type.all|join:","}})
+                        <a href="{% url 'work_organity_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'work_organity_delete' relation.pk %}">[delete]</a></li>
                 {% endfor %}
             </ul>
     </div>
@@ -42,9 +32,12 @@
         <h4>Productions</h4>
             <ul>
                 {% for relation in entityorganity.relationproductionorganity_set.all %}
-                    <li><a href="{% url 'productions-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
-                    <a href="{% url 'production_organity_update' relation.pk %}">[edit]</a>
-                    <a href="{% url 'production_organity_delete' relation.pk %}">[delete]</a></li>
+                    <li>
+                        <a href="{% url 'productions-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+                        ({{relation.display_relation_name}})
+                        <a href="{% url 'production_organity_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'production_organity_delete' relation.pk %}">[delete]</a>
+                    </li>
                 {% endfor %}
             </ul>
     </div>
@@ -54,47 +47,107 @@
         <h4>Shows</h4>
             <ul>
                 {% for relation in entityorganity.relationshoworganity_set.all %}
-                    <li><a href="{% url 'shows-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+                    <li><a href="{% url 'shows-detail' relation.entity_a.pk %}">{{relation.entity_a.name}} ({{relation.relation_type.all|join:","}})</a>
                     <a href="{% url 'show_organity_update' relation.pk %}">[edit]</a>
                     <a href="{% url 'show_organity_delete' relation.pk %}">[delete]</a></li>
                 {% endfor %}
             </ul>
     </div>
 
-    <hr>
-
-    <div>
-        <p>Sort name: {{ entityorganity.sort_name }}</p>
-        <p>Disambiguation: {{ entityorganity.disambiguation }}</p>
-        <p>
-            Organities:
-            {% for relation in entityorganity.organitya.all %}
-                {{relation.entity_b.name}}
-                <a href="{% url 'organity_organity_update' relation.pk %}">[edit]</a>
-                <a href="{% url 'organity_organity_delete' relation.pk %}">[delete]</a>
-            {% endfor %}
-        </p>
-        <p>
-            External links:
-            {% for relation in entityorganisation.relationorganisationurl_set.all %}
-                <a href="{{relation.entity_b.href}}">{{relation.entity_b.name}}</a>
-                <a href="{% url 'organity_url_update' relation.pk %}">[edit]</a>
-                <a href="{% url 'organity_url_delete' relation.pk %}">[delete]</a>
-            {% endfor %}
-        </p>
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Aliases</h4>
+            <ul>
+                {% for alias in entityorganity.entityorganityalias_set.all %}
+                    <li>
+                        {{alias.alias_type.name}} <a href="{% url 'organityaliases-detail' alias.pk%}">{{alias.name}}</a> in {{alias.locale}}
+                        <a href="{% url 'organityalias_update' alias.pk %}">[edit]</a>
+                        <a href="{% url 'organityalias_delete' alias.pk %}">[delete]</a>
+                    </li>
+                {% endfor %}
+            </ul>
     </div>
-
-
 
     <div style="margin-left:20px;margin-top:20px">
-        <h4>Available edit actions</h4>
-        <ul>
-            {% if perms.catalog.can_edit_entity_organity %}<li><a href="{% url 'organity_update' entityorganity.id %}">Update this organity</a></li>{% endif %}
-            {% if perms.catalog.can_delete_entity_organity %}<li><a href="{% url 'organity_delete' entityorganity.id %}">Delete this organity</a></li>{% endif %}
-            {% if perms.catalog.can_add_relation_organity_organity %}<li><a href="{% url 'organity_organity_create' entityorganity.id %}">Relate an organity to this organity</a></li>{% endif %}
-            {% if perms.catalog.can_add_relation_organity_character %}<li><a href="{% url 'organity_character_create' entityorganity.id %}">Relate a character to this organity</a></li>{% endif %}
-            {% if perms.catalog.can_add_relation_organity_genre %}<li><a href="{% url 'organity_genre_create' entityorganity.id %}">Relate a genre to this organity</a></li>{% endif %}
-            {% if perms.catalog.can_add_relation_organity_url %}<li><a href="{% url 'organity_url_create' entityorganity.id %}">Relate a url to this organity</a></li>{% endif %}
-        </ul>
+        <h4>Characters</h4>
+            <ul>
+                {% for relation in entityorganity.relationorganitycharacter_set.all %}
+                    <li>
+                        ({{relation.relation_type.all|join:","}})
+                        {{relation.entity_b.relationworkcharacter_set.all|join:","}}
+                        <a href="{% url 'organity_character_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'organity_character_delete' relation.pk %}">[delete]</a>
+                    </li>
+                {% endfor %}
+            </ul>
     </div>
+
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Genre</h4>
+            <ul>
+                {% for relation in entityorganity.relationorganitygenre_set.all %}
+                    <li>
+                        {{relation.entity_b.name}}
+                        ({{relation.relation_type.all|join:","}})
+                        <a href="{% url 'production_genre_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'production_genre_delete' relation.pk %}">[delete]</a>
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
+
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Related organities</h4>
+            <ul>
+                {% for relation in entityorganity.organitya.all %}
+                    <li>
+                        <a href="{% url 'organities-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+                        ({{relation.relation_type.all|join:","}}
+                        {{relation.begin_date}} -- {{relation.end_date}})
+                        <a href="{% url 'organity_organity_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'organity_organity_delete' relation.pk %}">[delete]</a>
+                    </li>
+                {% endfor %}
+                {% for relation in entityorganity.organityb.all %}
+                    <li>
+                        <a href="{% url 'organities-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+                        ({{relation.relation_type.all|join:","}}
+                        {{relation.begin_date}} -- {{relation.end_date}})
+                        <a href="{% url 'organity_organity_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'organity_organity_delete' relation.pk %}">[delete]</a>
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
+
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>External links</h4>
+            <ul>
+                {% for relation in entityorganity.relationorganityurl_set.all %}
+                    <li>
+                        <a href="{% url 'url-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+                        ({{relation.relation_type.all|join:","}})
+                        <a href="{{relation.entity_b.href}}">[follow link]</a>
+                        <a href="{% url 'organity_url_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'organity_url_delete' relation.pk %}">[delete]</a>
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
+
+    <hr>
+
+    {% if user.is_authenticated %}
+        <div style="margin-left:20px;margin-top:20px">
+            <h4>Available edit actions</h4>
+            <ul>
+                {% if perms.catalog.can_edit_entity_organity %}<li><a href="{% url 'organity_update' entityorganity.id %}">Update this organity</a></li>{% endif %}
+                {% if perms.catalog.can_delete_entity_organity %}<li><a href="{% url 'organity_delete' entityorganity.id %}">Delete this organity</a></li>{% endif %}
+                {% if perms.catalog.can_add_organity_alias %}<li><a href="{% url 'organityalias_create' entityorganity.id %}">Add an alias to this organity</a></li>{% endif %}
+                {% if perms.catalog.can_add_relation_organity_organity %}<li><a href="{% url 'organity_organity_create' entityorganity.id %}">Relate an organity to this organity</a></li>{% endif %}
+                {% if perms.catalog.can_add_relation_organity_character %}<li><a href="{% url 'organity_character_create' entityorganity.id %}">Relate a character to this organity</a></li>{% endif %}
+                {% if perms.catalog.can_add_relation_organity_genre %}<li><a href="{% url 'organity_genre_create' entityorganity.id %}">Relate a genre to this organity</a></li>{% endif %}
+                {% if perms.catalog.can_add_relation_organity_url %}<li><a href="{% url 'organity_url_create' entityorganity.id %}">Relate a url to this organity</a></li>{% endif %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock %}
