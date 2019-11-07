@@ -22,6 +22,13 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('organityaliases/<int:pk>', views.EntityOrganityaliasDetailView.as_view(), name='organityaliases-detail'),
+    path('organityaliases/create/<int:organityid>', views.EntityOrganityAliasCreate.as_view(), name='organityalias_create'),
+    path('organityaliases/<int:pk>/update/', views.EntityOrganityAliasUpdate.as_view(), name='organityalias_update'),
+    path('organityaliases/<int:pk>/delete/', views.EntityOrganityAliasDelete.as_view(), name='organityalias_delete'),
+]
+
+urlpatterns += [
     path('productions/', views.EntityProductionListView.as_view(), name='productions'),
     path('productions/<int:pk>', views.EntityProductionDetailView.as_view(), name='productions-detail'),
     path('productions/create/', views.EntityProductionCreate.as_view(), name='production_create'),
@@ -84,7 +91,7 @@ urlpatterns += [
     path('production_organity/<int:pk>/delete/', views.RelationProductionOrganityDelete.as_view(), name='production_organity_delete'),
 ]
 
-# ganity show
+# organity show
 urlpatterns += [
     path('show_organity/create/<int:showid>', views.RelationShowOrganityCreate.as_view(), name='show_organity_create'),
     path('show_organity/<int:pk>/update/', views.RelationShowOrganityUpdate.as_view(), name='show_organity_update'),

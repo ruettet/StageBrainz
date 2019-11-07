@@ -6,8 +6,8 @@ from django.test import TestCase
 from datetime import datetime
 from partial_date import PartialDate
 
-from catalog.models import EntityShow, EntityProduction, Season, EntityOrganity
-from catalog.models import RelationShowShow, RelationShowShowType
+from catalog.models import EntityShow, EntityProduction, Season, EntityOrganity, EntityCharacter
+from catalog.models import RelationShowShow, RelationShowShowType, RelationProductionOrganity
 
 
 class EntityShowModelTest(TestCase):
@@ -102,13 +102,14 @@ class RelationShowShowTest(TestCase):
         show_a.save()
         show_b = EntityShow.objects.create(name='show_b', when_date=PartialDate(datetime(2017, 1, 1)))
         show_b.save()
-        rsst = RelationShowShowType(name='test', inverted_name='inverted test')
-        rsst.save()
-        rss_with_relation_with_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst, relation_name="test_name")
+        rss_with_relation_with_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_name="test_name")
+        rss_with_relation_with_relation_name.relation_type.create(name='test', inverted_name='inverted test')
         rss_without_relation_with_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_name="test_name")
-        rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst)
+        rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b)
+        rss_with_relation_without_relation_name.relation_type.create(name='test', inverted_name='inverted test')
         rss_without_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b)
-        inverted_rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, relation_type=rsst, inverted_relation=True)
+        inverted_rss_with_relation_without_relation_name = RelationShowShow.objects.create(entity_a=show_a, entity_b=show_b, inverted_relation=True)
+        inverted_rss_with_relation_without_relation_name.relation_type.create(name='test', inverted_name='inverted test')
         rss_with_relation_with_relation_name.save()
         rss_without_relation_with_relation_name.save()
         rss_with_relation_without_relation_name.save()
@@ -120,9 +121,13 @@ class RelationShowShowTest(TestCase):
         self.assertEquals(rss.entity_a.name, 'show_a')
         self.assertEquals(rss.entity_b.name, 'show_b')
 
-    def test_relation_type_name(self):
+    def test_relation_type_relation_name(self):
         rss = RelationShowShow.objects.get(id=1)
-        self.assertEquals(rss.relation_type.name, 'test')
+        self.assertEquals(rss.display_relation_name(), 'test_name')
+
+    def test_relation_type_name(self):
+        rss = RelationShowShow.objects.get(id=3)
+        self.assertEquals(rss.display_relation_name(), 'test')
 
     def test_relation_name_with_relation_with_name(self):
         rss = RelationShowShow.objects.get(id=1)
@@ -143,3 +148,27 @@ class RelationShowShowTest(TestCase):
     def test_inverted_relation_name_with_relation_without_name(self):
         rss = RelationShowShow.objects.get(id=5)
         self.assertEquals(str(rss), 'show_b <inverted test> show_a')
+
+
+class RelationProductionOrganityTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        char = EntityCharacter.objects.create(name="character")
+        char.save()
+        production = EntityProduction.objects.create(name='production')
+        production.save()
+        organity = EntityOrganity.objects.create(name='organity')
+        organity.save()
+        rel = RelationProductionOrganity.objects.create(entity_a=production, entity_b=organity, context_of_character=char)
+        rel.save
+        rel = RelationProductionOrganity.objects.create(entity_a=production, entity_b=organity, context_of_character=char, context_of_character_str="character_str")
+        rel.save
+
+    def test_display_context_of_character(self):
+        rel = RelationProductionOrganity.objects.get(id=1)
+        self.assertEquals(rel.display_context_of_character(), "character")
+
+    def test_display_context_of_character(self):
+        rel = RelationProductionOrganity.objects.get(id=2)
+        self.assertEquals(rel.display_context_of_character(), "character_str")

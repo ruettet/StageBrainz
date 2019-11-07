@@ -14,6 +14,7 @@
         Based on work:
         {% for relation in entityproduction.relationproductionwork_set.all %}
             <a href="{% url 'works-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+            ({{relation.relation_type.all|join:","}})
             <a href="{% url 'production_work_update' relation.pk %}">[edit]</a>
             <a href="{% url 'production_work_delete' relation.pk %}">[delete]</a>
         {% endfor %}
@@ -22,6 +23,7 @@
         Genre:
         {% for relation in entityproduction.relationproductiongenre_set.all %}
             {{relation.entity_b.name}}
+            ({{relation.relation_type.all|join:","}})
             <a href="{% url 'production_genre_update' relation.pk %}">[edit]</a>
             <a href="{% url 'production_genre_delete' relation.pk %}">[delete]</a>
         {% endfor %}
@@ -38,7 +40,7 @@
                         <a href="{% url 'organities-detail' relation.entity_b.pk %}">
                             {{relation.entity_b.name}}
                         </a>
-                        {% if relation.context_of_character.name %}({{relation.context_of_character.name}}){% endif %}
+                        {% if relation.context_of_character.name %} ({{relation.display_context_of_character}}){% endif %}
                         {% if perms.catalog.can_change_relation_production_organity %}[<a href="{% url 'production_organity_update' relation.pk %}">edit</a>]{% endif %}
                         {% if perms.catalog.can_delete_relation_production_organity %}[<a href="{% url 'production_organity_delete' relation.pk %}">delete</a>]{% endif %}
                     </li>
@@ -55,8 +57,12 @@
                         <a href="{% url 'shows-detail' relation.entity_a.pk %}">
                             {{relation.entity_a.when_date}}{% if relation.entity_a.when_time %}, {{relation.entity_a.when_time}}{% endif %}
                         </a> in
-                        {% for relation in relation.entity_a.relationshoworganity_set.all %}
-                            {% if relation.relation_type.name == "Was held in" %}<a href="{% url 'organities-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>{% endif %}
+                        {% for rel in relation.entity_a.relationshoworganity_set.all %}
+                            {% for entity in rel.relation_type.all %}
+                                {% if entity.name == 'Was held in' %}
+                                    <a href="{% url 'organities-detail' rel.entity_b.pk %}">{{rel.entity_b.name}}</a>
+                                {% endif %}
+                            {% endfor %}
                         {% endfor %},
                         {{relation.entity_a.when_date}}{% if relation.entity_a.when_time %}, {{relation.entity_a.when_time}}{% endif %}
                         ({{relation.entity_a.entity_type.all|join:","}})
@@ -75,7 +81,7 @@
         <p>
             Related productions:
             {% for relation in entityproduction.productiona.all %}
-                <a href="{% url 'productions-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a> ({{relation.relation_type}})
+                <a href="{% url 'productions-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a> ({{relation.relation_type.all|join:","}})
                 <a href="{% url 'production_production_update' relation.pk %}">[edit]</a>
                 <a href="{% url 'production_production_delete' relation.pk %}">[delete]</a>
             {% endfor %}

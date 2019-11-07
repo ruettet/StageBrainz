@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Organity Alias: {{ entityorganityalias.name }}</h1>
+
+    <p>Name: {{ entityorganity.name }}</p>
+    <p>Period: {{ entityorganity.start_date }} -- {{ entityorganity.end_date }}</p>
+    <p>Organity Alias type: {{ entityorganity.entity_type.all|join:"," }}</p>
+
+
+
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Available edit actions</h4>
+        <ul>
+            {% if perms.catalog.can_edit_entity_organity_alias %}<li><a href="{% url 'organityalias_update' entityorganityalias.id %}">Update this organity alias</a></li>{% endif %}
+            {% if perms.catalog.can_delete_entity_organity_alias %}<li><a href="{% url 'organityalias_delete' entityorganityalias.id %}">Delete this organity alias</a></li>{% endif %}
+        </ul>
+    </div>
+{% endblock %}
