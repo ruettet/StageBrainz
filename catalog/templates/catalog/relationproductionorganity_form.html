@@ -1,5 +1,7 @@
 {% extends "base_generic.html" %}
 
+{% load static %}
+
 {% block content %}
 <h2>Relate production to a new organity</h2>
   {% if perms.catalog.can_add_entity_organity %}
@@ -15,4 +17,11 @@
     </table>
     <input type="submit" value="Submit">
   </form>
+{% endblock %}
+
+
+{% block footer %}
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+
+{{ form.media }}
 {% endblock %}

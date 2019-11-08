@@ -3,6 +3,9 @@ from . import views
 
 from django.views.generic import TemplateView
 
+from .views import EntityOrganityAutocomplete, EntityProductionAutocomplete
+from .models import EntityOrganity, EntityProduction
+
 urlpatterns = [
     path('about/', TemplateView.as_view(template_name="about.html"), name='about'),
     path('data_input/', TemplateView.as_view(template_name="datainput.html"), name='datainput'),
@@ -271,4 +274,10 @@ urlpatterns += [
     path('url_url/create/<int:urlid>', views.RelationUrlUrlCreate.as_view(), name='url_url_create'),
     path('url_url/<int:pk>/update/', views.RelationUrlUrlUpdate.as_view(), name='url_url_update'),
     path('url_url<int:pk>/delete/', views.RelationUrlUrlDelete.as_view(), name='url_url_delete'),
+]
+
+# autocomplete
+urlpatterns += [
+    path('organity-autocomplete/', EntityOrganityAutocomplete.as_view(model=EntityOrganity), name='organity_autocomplete'),
+    path('production-autocomplete/', EntityProductionAutocomplete.as_view(model=EntityProduction), name='production_autocomplete'),
 ]
