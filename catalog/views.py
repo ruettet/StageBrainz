@@ -3,6 +3,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import ugettext_lazy as _
+from django import forms
 
 from catalog.models import EntityOrganity, EntityOrganityAlias, EntityProduction, EntityShow, EntityWork, EntityCharacter, EntityGenre, EntityUrl
 from catalog.models import \
@@ -13,6 +14,32 @@ from catalog.models import \
     RelationCharacterCharacter, RelationCharacterGenre, RelationCharacterUrl, \
     RelationGenreGenre, RelationGenreUrl, \
     RelationUrlUrl
+
+from dal import autocomplete
+
+
+class EntityOrganityAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+
+        qs = EntityOrganity.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+
+        return qs
+
+
+class EntityProductionAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+
+        qs = EntityProduction.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+
+        return qs
 
 
 # Create your views here.
@@ -237,9 +264,19 @@ class EntityUrlDelete(DeleteView):
 
 # Relations
 # Organity to Organity
+class RelationOrganityOrganityForm(forms.ModelForm):
+    class Meta:
+        model = RelationOrganityOrganity
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date', 'highlighted_relation', ]
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(url='organity_autocomplete'),
+            'entity_b': autocomplete.ModelSelect2(url='organity_autocomplete')
+        }
+
+
 class RelationOrganityOrganityCreate(CreateView):
+    form_class = RelationOrganityOrganityForm
     model = RelationOrganityOrganity
-    fields = '__all__'
 
     def get_initial(self):
         organity = get_object_or_404(EntityOrganity, pk=self.kwargs.get("organityid"))
@@ -252,8 +289,8 @@ class RelationOrganityOrganityCreate(CreateView):
 
 
 class RelationOrganityOrganityUpdate(UpdateView):
+    form_class = RelationOrganityOrganityForm
     model = RelationOrganityOrganity
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationOrganityOrganity, pk=self.kwargs.get("pk"))
@@ -269,9 +306,19 @@ class RelationOrganityOrganityDelete(DeleteView):
 
 
 # Organity to Production
+class RelationProductionOrganityForm(forms.ModelForm):
+    class Meta:
+        model = RelationProductionOrganity
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date', 'context_of_character', 'context_of_character_str', 'highlighted_relation', ]
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(url='production_autocomplete'),
+            'entity_b': autocomplete.ModelSelect2(url='organity_autocomplete')
+        }
+
+
 class RelationProductionOrganityCreate(CreateView):
+    form_class = RelationProductionOrganityForm
     model = RelationProductionOrganity
-    fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'context_of_character', 'context_of_character_str', 'highlighted_relation', 'begin_date', 'end_date']
 
     def get_initial(self):
         production = get_object_or_404(EntityProduction, pk=self.kwargs.get("productionid"))
@@ -284,8 +331,8 @@ class RelationProductionOrganityCreate(CreateView):
 
 
 class RelationProductionOrganityUpdate(UpdateView):
+    form_class = RelationProductionOrganityForm
     model = RelationProductionOrganity
-    fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'context_of_character', 'context_of_character_str', 'highlighted_relation', 'begin_date', 'end_date']
 
     def get_success_url(self):
         relation = get_object_or_404(RelationProductionOrganity, pk=self.kwargs.get("pk"))
