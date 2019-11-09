@@ -5,9 +5,11 @@ from django.views.generic import TemplateView
 
 from .views import EntityOrganityAutocomplete, EntityProductionAutocomplete, EntityCharacterAutocomplete, \
     RelationProductionOrganityTypeAutocomplete, EntityShowAutocomplete, RelationOrganityOrganityTypeAutocomplete, \
-    RelationShowOrganityTypeAutocomplete
+    RelationShowOrganityTypeAutocomplete, EntityGenreAutocomplete, EntityWorkAutocomplete, EntityUrlAutocomplete, \
+    RelationOrganityWorkTypeAutocomplete, RelationOrganityCharacterTypeAutocomplete
 from .models import EntityOrganity, EntityProduction, EntityCharacter, RelationProductionOrganityType, EntityShow, \
-    RelationOrganityOrganityType, RelationShowOrganityType
+    RelationOrganityOrganityType, RelationShowOrganityType, EntityUrl, EntityGenre, EntityWork, \
+    RelationOrganityWorkType, RelationOrganityCharacterType
 
 urlpatterns = [
     path('about/', TemplateView.as_view(template_name="about.html"), name='about'),
@@ -279,13 +281,17 @@ urlpatterns += [
     path('url_url<int:pk>/delete/', views.RelationUrlUrlDelete.as_view(), name='url_url_delete'),
 ]
 
-# autocomplete
 urlpatterns += [
     path('organity-autocomplete/', EntityOrganityAutocomplete.as_view(model=EntityOrganity, create_field='name'), name='organity_autocomplete'),
     path('production-autocomplete/', EntityProductionAutocomplete.as_view(model=EntityProduction, create_field='name'), name='production_autocomplete'),
     path('character-autocomplete/', EntityCharacterAutocomplete.as_view(model=EntityCharacter, create_field='name'), name='character_autocomplete'),
     path('show-autocomplete/', EntityShowAutocomplete.as_view(model=EntityShow, create_field='name'), name='show_autocomplete'),
+    path('work-autocomplete/', EntityWorkAutocomplete.as_view(model=EntityWork, create_field='name'), name='work_autocomplete'),
+    path('genre-autocomplete/', EntityGenreAutocomplete.as_view(model=EntityGenre), name='genre_autocomplete'),
+    path('url-autocomplete/', EntityUrlAutocomplete.as_view(model=EntityUrl, create_field='name'), name='url_autocomplete'),
     path('relationorganityorganitytype-autocomplete/', RelationOrganityOrganityTypeAutocomplete.as_view(model=RelationOrganityOrganityType), name='relationorganityorganitytype_autocomplete'),
-    path('relationshoworganitytype-autocomplete/', RelationShowOrganityTypeAutocomplete.as_view(model=RelationShowOrganityType), name='relationshoworganitytype_autocomplete'),
     path('relationproductionorganitytype-autocomplete/', RelationProductionOrganityTypeAutocomplete.as_view(model=RelationProductionOrganityType), name='relationproductionorganitytype_autocomplete'),
+    path('relationshoworganitytype-autocomplete/', RelationShowOrganityTypeAutocomplete.as_view(model=RelationShowOrganityType), name='relationshoworganitytype_autocomplete'),
+    path('relationorganityworktype-autocomplete/', RelationOrganityWorkTypeAutocomplete.as_view(model=RelationOrganityWorkType), name='relationorganityworktype_autocomplete'),
+    path('relationorganitycharactertype-autocomplete/', RelationOrganityCharacterTypeAutocomplete.as_view(model=RelationOrganityCharacterType), name='relationorganitycharactertype_autocomplete'),
 ]

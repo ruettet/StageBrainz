@@ -4,17 +4,24 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django import forms
 
-from catalog.models import EntityOrganity, EntityOrganityAlias, EntityProduction, EntityShow, EntityWork, EntityCharacter, EntityGenre, EntityUrl
-from catalog.models import \
-    RelationOrganityOrganity, RelationOrganityCharacter, RelationOrganityGenre, RelationProductionOrganity, RelationShowOrganity, RelationOrganityUrl, RelationOrganityWork, \
-    RelationProductionProduction, RelationShowProduction, RelationProductionGenre, RelationProductionWork, RelationProductionCharacter, RelationProductionUrl, \
+from catalog.models import EntityOrganity, EntityOrganityAlias, EntityProduction, EntityShow, EntityWork, \
+    EntityCharacter, EntityGenre, EntityUrl, RelationProductionProductionType, RelationShowProductionType, \
+    RelationOrganityOrganity, RelationOrganityCharacter, RelationOrganityGenre, RelationProductionOrganity, \
+    RelationShowOrganity, RelationOrganityUrl, RelationOrganityWork, \
+    RelationProductionProduction, RelationShowProduction, RelationProductionGenre, RelationProductionWork, \
+    RelationProductionCharacter, RelationProductionUrl, \
     RelationShowShow, RelationShowCharacter, RelationShowGenre, RelationShowUrl, RelationShowWork, \
     RelationWorkWork, RelationWorkCharacter, RelationWorkGenre, RelationWorkUrl, \
     RelationCharacterCharacter, RelationCharacterGenre, RelationCharacterUrl, \
     RelationGenreGenre, RelationGenreUrl, \
-    RelationUrlUrl
-
-from catalog.models import RelationOrganityOrganityType, RelationProductionOrganityType, RelationShowOrganityType
+    RelationUrlUrl, \
+    RelationOrganityOrganityType, RelationProductionOrganityType, RelationShowOrganityType, RelationOrganityWorkType, \
+    RelationOrganityCharacterType, RelationOrganityGenreType, RelationProductionWorkType, \
+    RelationProductionCharacterType, RelationProductionGenreType, RelationProductionUrlType, RelationShowShowType, \
+    RelationShowWorkType, RelationShowCharacterType, RelationShowGenreType, RelationShowUrlType, RelationWorkWorkType, \
+    RelationWorkCharacterType, RelationWorkGenreType, RelationWorkUrlType, RelationCharacterCharacterType, \
+    RelationCharacterGenreType, RelationCharacterUrlType, RelationGenreGenreType, RelationGenreUrlType, \
+    RelationUrlUrlType
 
 from dal import autocomplete
 
@@ -59,6 +66,22 @@ class EntityWorkAutocomplete(autocomplete.Select2QuerySetView):
         return qs
 
 
+class EntityGenreAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityGenre.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityUrlAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityUrl.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
 class RelationOrganityOrganityTypeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = RelationOrganityOrganityType.objects.all()
@@ -78,6 +101,214 @@ class RelationProductionOrganityTypeAutocomplete(autocomplete.Select2QuerySetVie
 class RelationShowOrganityTypeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = RelationShowOrganityType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationOrganityWorkTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationOrganityWorkType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationOrganityCharacterTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationOrganityCharacterType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationOrganityGenreTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationOrganityGenreType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationOrganityUrlTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationOrganityGenreType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationProductionProductionTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationProductionProductionType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationProductionShowTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationShowProductionType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationProductionWorkTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationProductionWorkType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationShowProductionTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationShowProductionType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationProductionCharacterTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationProductionCharacterType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationProductionGenreTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationProductionGenreType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationProductionUrlTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationProductionUrlType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationShowShowTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationShowShowType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationShowWorkTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationShowWorkType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationShowCharacterTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationShowCharacterType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationShowGenreTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationShowGenreType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationShowUrlTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationShowUrlType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationWorkWorkTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationWorkWorkType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationWorkCharacterTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationWorkCharacterType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationWorkGenreTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationWorkGenreType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationWorkUrlTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationWorkUrlType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationCharacterCharacterTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationCharacterCharacterType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationCharacterGenreTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationCharacterGenreType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationCharacterUrlTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationCharacterUrlType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationGenreGenreTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationGenreGenreType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationGenreUrlTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationGenreUrlType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationUrlUrlTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationUrlUrlType.objects.all()
         if self.q:
             qs = qs.filter(name__icontains=self.q)
         return qs
@@ -109,6 +340,7 @@ def index(request):
 # Organities
 class EntityOrganityListView(generic.ListView):
     model = EntityOrganity
+    paginate_by = 10
 
 
 class EntityOrganityDetailView(generic.DetailView):
@@ -162,6 +394,7 @@ class EntityOrganityAliasDelete(DeleteView):
 # Productions
 class EntityProductionListView(generic.ListView):
     model = EntityProduction
+    paginate_by = 10
 
 
 class EntityProductionDetailView(generic.DetailView):
@@ -186,6 +419,7 @@ class EntityProductionDelete(DeleteView):
 # Shows
 class EntityShowListView(generic.ListView):
     model = EntityShow
+    paginate_by = 10
 
 
 class EntityShowDetailView(generic.DetailView):
@@ -210,6 +444,7 @@ class EntityShowDelete(DeleteView):
 # Works
 class EntityWorkListView(generic.ListView):
     model = EntityWork
+    paginate_by = 10
 
 
 class EntityWorkDetailView(generic.DetailView):
@@ -234,6 +469,7 @@ class EntityWorkDelete(DeleteView):
 # Characters
 class EntityCharacterListView(generic.ListView):
     model = EntityCharacter
+    paginate_by = 10
 
 
 class EntityCharacterDetailView(generic.DetailView):
@@ -258,6 +494,7 @@ class EntityCharacterDelete(DeleteView):
 # Genres
 class EntityGenreListView(generic.ListView):
     model = EntityGenre
+    paginate_by = 10
 
 
 class EntityGenreDetailView(generic.DetailView):
@@ -282,6 +519,7 @@ class EntityGenreDelete(DeleteView):
 # Urls
 class EntityUrlListView(generic.ListView):
     model = EntityUrl
+    paginate_by = 10
 
 
 class EntityUrlDetailView(generic.DetailView):
@@ -333,7 +571,9 @@ class RelationOrganityOrganityForm(forms.ModelForm):
                     'data-minimum-input-length': 3,
                 },
             ),
-            'relation_type': forms.CheckboxSelectMultiple(),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationorganityorganitytype_autocomplete'
+            ),
         }
 
 
@@ -448,7 +688,17 @@ class RelationProductionOrganityDelete(DeleteView):
 class RelationShowOrganityForm(forms.ModelForm):
     class Meta:
         model = RelationShowOrganity
-        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', ]
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'context_of_character', 'context_of_character_str']
+        labels = {
+            'entity_a': 'Show',
+            'entity_a_credited_as': 'Show credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Organity',
+            'entity_b_credited_as': 'Organity credited as',
+            'context_of_character': 'Role',
+            'context_of_character_str': 'Role credited as',
+        }
         widgets = {
             'entity_a': autocomplete.ModelSelect2(
                 url='show_autocomplete',
@@ -464,7 +714,16 @@ class RelationShowOrganityForm(forms.ModelForm):
                     'data-minimum-input-length': 3,
                 },
             ),
-            'relation_type': forms.CheckboxSelectMultiple(),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationshoworganitytype_autocomplete'
+            ),
+            'context_of_character': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                }
+            )
         }
 
 
@@ -483,8 +742,8 @@ class RelationShowOrganityCreate(CreateView):
 
 
 class RelationShowOrganityUpdate(UpdateView):
+    form_class = RelationShowOrganityForm
     model = RelationShowOrganity
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationShowProduction, pk=self.kwargs.get("pk"))
@@ -500,9 +759,42 @@ class RelationShowOrganityDelete(DeleteView):
 
 
 # Organity to work
+class RelationWorkOrganityForm(forms.ModelForm):
+    class Meta:
+        model = RelationOrganityWork
+        fields = ['entity_b', 'entity_b_credited_as', 'relation_type', 'relation_name', 'entity_a', 'entity_a_credited_as',]
+        labels = {
+            'entity_a': 'Organity',
+            'entity_a_credited_as': 'Organity credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Work',
+            'entity_b_credited_as': 'Work credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='organity_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationorganityworktype_autocomplete'
+            ),
+        }
+
+
 class RelationWorkOrganityCreate(CreateView):
+    form_class = RelationWorkOrganityForm
     model = RelationOrganityWork
-    fields = '__all__'
 
     def get_initial(self):
         work = get_object_or_404(EntityWork, pk=self.kwargs.get("workid"))
@@ -515,8 +807,8 @@ class RelationWorkOrganityCreate(CreateView):
 
 
 class RelationWorkOrganityUpdate(UpdateView):
+    form_class = RelationWorkOrganityForm
     model = RelationOrganityWork
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationOrganityWork, pk=self.kwargs.get("pk"))
@@ -532,9 +824,44 @@ class RelationWorkOrganityDelete(DeleteView):
 
 
 # Organity to character
+class RelationOrganityCharacterForm(forms.ModelForm):
+    class Meta:
+        model = RelationOrganityCharacter
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date',]
+        labels = {
+            'entity_a': 'Organity',
+            'entity_a_credited_as': 'Organity credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Character',
+            'entity_b_credited_as': 'Character credited as',
+            'begin_date': 'Start date',
+            'end_date': 'End date',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='organity_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationorganitycharactertype_autocomplete'
+            ),
+        }
+
+
 class RelationOrganityCharacterCreate(CreateView):
+    form_class = RelationOrganityCharacterForm
     model = RelationOrganityCharacter
-    fields = '__all__'
 
     def get_initial(self):
         organity = get_object_or_404(EntityOrganity, pk=self.kwargs.get("organityid"))
@@ -547,8 +874,8 @@ class RelationOrganityCharacterCreate(CreateView):
 
 
 class RelationOrganityCharacterUpdate(UpdateView):
+    form_class = RelationOrganityCharacterForm
     model = RelationOrganityCharacter
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationOrganityCharacter, pk=self.kwargs.get("pk"))
@@ -564,9 +891,42 @@ class RelationOrganityCharacterDelete(DeleteView):
 
 
 # Organity to genre
+class RelationOrganityGenreForm(forms.ModelForm):
+    class Meta:
+        model = RelationOrganityGenre
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Organity',
+            'entity_a_credited_as': 'Organity credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Genre',
+            'entity_b_credited_as': 'Genre credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='organity_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='genre_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationorganitygenretype_autocomplete'
+            ),
+        }
+
+
 class RelationOrganityGenreCreate(CreateView):
+    form_class = RelationOrganityGenreForm
     model = RelationOrganityGenre
-    fields = '__all__'
 
     def get_initial(self):
         organity = get_object_or_404(EntityOrganity, pk=self.kwargs.get("organityid"))
@@ -579,8 +939,8 @@ class RelationOrganityGenreCreate(CreateView):
 
 
 class RelationOrganityGenreUpdate(UpdateView):
+    form_class = RelationOrganityGenreForm
     model = RelationOrganityGenre
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationOrganityGenre, pk=self.kwargs.get("pk"))
@@ -596,9 +956,35 @@ class RelationOrganityGenreDelete(DeleteView):
 
 
 # Organity to url
+class RelationOrganityUrlForm(forms.ModelForm):
+    class Meta:
+        model = RelationOrganityUrl
+        fields = ['entity_a', 'entity_b',]
+        labels = {
+            'entity_a': 'Organity',
+            'entity_b': 'Url',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='organity_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='url_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+        }
+
+
 class RelationOrganityUrlCreate(CreateView):
+    form_class = RelationOrganityUrlForm
     model = RelationOrganityUrl
-    fields = '__all__'
 
     def get_initial(self):
         organity = get_object_or_404(EntityOrganity, pk=self.kwargs.get("organityid"))
@@ -611,8 +997,8 @@ class RelationOrganityUrlCreate(CreateView):
 
 
 class RelationOrganityUrlUpdate(UpdateView):
+    form_class = RelationOrganityUrlForm
     model = RelationOrganityUrl
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationOrganityUrl, pk=self.kwargs.get("pk"))
@@ -628,9 +1014,42 @@ class RelationOrganityUrlDelete(DeleteView):
 
 
 # Production to production
+class RelationProductionProductionForm(forms.ModelForm):
+    class Meta:
+        model = RelationProductionProduction
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Production (from)',
+            'entity_a_credited_as': 'Production (from) credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Production (to)',
+            'entity_b_credited_as': 'Production (to) credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='production_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='production_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationproductionproductiontype_autocomplete'
+            ),
+        }
+
+
 class RelationProductionProductionCreate(CreateView):
+    form_class = RelationProductionProductionForm
     model = RelationProductionProduction
-    fields = '__all__'
 
     def get_initial(self):
         production = get_object_or_404(EntityProduction, pk=self.kwargs.get("productionid"))
@@ -643,8 +1062,8 @@ class RelationProductionProductionCreate(CreateView):
 
 
 class RelationProductionProductionUpdate(UpdateView):
+    form_class = RelationProductionProductionForm
     model = RelationProductionProduction
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationProductionProduction, pk=self.kwargs.get("pk"))
@@ -660,9 +1079,42 @@ class RelationProductionProductionDelete(DeleteView):
 
 
 # Production to Show
+class RelationProductionShowForm(forms.ModelForm):
+    class Meta:
+        model = RelationShowProduction
+        fields = ['entity_b', 'entity_b_credited_as', 'relation_type', 'relation_name', 'entity_a', 'entity_a_credited_as',]
+        labels = {
+            'entity_a': 'Show',
+            'entity_a_credited_as': 'Show credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Production',
+            'entity_b_credited_as': 'Production credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='show_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='production_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationshowproductiontype_autocomplete'
+            ),
+        }
+
+
 class RelationProductionShowCreate(CreateView):
+    form_class = RelationProductionShowForm
     model = RelationShowProduction
-    fields = '__all__'
 
     def get_initial(self):
         production = get_object_or_404(EntityProduction, pk=self.kwargs.get("productionid"))
@@ -676,8 +1128,8 @@ class RelationProductionShowCreate(CreateView):
 
 
 class RelationProductionShowUpdate(UpdateView):
+    form_class = RelationProductionShowForm
     model = RelationShowProduction
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationShowProduction, pk=self.kwargs.get("pk"))
@@ -693,9 +1145,42 @@ class RelationProductionShowDelete(DeleteView):
 
 
 # Production to work
+class RelationProductionWorkForm(forms.ModelForm):
+    class Meta:
+        model = RelationProductionWork
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Production',
+            'entity_a_credited_as': 'Production credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Work',
+            'entity_b_credited_as': 'Work credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='production_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationproductionworktype_autocomplete'
+            ),
+        }
+
+
 class RelationProductionWorkCreate(CreateView):
+    form_class = RelationProductionWorkForm
     model = RelationProductionWork
-    fields = '__all__'
 
     def get_initial(self):
         production = get_object_or_404(EntityProduction, pk=self.kwargs.get("productionid"))
@@ -708,8 +1193,8 @@ class RelationProductionWorkCreate(CreateView):
 
 
 class RelationProductionWorkUpdate(UpdateView):
+    form_class = RelationProductionWorkForm
     model = RelationProductionWork
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationProductionWork, pk=self.kwargs.get("pk"))
@@ -725,9 +1210,42 @@ class RelationProductionWorkDelete(DeleteView):
 
 
 # Production to character
+class RelationProductionCharacterForm(forms.ModelForm):
+    class Meta:
+        model = RelationProductionCharacter
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Production',
+            'entity_a_credited_as': 'Production credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Character',
+            'entity_b_credited_as': 'Character credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='production_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationproductioncharactertype_autocomplete'
+            ),
+        }
+
+
 class RelationProductionCharacterCreate(CreateView):
+    form_class = RelationProductionCharacterForm
     model = RelationProductionCharacter
-    fields = '__all__'
 
     def get_initial(self):
         production = get_object_or_404(EntityProduction, pk=self.kwargs.get("productionid"))
@@ -740,8 +1258,8 @@ class RelationProductionCharacterCreate(CreateView):
 
 
 class RelationProductionCharacterUpdate(UpdateView):
+    form_class = RelationProductionCharacterForm
     model = RelationProductionCharacter
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationProductionCharacter, pk=self.kwargs.get("pk"))
@@ -757,9 +1275,42 @@ class RelationProductionCharacterDelete(DeleteView):
 
 
 # Production to genre
+class RelationProductionGenreForm(forms.ModelForm):
+    class Meta:
+        model = RelationProductionGenre
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Production',
+            'entity_a_credited_as': 'Production credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Genre',
+            'entity_b_credited_as': 'Genre credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='production_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='genre_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationproductiongenretype_autocomplete'
+            ),
+        }
+
+
 class RelationProductionGenreCreate(CreateView):
+    form_class = RelationProductionGenreForm
     model = RelationProductionGenre
-    fields = '__all__'
 
     def get_initial(self):
         production = get_object_or_404(EntityProduction, pk=self.kwargs.get("productionid"))
@@ -772,8 +1323,8 @@ class RelationProductionGenreCreate(CreateView):
 
 
 class RelationProductionGenreUpdate(UpdateView):
+    form_class = RelationProductionGenreForm
     model = RelationProductionGenre
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationProductionGenre, pk=self.kwargs.get("pk"))
@@ -789,9 +1340,40 @@ class RelationProductionGenreDelete(DeleteView):
 
 
 # Production to url
+class RelationProductionUrlForm(forms.ModelForm):
+    class Meta:
+        model = RelationProductionUrl
+        fields = ['entity_a', 'entity_a_credited_as', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Production',
+            'entity_a_credited_as': 'Production credited as',
+            'entity_b': 'Url',
+            'entity_b_credited_as': 'Url credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='production_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='url_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationproductionurltype_autocomplete'
+            ),
+        }
+
+
 class RelationProductionUrlCreate(CreateView):
+    form_class = RelationProductionUrlForm
     model = RelationProductionUrl
-    fields = '__all__'
 
     def get_initial(self):
         production = get_object_or_404(EntityProduction, pk=self.kwargs.get("productionid"))
@@ -804,8 +1386,8 @@ class RelationProductionUrlCreate(CreateView):
 
 
 class RelationProductionUrlUpdate(UpdateView):
+    form_class = RelationProductionUrlForm
     model = RelationProductionUrl
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationProductionUrl, pk=self.kwargs.get("pk"))
@@ -821,9 +1403,42 @@ class RelationProductionUrlDelete(DeleteView):
 
 
 # Show to show
+class RelationShowShowForm(forms.ModelForm):
+    class Meta:
+        model = RelationShowShow
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Show (from)',
+            'entity_a_credited_as': 'Show (from) credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Show (to)',
+            'entity_b_credited_as': 'Show (to) credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='show_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='show_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationshowshowtype_autocomplete'
+            ),
+        }
+
+
 class RelationShowShowCreate(CreateView):
+    form_class = RelationShowShowForm
     model = RelationShowShow
-    fields = '__all__'
 
     def get_initial(self):
         show = get_object_or_404(EntityShow, pk=self.kwargs.get("showid"))
@@ -836,8 +1451,8 @@ class RelationShowShowCreate(CreateView):
 
 
 class RelationShowShowUpdate(UpdateView):
+    form_class = RelationShowShowForm
     model = RelationShowShow
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationShowShow, pk=self.kwargs.get("pk"))
@@ -853,9 +1468,42 @@ class RelationShowShowDelete(DeleteView):
 
 
 # Show to work
+class RelationShowWorkForm(forms.ModelForm):
+    class Meta:
+        model = RelationShowWork
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Show',
+            'entity_a_credited_as': 'Show credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Work',
+            'entity_b_credited_as': 'Work credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='show_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationshowworktype_autocomplete'
+            ),
+        }
+
+
 class RelationShowWorkCreate(CreateView):
+    form_class = RelationShowWorkForm
     model = RelationShowWork
-    fields = '__all__'
 
     def get_initial(self):
         show = get_object_or_404(EntityShow, pk=self.kwargs.get("showid"))
@@ -868,8 +1516,8 @@ class RelationShowWorkCreate(CreateView):
 
 
 class RelationShowWorkUpdate(UpdateView):
+    form_class = RelationShowWorkForm
     model = RelationShowWork
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationShowWork, pk=self.kwargs.get("pk"))
@@ -885,9 +1533,42 @@ class RelationShowWorkDelete(DeleteView):
 
 
 # Show to character
+class RelationShowCharacterForm(forms.ModelForm):
+    class Meta:
+        model = RelationShowCharacter
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Show',
+            'entity_a_credited_as': 'Show credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Character',
+            'entity_b_credited_as': 'Character credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='show_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationshowcharactertype_autocomplete'
+            ),
+        }
+
+
 class RelationShowCharacterCreate(CreateView):
+    form_class = RelationShowCharacterForm
     model = RelationShowCharacter
-    fields = '__all__'
 
     def get_initial(self):
         show = get_object_or_404(EntityShow, pk=self.kwargs.get("showid"))
@@ -900,8 +1581,8 @@ class RelationShowCharacterCreate(CreateView):
 
 
 class RelationShowCharacterUpdate(UpdateView):
+    form_class = RelationShowCharacterForm
     model = RelationShowCharacter
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationShowCharacter, pk=self.kwargs.get("pk"))
@@ -917,9 +1598,36 @@ class RelationShowCharacterDelete(DeleteView):
 
 
 # Show to genre
+class RelationShowGenreForm(forms.ModelForm):
+    class Meta:
+        model = RelationShowGenre
+        fields = ['entity_a', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Show',
+            'entity_b': 'Genre',
+            'entity_b_credited_as': 'Character credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='show_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='genre_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+        }
+
+
 class RelationShowGenreCreate(CreateView):
+    form_class = RelationShowGenreForm
     model = RelationShowGenre
-    fields = '__all__'
 
     def get_initial(self):
         show = get_object_or_404(EntityShow, pk=self.kwargs.get("showid"))
@@ -932,8 +1640,8 @@ class RelationShowGenreCreate(CreateView):
 
 
 class RelationShowGenreUpdate(UpdateView):
+    form_class = RelationShowGenreForm
     model = RelationShowGenre
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationShowGenre, pk=self.kwargs.get("pk"))
@@ -949,6 +1657,36 @@ class RelationShowGenreDelete(DeleteView):
 
 
 # Show to url
+class RelationShowUrlForm(forms.ModelForm):
+    class Meta:
+        model = RelationShowUrl
+        fields = ['entity_a', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Show',
+            'entity_b': 'Url',
+            'entity_b_credited_as': 'Url credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='show_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='url_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationshowurltype_autocomplete'
+            ),
+        }
+
+
 class RelationShowUrlCreate(CreateView):
     model = RelationShowUrl
     fields = '__all__'
@@ -981,9 +1719,42 @@ class RelationShowUrlDelete(DeleteView):
 
 
 # Work to work
+class RelationWorkWorkForm(forms.ModelForm):
+    class Meta:
+        model = RelationWorkWork
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Work (from)',
+            'entity_a_credited_as': 'Work (from) credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Work (to)',
+            'entity_b_credited_as': 'Work (to) credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationworkworktype_autocomplete'
+            ),
+        }
+
+
 class RelationWorkWorkCreate(CreateView):
+    form_class = RelationWorkWorkForm
     model = RelationWorkWork
-    fields = '__all__'
 
     def get_initial(self):
         work = get_object_or_404(EntityWork, pk=self.kwargs.get("workid"))
@@ -996,8 +1767,8 @@ class RelationWorkWorkCreate(CreateView):
 
 
 class RelationWorkWorkUpdate(UpdateView):
+    form_class = RelationWorkWorkForm
     model = RelationWorkWork
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationWorkWork, pk=self.kwargs.get("pk"))
@@ -1045,9 +1816,39 @@ class RelationWorkCharacterDelete(DeleteView):
 
 
 # Work to genre
+class RelationWorkGenreForm(forms.ModelForm):
+    class Meta:
+        model = RelationWorkGenre
+        fields = ['entity_a', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Work',
+            'entity_b': 'Genre',
+            'entity_b_credited_as': 'Genre credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationworkgenretype_autocomplete'
+            ),
+        }
+
+
 class RelationWorkGenreCreate(CreateView):
+    form_class = RelationWorkGenreForm
     model = RelationWorkGenre
-    fields = '__all__'
 
     def get_initial(self):
         work = get_object_or_404(EntityWork, pk=self.kwargs.get("workid"))
@@ -1060,8 +1861,8 @@ class RelationWorkGenreCreate(CreateView):
 
 
 class RelationWorkGenreUpdate(UpdateView):
+    form_class = RelationWorkGenreForm
     model = RelationWorkGenre
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationWorkGenre, pk=self.kwargs.get("pk"))
@@ -1077,9 +1878,39 @@ class RelationWorkGenreDelete(DeleteView):
 
 
 # work to url
+class RelationWorkUrlForm(forms.ModelForm):
+    class Meta:
+        model = RelationWorkUrl
+        fields = ['entity_a', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Work',
+            'entity_b': 'Url',
+            'entity_b_credited_as': 'Url credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='url_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationworkurltype_autocomplete'
+            ),
+        }
+
+
 class RelationWorkUrlCreate(CreateView):
+    form_class = RelationWorkUrlForm
     model = RelationWorkUrl
-    fields = '__all__'
 
     def get_initial(self):
         work = get_object_or_404(EntityWork, pk=self.kwargs.get("workid"))
@@ -1092,8 +1923,8 @@ class RelationWorkUrlCreate(CreateView):
 
 
 class RelationWorkUrlUpdate(UpdateView):
+    form_class = RelationWorkUrlForm
     model = RelationWorkUrl
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationWorkUrl, pk=self.kwargs.get("pk"))
@@ -1109,9 +1940,40 @@ class RelationWorkUrlDelete(DeleteView):
 
 
 # Character to character
+class RelationCharacterCharacterForm(forms.ModelForm):
+    class Meta:
+        model = RelationCharacterCharacter
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Character (from)',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Character (to)',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationcharactertype_autocomplete'
+            ),
+        }
+
+
 class RelationCharacterCharacterCreate(CreateView):
+    form_class = RelationCharacterCharacterForm
     model = RelationCharacterCharacter
-    fields = '__all__'
 
     def get_initial(self):
         character = get_object_or_404(EntityCharacter, pk=self.kwargs.get("characterid"))
@@ -1124,8 +1986,8 @@ class RelationCharacterCharacterCreate(CreateView):
 
 
 class RelationCharacterCharacterUpdate(UpdateView):
+    form_class = RelationCharacterCharacterForm
     model = RelationCharacterCharacter
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationCharacterCharacter, pk=self.kwargs.get("pk"))
@@ -1141,9 +2003,39 @@ class RelationCharacterCharacterDelete(DeleteView):
 
 
 # Character to genre
+class RelationCharacterGenreForm(forms.ModelForm):
+    class Meta:
+        model = RelationCharacterGenre
+        fields = ['entity_a', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Character',
+            'entity_b': 'Genre',
+            'entity_b_credited_as': 'Genre credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='work_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationcharactergenretype_autocomplete'
+            ),
+        }
+
+
 class RelationCharacterGenreCreate(CreateView):
+    form_class = RelationCharacterGenreForm
     model = RelationCharacterGenre
-    fields = '__all__'
 
     def get_initial(self):
         character = get_object_or_404(EntityCharacter, pk=self.kwargs.get("characterid"))
@@ -1156,8 +2048,8 @@ class RelationCharacterGenreCreate(CreateView):
 
 
 class RelationCharacterGenreUpdate(UpdateView):
+    form_class = RelationCharacterGenreForm
     model = RelationCharacterGenre
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationCharacterGenre, pk=self.kwargs.get("pk"))
@@ -1173,9 +2065,39 @@ class RelationCharacterGenreDelete(DeleteView):
 
 
 # Character to Url
+class RelationCharacterUrlForm(forms.ModelForm):
+    class Meta:
+        model = RelationCharacterUrl
+        fields = ['entity_a', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Character',
+            'entity_b': 'Url',
+            'entity_b_credited_as': 'Url credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='url_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationcharacterurltype_autocomplete'
+            ),
+        }
+
+
 class RelationCharacterUrlCreate(CreateView):
+    form_class = RelationCharacterUrlForm
     model = RelationCharacterUrl
-    fields = '__all__'
 
     def get_initial(self):
         character = get_object_or_404(EntityCharacter, pk=self.kwargs.get("characterid"))
@@ -1188,8 +2110,8 @@ class RelationCharacterUrlCreate(CreateView):
 
 
 class RelationCharacterUrlUpdate(UpdateView):
+    form_class = RelationCharacterUrlForm
     model = RelationCharacterUrl
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationCharacterUrl, pk=self.kwargs.get("pk"))
@@ -1205,9 +2127,40 @@ class RelationCharacterUrlDelete(DeleteView):
 
 
 # Genre to genre
+class RelationGenreGenreForm(forms.ModelForm):
+    class Meta:
+        model = RelationGenreGenre
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Genre (from)',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Genre (to)',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='genre_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='genre_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationgenregenretype_autocomplete'
+            ),
+        }
+
+
 class RelationGenreGenreCreate(CreateView):
+    form_class = RelationGenreGenreForm
     model = RelationGenreGenre
-    fields = '__all__'
 
     def get_initial(self):
         genre = get_object_or_404(EntityGenre, pk=self.kwargs.get("genreid"))
@@ -1220,8 +2173,8 @@ class RelationGenreGenreCreate(CreateView):
 
 
 class RelationGenreGenreUpdate(UpdateView):
+    form_class = RelationGenreGenreForm
     model = RelationGenreGenre
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationGenreGenre, pk=self.kwargs.get("pk"))
@@ -1237,9 +2190,39 @@ class RelationGenreGenreDelete(DeleteView):
 
 
 # Genre to url
+class RelationGenreUrlForm(forms.ModelForm):
+    class Meta:
+        model = RelationGenreUrl
+        fields = ['entity_a', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Genre',
+            'entity_b': 'Url',
+            'entity_b_credited_as': 'Url credited as',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='genre_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='url_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationgenreurltype_autocomplete'
+            ),
+        }
+
+
 class RelationGenreUrlCreate(CreateView):
+    form_class = RelationGenreUrlForm
     model = RelationGenreUrl
-    fields = '__all__'
 
     def get_initial(self):
         genre = get_object_or_404(EntityGenre, pk=self.kwargs.get("genreid"))
@@ -1252,8 +2235,8 @@ class RelationGenreUrlCreate(CreateView):
 
 
 class RelationGenreUrlUpdate(UpdateView):
+    form_class = RelationGenreUrlForm
     model = RelationGenreUrl
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationGenreUrl, pk=self.kwargs.get("pk"))
@@ -1269,9 +2252,40 @@ class RelationGenreUrlDelete(DeleteView):
 
 
 # Url to url
+class RelationUrlUrlForm(forms.ModelForm):
+    class Meta:
+        model = RelationUrlUrl
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as',]
+        labels = {
+            'entity_a': 'Url (from)',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Url (to)',
+        }
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='url_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='url_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationurlurltype_autocomplete'
+            ),
+        }
+
+
 class RelationUrlUrlCreate(CreateView):
+    form_class = RelationUrlUrlForm
     model = RelationUrlUrl
-    fields = '__all__'
 
     def get_initial(self):
         url = get_object_or_404(EntityUrl, pk=self.kwargs.get("urlid"))
@@ -1284,8 +2298,8 @@ class RelationUrlUrlCreate(CreateView):
 
 
 class RelationUrlUrlUpdate(UpdateView):
+    form_class = RelationUrlUrlForm
     model = RelationUrlUrl
-    fields = '__all__'
 
     def get_success_url(self):
         relation = get_object_or_404(RelationUrlUrl, pk=self.kwargs.get("pk"))
