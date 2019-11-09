@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy, reverse
-from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse_lazy
 from django import forms
 
 from catalog.models import EntityOrganity, EntityOrganityAlias, EntityProduction, EntityShow, EntityWork, EntityCharacter, EntityGenre, EntityUrl
@@ -15,30 +14,72 @@ from catalog.models import \
     RelationGenreGenre, RelationGenreUrl, \
     RelationUrlUrl
 
+from catalog.models import RelationOrganityOrganityType, RelationProductionOrganityType, RelationShowOrganityType
+
 from dal import autocomplete
 
 
 class EntityOrganityAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-
         qs = EntityOrganity.objects.all()
-
         if self.q:
             qs = qs.filter(name__icontains=self.q)
-
         return qs
 
 
 class EntityProductionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-
         qs = EntityProduction.objects.all()
-
         if self.q:
             qs = qs.filter(name__icontains=self.q)
+        return qs
 
+
+class EntityShowAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityShow.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityCharacterAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityCharacter.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityWorkAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityWork.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationOrganityOrganityTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationOrganityOrganityType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationProductionOrganityTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationProductionOrganityType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class RelationShowOrganityTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = RelationShowOrganityType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
         return qs
 
 
@@ -267,10 +308,32 @@ class EntityUrlDelete(DeleteView):
 class RelationOrganityOrganityForm(forms.ModelForm):
     class Meta:
         model = RelationOrganityOrganity
-        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date', 'highlighted_relation', ]
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date', ]
+        labels = {
+            'entity_a': 'Organity (from)',
+            'entity_a_credited_as': 'Organity (from) credited as',
+            'relation_type': "Relation type",
+            'entity_b': 'Organity (to)',
+            'entity_b_credited_as': 'Organity (to) credited as',
+            'begin_date': 'Relation start (YYYY-MM-DD)',
+            'end_date': 'Relation end (YYYY-MM-DD)',
+        }
         widgets = {
-            'entity_a': autocomplete.ModelSelect2(url='organity_autocomplete'),
-            'entity_b': autocomplete.ModelSelect2(url='organity_autocomplete')
+            'entity_a': autocomplete.ModelSelect2(
+                url='organity_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='organity_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': forms.CheckboxSelectMultiple(),
         }
 
 
@@ -310,9 +373,43 @@ class RelationProductionOrganityForm(forms.ModelForm):
     class Meta:
         model = RelationProductionOrganity
         fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date', 'context_of_character', 'context_of_character_str', 'highlighted_relation', ]
+        labels = {
+            'entity_a': 'Production',
+            'entity_a_credited_as': 'Production credited as',
+            'relation_type': 'Relation type',
+            'relation_name': 'Relation credited as',
+            'entity_b': 'Organity',
+            'entity_b_credited_as': 'Organity credited as',
+            'begin_date': 'Relation start (YYYY-MM-DD)',
+            'end_date': 'Relation end (YYYY-MM-DD)',
+            'context_of_character': 'Role',
+            'context_of_character_str': 'Role credited as',
+        }
         widgets = {
-            'entity_a': autocomplete.ModelSelect2(url='production_autocomplete'),
-            'entity_b': autocomplete.ModelSelect2(url='organity_autocomplete')
+            'entity_a': autocomplete.ModelSelect2(
+                url='production_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='organity_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': autocomplete.ModelSelect2Multiple(
+                url='relationproductionorganitytype_autocomplete'
+            ),
+            'context_of_character': autocomplete.ModelSelect2(
+                url='character_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                }
+            )
         }
 
 
@@ -348,9 +445,32 @@ class RelationProductionOrganityDelete(DeleteView):
 
 
 # Organity to show
+class RelationShowOrganityForm(forms.ModelForm):
+    class Meta:
+        model = RelationShowOrganity
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', ]
+        widgets = {
+            'entity_a': autocomplete.ModelSelect2(
+                url='show_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'entity_b': autocomplete.ModelSelect2(
+                url='organity_autocomplete',
+                attrs={
+                    'data-placeholder': 'Autocomplete ...',
+                    'data-minimum-input-length': 3,
+                },
+            ),
+            'relation_type': forms.CheckboxSelectMultiple(),
+        }
+
+
 class RelationShowOrganityCreate(CreateView):
+    form_class = RelationShowOrganityForm
     model = RelationShowOrganity
-    fields = '__all__'
 
     def get_initial(self):
         show = get_object_or_404(EntityShow, pk=self.kwargs.get("showid"))

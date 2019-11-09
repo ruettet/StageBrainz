@@ -84,11 +84,6 @@ class EntityProductionModelTest(TestCase):
         expected_label = 'production'
         self.assertEquals(expected_label, str(production))
 
-    def test_display_name_and_season(self):
-        production = EntityProduction.objects.get(id=1)
-        expected_label = 'production (2015-2016)'
-        self.assertEquals(expected_label, production.display_name_and_season())
-
     def test_get_absolute_url(self):
         production = EntityProduction.objects.get(id=1)
         self.assertEquals(production.get_absolute_url(), '/catalog/productions/1')
