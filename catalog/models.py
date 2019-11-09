@@ -200,12 +200,16 @@ class EntityGenreAliasType(EntityAliasType):
 
 
 class EntityUrl(Entity):
-    href = models.URLField(max_length=200, help_text='Enter the url')
+    name = models.URLField(max_length=200, help_text='Enter the url')
+    sort_name = None
     entity_type = models.ManyToManyField('EntityUrlType', blank=True)
 
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this show"""
         return reverse('url-detail', args=[str(self.id)])
+
+    class Meta:
+        ordering = ['name']
 
 
 class EntityUrlType(EntityType):
@@ -217,23 +221,23 @@ class Relation(models.Model):
     entity_a = None
     entity_b = None
     relation_type = None
-    entity_a_credited_as = models.CharField(max_length=200, help_text='If first entity was credited differently', blank=True, null=True)
-    entity_b_credited_as = models.CharField(max_length=200, help_text='If second entity was credited differently', blank=True, null=True)
-    relation_name = models.CharField(max_length=200, help_text='A name for the relation', blank=True, null=True)
+    entity_a_credited_as = models.CharField(max_length=200, blank=True, null=True)
+    entity_b_credited_as = models.CharField(max_length=200, blank=True, null=True)
+    relation_name = models.CharField(max_length=200, blank=True, null=True)
     begin_date = PartialDateField(blank=True, null=True, default=None)
     end_date = PartialDateField(blank=True, null=True, default=None)
     highlighted_relation = models.BooleanField(null=True, blank=True)
     inverted_relation = models.BooleanField(default=False)
     context_of_production = models.ForeignKey('EntityProduction', on_delete=models.PROTECT, related_name='%(class)s_context_production', null=True, blank=True)
-    context_of_production_str = models.CharField(max_length=200, help_text='If there is a context of a production for this relation', null=True, blank=True)
+    context_of_production_str = models.CharField(max_length=200, null=True, blank=True)
     context_of_show = models.ForeignKey('EntityShow', on_delete=models.PROTECT, related_name='%(class)s_context_show', null=True, blank=True)
-    context_of_show_str = models.CharField(max_length=200, help_text='If there is a context of a show for this relation', null=True, blank=True)
+    context_of_show_str = models.CharField(max_length=200, null=True, blank=True)
     context_of_work = models.ForeignKey('EntityWork', on_delete=models.PROTECT, related_name='%(class)s_context_work', null=True, blank=True)
-    context_of_work_str = models.CharField(max_length=200, help_text='If there is a context of a work for this relation', null=True, blank=True)
+    context_of_work_str = models.CharField(max_length=200, null=True, blank=True)
     context_of_character = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT, related_name='%(class)s_context_character', null=True, blank=True)
-    context_of_character_str = models.CharField(max_length=200, help_text='If there is a context of a character for this relation', null=True, blank=True)
+    context_of_character_str = models.CharField(max_length=200, null=True, blank=True)
     context_of_organity = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, related_name='%(class)s_context_organity', null=True, blank=True)
-    context_of_organity_str = models.CharField(max_length=200, help_text='If there is a context of an organity for this relation', null=True, blank=True)
+    context_of_organity_str = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         str_entity_a_name = self.display_entity_a_name()
@@ -360,7 +364,7 @@ class RelationProductionProductionType(RelationType):
 
 class RelationProductionOrganity(Relation):
     entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationProductionOrganityType')
 
     class Meta:
@@ -373,7 +377,7 @@ class RelationProductionOrganityType(RelationType):
 
 class RelationProductionWork(Relation):
     entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityWork', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationProductionWorkType')
 
 
@@ -383,7 +387,7 @@ class RelationProductionWorkType(RelationType):
 
 class RelationProductionCharacter(Relation):
     entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationProductionCharacterType')
 
 
@@ -393,7 +397,7 @@ class RelationProductionCharacterType(RelationType):
 
 class RelationProductionGenre(Relation):
     entity_a = models.ForeignKey('EntityProduction', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationProductionGenreType')
 
 
@@ -423,7 +427,7 @@ class RelationOrganityOrganityType(RelationType):
 
 class RelationOrganityWork(Relation):
     entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityWork', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationOrganityWorkType')
 
 
@@ -433,7 +437,7 @@ class RelationOrganityWorkType(RelationType):
 
 class RelationOrganityCharacter(Relation):
     entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationOrganityCharacterType')
 
 
@@ -443,7 +447,7 @@ class RelationOrganityCharacterType(RelationType):
 
 class RelationOrganityGenre(Relation):
     entity_a = models.ForeignKey('EntityOrganity', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationOrganityGenreType')
 
 
@@ -473,7 +477,7 @@ class RelationWorkWorkType(RelationType):
 
 class RelationWorkCharacter(Relation):
     entity_a = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationWorkCharacterType')
 
 
@@ -483,7 +487,7 @@ class RelationWorkCharacterType(RelationType):
 
 class RelationWorkGenre(Relation):
     entity_a = models.ForeignKey('EntityWork', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationWorkGenreType')
 
 
@@ -513,7 +517,7 @@ class RelationCharacterCharacterType(RelationType):
 
 class RelationCharacterGenre(Relation):
     entity_a = models.ForeignKey('EntityCharacter', on_delete=models.PROTECT)
-    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT)
+    entity_b = models.ForeignKey('EntityGenre', on_delete=models.PROTECT, blank=True, null=True)
     relation_type = models.ManyToManyField('RelationCharacterGenreType')
 
 

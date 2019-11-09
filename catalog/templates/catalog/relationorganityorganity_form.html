@@ -2,26 +2,11 @@
 {% load static %}
 
 {% block content %}
-<h2>Relate organity to a new organity</h2>
-  {% if perms.catalog.can_add_entity_organity %}
-    <p>- <a target="_blank" href="{% url 'organity_create' %}">Create organity</a></p>
-  {% else %}
-    <p>You are not allowed to create new organities.</p>
-  {% endif %}
 <h2>Relate organity to an existing organity</h2>
   <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_table }}
+    {{ form.as_p }}
     <input type="submit" value="Submit">
   </form>
-
-{% endblock %}
-
-{% block footer %}
-
-<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
-
-{{ form.media }}
-
 
 {% endblock %}

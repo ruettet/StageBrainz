@@ -3,8 +3,11 @@ from . import views
 
 from django.views.generic import TemplateView
 
-from .views import EntityOrganityAutocomplete, EntityProductionAutocomplete
-from .models import EntityOrganity, EntityProduction
+from .views import EntityOrganityAutocomplete, EntityProductionAutocomplete, EntityCharacterAutocomplete, \
+    RelationProductionOrganityTypeAutocomplete, EntityShowAutocomplete, RelationOrganityOrganityTypeAutocomplete, \
+    RelationShowOrganityTypeAutocomplete
+from .models import EntityOrganity, EntityProduction, EntityCharacter, RelationProductionOrganityType, EntityShow, \
+    RelationOrganityOrganityType, RelationShowOrganityType
 
 urlpatterns = [
     path('about/', TemplateView.as_view(template_name="about.html"), name='about'),
@@ -278,6 +281,11 @@ urlpatterns += [
 
 # autocomplete
 urlpatterns += [
-    path('organity-autocomplete/', EntityOrganityAutocomplete.as_view(model=EntityOrganity), name='organity_autocomplete'),
-    path('production-autocomplete/', EntityProductionAutocomplete.as_view(model=EntityProduction), name='production_autocomplete'),
+    path('organity-autocomplete/', EntityOrganityAutocomplete.as_view(model=EntityOrganity, create_field='name'), name='organity_autocomplete'),
+    path('production-autocomplete/', EntityProductionAutocomplete.as_view(model=EntityProduction, create_field='name'), name='production_autocomplete'),
+    path('character-autocomplete/', EntityCharacterAutocomplete.as_view(model=EntityCharacter, create_field='name'), name='character_autocomplete'),
+    path('show-autocomplete/', EntityShowAutocomplete.as_view(model=EntityShow, create_field='name'), name='show_autocomplete'),
+    path('relationorganityorganitytype-autocomplete/', RelationOrganityOrganityTypeAutocomplete.as_view(model=RelationOrganityOrganityType), name='relationorganityorganitytype_autocomplete'),
+    path('relationshoworganitytype-autocomplete/', RelationShowOrganityTypeAutocomplete.as_view(model=RelationShowOrganityType), name='relationshoworganitytype_autocomplete'),
+    path('relationproductionorganitytype-autocomplete/', RelationProductionOrganityTypeAutocomplete.as_view(model=RelationProductionOrganityType), name='relationproductionorganitytype_autocomplete'),
 ]
