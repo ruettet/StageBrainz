@@ -1,0 +1,506 @@
+[
+    {
+        "fields": {
+            "name": "Continued as"
+        },
+        "pk": "1",
+        "model": "catalog.RelationOrganityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Organised"
+        },
+        "pk": "2",
+        "model": "catalog.RelationOrganityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Substituted"
+        },
+        "pk": "3",
+        "model": "catalog.RelationOrganityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Was related to"
+        },
+        "pk": "4",
+        "model": "catalog.RelationOrganityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Was produced by"
+        },
+        "pk": "1",
+        "model": "catalog.RelationProductionOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Was co-produced by"
+        },
+        "pk": "2",
+        "model": "catalog.RelationProductionOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Was supported by"
+        },
+        "pk": "3",
+        "model": "catalog.RelationProductionOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Was held at"
+        },
+        "pk": "1",
+        "model": "catalog.RelationShowOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Was written by"
+        },
+        "pk": "1",
+        "model": "catalog.RelationOrganityWorkType"
+    },
+    {
+        "fields": {
+            "name": "Played"
+        },
+        "pk": "1",
+        "model": "catalog.RelationOrganityCharacterType"
+    },
+    {
+        "fields": {
+            "name": "Had as genre"
+        },
+        "pk": "1",
+        "model": "catalog.RelationOrganityGenreType"
+    },
+    {
+        "fields": {
+            "name": "Had as Url"
+        },
+        "pk": "1",
+        "model": "catalog.RelationOrganityUrlType"
+    },
+    {
+        "fields": {
+            "name": "Was a rerun of"
+        },
+        "pk": "1",
+        "model": "catalog.RelationProductionProductionType"
+    },
+    {
+        "fields": {
+            "name": "Referred to"
+        },
+        "pk": "2",
+        "model": "catalog.RelationProductionProductionType"
+    },
+    {
+        "fields": {
+            "name": "Was performed as"
+        },
+        "pk": "1",
+        "model": "catalog.RelationShowProductionType"
+    },
+    {
+        "fields": {
+            "name": "Was based on"
+        },
+        "pk": "1",
+        "model": "catalog.RelationProductionWorkType"
+    },
+    {
+        "fields": {
+            "name": "Had as character"
+        },
+        "pk": "1",
+        "model": "catalog.RelationProductionCharacterType"
+    },
+    {
+        "fields": {
+            "name": "Had as genre"
+        },
+        "pk": "1",
+        "model": "catalog.RelationProductionGenreType"
+    },
+    {
+        "fields": {
+            "name": "Had as Url"
+        },
+        "pk": "1",
+        "model": "catalog.RelationProductionUrlType"
+    },
+    {
+        "fields": {
+            "name": "Substituted"
+        },
+        "pk": "1",
+        "model": "catalog.RelationShowShowType"
+    },
+    {
+        "fields": {
+            "name": "Was a performance of"
+        },
+        "pk": "1",
+        "model": "catalog.RelationShowWorkType"
+    },
+    {
+        "fields": {
+            "name": "Had as character"
+        },
+        "pk": "1",
+        "model": "catalog.RelationShowCharacterType"
+    },
+    {
+        "fields": {
+            "name": "Had as genre"
+        },
+        "pk": "1",
+        "model": "catalog.RelationShowGenreType"
+    },
+    {
+        "fields": {
+            "name": "Had as Url"
+        },
+        "pk": "1",
+        "model": "catalog.RelationShowUrlType"
+    },
+    {
+        "fields": {
+            "name": "Referred to"
+        },
+        "pk": "1",
+        "model": "catalog.RelationWorkWorkType"
+    },
+    {
+        "fields": {
+            "name": "Had as character"
+        },
+        "pk": "1",
+        "model": "catalog.RelationWorkCharacterType"
+    },
+    {
+        "fields": {
+            "name": "Had as genre"
+        },
+        "pk": "1",
+        "model": "catalog.RelationWorkGenreType"
+    },
+    {
+        "fields": {
+            "name": "Had as Url"
+        },
+        "pk": "1",
+        "model": "catalog.RelationWorkUrlType"
+    },
+    {
+        "fields": {
+            "name": "Was related to"
+        },
+        "pk": "1",
+        "model": "catalog.RelationCharacterCharacterType"
+    },
+    {
+        "fields": {
+            "name": "Had as genre"
+        },
+        "pk": "1",
+        "model": "catalog.RelationCharacterGenreType"
+    },
+    {
+        "fields": {
+            "name": "Had as Url"
+        },
+        "pk": "1",
+        "model": "catalog.RelationCharacterUrlType"
+    },
+    {
+        "fields": {
+            "name": "Was the child of"
+        },
+        "pk": "1",
+        "model": "catalog.RelationGenreGenreType"
+    },
+    {
+        "fields": {
+            "name": "Was similar to"
+        },
+        "pk": "2",
+        "model": "catalog.RelationGenreGenreType"
+    },
+    {
+        "fields": {
+            "name": "Had as Url"
+        },
+        "pk": "1",
+        "model": "catalog.RelationGenreUrlType"
+    },
+    {
+        "fields": {
+            "name": "Had as Url"
+        },
+        "pk": "1",
+        "model": "catalog.RelationUrlUrlType"
+    },
+    {
+        "fields": {
+            "name": "Was archived at"
+        },
+        "pk": "2",
+        "model": "catalog.RelationUrlUrlType"
+    },
+    {
+        "fields": {
+            "name": "Person"
+        },
+        "pk": "1",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Venue"
+        },
+        "pk": "2",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Festival"
+        },
+        "pk": "3",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Organisation"
+        },
+        "pk": "4",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Collective"
+        },
+        "pk": "5",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Director"
+        },
+        "pk": "6",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Actor"
+        },
+        "pk": "7",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Choreographer"
+        },
+        "pk": "8",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Dancer"
+        },
+        "pk": "9",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Musician"
+        },
+        "pk": "10",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Composer"
+        },
+        "pk": "11",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Scenographer"
+        },
+        "pk": "12",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Technician"
+        },
+        "pk": "13",
+        "model": "catalog.EntityOrganityType"
+    },
+    {
+        "fields": {
+            "name": "Creation"
+        },
+        "pk": "1",
+        "model": "catalog.EntityProductionType"
+    },
+    {
+        "fields": {
+            "name": "Rerun"
+        },
+        "pk": "2",
+        "model": "catalog.EntityProductionType"
+    },
+    {
+        "fields": {
+            "name": "Adaptation"
+        },
+        "pk": "3",
+        "model": "catalog.EntityProductionType"
+    },
+    {
+        "fields": {
+            "name": "Premi\u00e8re"
+        },
+        "pk": "1",
+        "model": "catalog.EntityShowType"
+    },
+    {
+        "fields": {
+            "name": "Try-out"
+        },
+        "pk": "2",
+        "model": "catalog.EntityShowType"
+    },
+    {
+        "fields": {
+            "name": "Avant-premi\u00e8re"
+        },
+        "pk": "3",
+        "model": "catalog.EntityShowType"
+    },
+    {
+        "fields": {
+            "name": "Performance"
+        },
+        "pk": "4",
+        "model": "catalog.EntityShowType"
+    },
+    {
+        "fields": {
+            "name": "Theater text"
+        },
+        "pk": "1",
+        "model": "catalog.EntityWorkType"
+    },
+    {
+        "fields": {
+            "name": "Concept"
+        },
+        "pk": "2",
+        "model": "catalog.EntityWorkType"
+    },
+    {
+        "fields": {
+            "name": "Main character"
+        },
+        "pk": "1",
+        "model": "catalog.EntityCharacterType"
+    },
+    {
+        "fields": {
+            "name": "Character"
+        },
+        "pk": "2",
+        "model": "catalog.EntityCharacterType"
+    },
+    {
+        "fields": {
+            "name": "Genre"
+        },
+        "pk": "1",
+        "model": "catalog.EntityGenreType"
+    },
+    {
+        "fields": {
+            "name": "Official website"
+        },
+        "pk": "1",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "Fanpage"
+        },
+        "pk": "2",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "Facebook"
+        },
+        "pk": "3",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "Twitter"
+        },
+        "pk": "4",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "Instagram"
+        },
+        "pk": "5",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "IMDB"
+        },
+        "pk": "6",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "TVDB"
+        },
+        "pk": "7",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "Wikidata"
+        },
+        "pk": "8",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "VIAF"
+        },
+        "pk": "9",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "ISWC"
+        },
+        "pk": "10",
+        "model": "catalog.EntityUrlType"
+    },
+    {
+        "fields": {
+            "name": "Playbill.com"
+        },
+        "pk": "11",
+        "model": "catalog.EntityUrlType"
+    }
+]
