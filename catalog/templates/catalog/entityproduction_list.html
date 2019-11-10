@@ -6,7 +6,7 @@
   <ul>
     {% for production in entityproduction_list %}
       <li>
-        <a href="{{ production.get_absolute_url }}">{{ production.sort_name }}</a> ({{production.disambiguation}}, {{production.season}})
+        {% if production.sort_name %}{{ production.sort_name }}{% else %}No sort name provided{% endif %} (<a href="{{ production.get_absolute_url }}">{{production.name}}</a>{% if production.disambiguation %}, <i>{{production.disambiguation}}</i>{% endif %})
       </li>
     {% endfor %}
   </ul>
