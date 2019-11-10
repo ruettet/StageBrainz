@@ -59,7 +59,7 @@
                         </a> in
                         {% for rel in relation.entity_a.relationshoworganity_set.all %}
                             {% for entity in rel.relation_type.all %}
-                                {% if entity.name == 'Was held in' %}
+                                {% if entity.name == 'Was held at' %}
                                     <a href="{% url 'organities-detail' rel.entity_b.pk %}">{{rel.entity_b.name}}</a>
                                 {% endif %}
                             {% endfor %}
