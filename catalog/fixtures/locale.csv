@@ -1,0 +1,508 @@
+model,pk,abbreviation,name
+catalog.Locale,1,aar,Afar
+catalog.Locale,2,abk,Abkhazian
+catalog.Locale,3,ace,Achinese
+catalog.Locale,4,ach,Acoli
+catalog.Locale,5,ada,Adangme
+catalog.Locale,6,ady,Adyghe; Adygei
+catalog.Locale,7,afa,Afro-Asiatic languages
+catalog.Locale,8,afh,Afrihili
+catalog.Locale,9,afr,Afrikaans
+catalog.Locale,10,ain,Ainu
+catalog.Locale,11,aka,Akan
+catalog.Locale,12,akk,Akkadian
+catalog.Locale,13,alb* / sqi,Albanian
+catalog.Locale,14,ale,Aleut
+catalog.Locale,15,alg,Algonquian languages
+catalog.Locale,16,alt,Southern Altai
+catalog.Locale,17,amh,Amharic
+catalog.Locale,18,ang,"English; Old(ca.450–1100)"
+catalog.Locale,19,anp,Angika
+catalog.Locale,20,apa,Apache languages
+catalog.Locale,21,ara,Arabic
+catalog.Locale,22,arc,Official Aramaic(700–300 BCE);Imperial Aramaic(700–300 BCE)
+catalog.Locale,23,arg,Aragonese
+catalog.Locale,24,arm* / hye,Armenian
+catalog.Locale,25,arn,Mapudungun;Mapuche
+catalog.Locale,26,arp,Arapaho
+catalog.Locale,27,art,Artificial languages
+catalog.Locale,28,arw,Arawak
+catalog.Locale,29,asm,Assamese
+catalog.Locale,30,ast,Asturian;Bable;Leonese;Asturleonese
+catalog.Locale,31,ath,Athapascan languages
+catalog.Locale,32,aus,Australian languages
+catalog.Locale,33,ava,Avaric
+catalog.Locale,34,ave,Avestan
+catalog.Locale,35,awa,Awadhi
+catalog.Locale,36,aym,Aymara
+catalog.Locale,37,aze,Azerbaijani
+catalog.Locale,38,bad,Banda languages
+catalog.Locale,39,bai,Bamileke languages
+catalog.Locale,40,bak,Bashkir
+catalog.Locale,41,bal,Baluchi
+catalog.Locale,42,bam,Bambara
+catalog.Locale,43,ban,Balinese
+catalog.Locale,44,baq* / eus,Basque
+catalog.Locale,45,bas,Basa
+catalog.Locale,46,bat,Baltic languages
+catalog.Locale,47,bej,Beja;Bedawiyet
+catalog.Locale,48,bel,Belarusian
+catalog.Locale,49,bem,Bemba
+catalog.Locale,50,ben,Bengali
+catalog.Locale,51,ber,Berber languages
+catalog.Locale,52,bho,Bhojpuri
+catalog.Locale,53,bih,Bihari languages
+catalog.Locale,54,bik,Bikol
+catalog.Locale,55,bin,Bini;Edo
+catalog.Locale,56,bis,Bislama
+catalog.Locale,57,bla,Siksika
+catalog.Locale,58,bnt,Bantu (Other)
+catalog.Locale,59,bod/ tib*,Tibetan
+catalog.Locale,60,bos,Bosnian
+catalog.Locale,61,bra,Braj
+catalog.Locale,62,bre,Breton
+catalog.Locale,63,btk,Batak languages
+catalog.Locale,64,bua,Buriat
+catalog.Locale,65,bug,Buginese
+catalog.Locale,66,bul,Bulgarian
+catalog.Locale,67,bur* / mya,Burmese
+catalog.Locale,68,byn,Blin; Bilin
+catalog.Locale,69,cad,Caddo
+catalog.Locale,70,cai,Central American Indian languages
+catalog.Locale,71,car,Galibi Carib
+catalog.Locale,72,cat,Catalan;Valencian
+catalog.Locale,73,cau,Caucasian languages
+catalog.Locale,74,ceb,Cebuano
+catalog.Locale,75,cel,Celtic languages
+catalog.Locale,76,ces/ cze*,Czech
+catalog.Locale,77,cha,Chamorro
+catalog.Locale,78,chb,Chibcha
+catalog.Locale,79,che,Chechen
+catalog.Locale,80,chg,Chagatai
+catalog.Locale,81,chi* / zho,Chinese
+catalog.Locale,82,chk,Chuukese
+catalog.Locale,83,chm,Mari
+catalog.Locale,84,chn,Chinook jargon
+catalog.Locale,85,cho,Choctaw
+catalog.Locale,86,chp,Chipewyan;Dene Suline
+catalog.Locale,87,chr,Cherokee
+catalog.Locale,88,chu,Church Slavic;Old Slavonic;Church Slavonic;Old Bulgarian;Old Church Slavonic
+catalog.Locale,89,chv,Chuvash
+catalog.Locale,90,chy,Cheyenne
+catalog.Locale,91,cmc,Chamic languages
+catalog.Locale,92,cnr,Montenegrin
+catalog.Locale,93,cop,Coptic
+catalog.Locale,94,cor,Cornish
+catalog.Locale,95,cos,Corsican
+catalog.Locale,96,cpe,"Creolesandpidgins; English based"
+catalog.Locale,97,cpf,"Creolesand pidgins; French-based"
+catalog.Locale,98,cpp,"Creolesand pidgins; Portuguese-based"
+catalog.Locale,99,cre,Cree
+catalog.Locale,100,crh,Crimean Tatar;Crimean Turkish
+catalog.Locale,101,crp,Creolesandpidgins
+catalog.Locale,102,csb,Kashubian
+catalog.Locale,103,cus,Cushitic languages
+catalog.Locale,104,cym/ wel*,Welsh
+catalog.Locale,105,cze* / ces,Czech
+catalog.Locale,106,dak,Dakota
+catalog.Locale,107,dan,Danish
+catalog.Locale,108,dar,Dargwa
+catalog.Locale,109,day,Land Dayak languages
+catalog.Locale,110,del,Delaware
+catalog.Locale,111,den,Slave (Athapascan)
+catalog.Locale,112,deu/ ger*,German
+catalog.Locale,113,dgr,Dogrib
+catalog.Locale,114,din,Dinka
+catalog.Locale,115,div,Divehi; Dhivehi; Maldivian
+catalog.Locale,116,doi,Dogri
+catalog.Locale,117,dra,Dravidian languages
+catalog.Locale,118,dsb,Lower Sorbian
+catalog.Locale,119,dua,Duala
+catalog.Locale,120,dum,"Dutch; Middle(ca. 1050–1350)"
+catalog.Locale,121,dut* / nld,Dutch;Flemish
+catalog.Locale,122,dyu,Dyula
+catalog.Locale,123,dzo,Dzongkha
+catalog.Locale,124,efi,Efik
+catalog.Locale,125,egy,Egyptian (Ancient)
+catalog.Locale,126,eka,Ekajuk
+catalog.Locale,127,ell/ gre*,"Greek; Modern(1453–)"
+catalog.Locale,128,elx,Elamite
+catalog.Locale,129,eng,English
+catalog.Locale,130,enm,"English; Middle(1100–1500)"
+catalog.Locale,131,epo,Esperanto
+catalog.Locale,132,est,Estonian
+catalog.Locale,133,eus/ baq*,Basque
+catalog.Locale,134,ewe,Ewe
+catalog.Locale,135,ewo,Ewondo
+catalog.Locale,136,fan,Fang
+catalog.Locale,137,fao,Faroese
+catalog.Locale,138,fas/ per*,Persian
+catalog.Locale,139,fat,Fanti
+catalog.Locale,140,fij,Fijian
+catalog.Locale,141,fil,Filipino;Pilipino
+catalog.Locale,142,fin,Finnish
+catalog.Locale,143,fiu,Finno-Ugrian languages
+catalog.Locale,144,fon,Fon
+catalog.Locale,145,fra/ fre*,French
+catalog.Locale,146,fre* / fra,French
+catalog.Locale,147,frm,"French; Middle(ca. 1400–1600)"
+catalog.Locale,148,fro,"French; Old(842–ca. 1400)"
+catalog.Locale,149,frr,Northern Frisian
+catalog.Locale,150,frs,Eastern Frisian
+catalog.Locale,151,fry,Western Frisian
+catalog.Locale,152,ful,Fulah
+catalog.Locale,153,fur,Friulian
+catalog.Locale,154,gaa,Ga
+catalog.Locale,155,gay,Gayo
+catalog.Locale,156,gba,Gbaya
+catalog.Locale,157,gem,Germanic languages
+catalog.Locale,158,geo* / kat,Georgian
+catalog.Locale,159,ger* / deu,German
+catalog.Locale,160,gez,Geez
+catalog.Locale,161,gil,Gilbertese
+catalog.Locale,162,gla,Gaelic;Scottish Gaelic
+catalog.Locale,163,gle,Irish
+catalog.Locale,164,glg,Galician
+catalog.Locale,165,glv,Manx
+catalog.Locale,166,gmh,"German; Middle High(ca. 1050–1500)"
+catalog.Locale,167,goh,"German; Old High(ca. 750–1050)"
+catalog.Locale,168,gon,Gondi
+catalog.Locale,169,gor,Gorontalo
+catalog.Locale,170,got,Gothic
+catalog.Locale,171,grb,Grebo
+catalog.Locale,172,grc,"Greek; Ancient(to 1453)"
+catalog.Locale,173,gre* / ell,"Greek; Modern(1453–)"
+catalog.Locale,174,grn,Guarani
+catalog.Locale,175,gsw,Swiss German;Alemannic;Alsatian
+catalog.Locale,176,guj,Gujarati
+catalog.Locale,177,gwi,Gwich'in
+catalog.Locale,178,hai,Haida
+catalog.Locale,179,hat,Haitian; Haitian Creole
+catalog.Locale,180,hau,Hausa
+catalog.Locale,181,haw,Hawaiian
+catalog.Locale,182,heb,Hebrew
+catalog.Locale,183,her,Herero
+catalog.Locale,184,hil,Hiligaynon
+catalog.Locale,185,him,Himachali languages; Pahari languages
+catalog.Locale,186,hin,Hindi
+catalog.Locale,187,hit,Hittite
+catalog.Locale,188,hmn,Hmong;Mong
+catalog.Locale,189,hmo,Hiri Motu
+catalog.Locale,190,hrv,Croatian
+catalog.Locale,191,hsb,Upper Sorbian
+catalog.Locale,192,hun,Hungarian
+catalog.Locale,193,hup,Hupa
+catalog.Locale,194,hye / arm*,Armenian
+catalog.Locale,195,iba,Iban
+catalog.Locale,196,ibo,Igbo
+catalog.Locale,197,ice* / isl,Icelandic
+catalog.Locale,198,ido,Ido
+catalog.Locale,199,iii,Sichuan Yi;Nuosu
+catalog.Locale,200,ijo,Ijo languages
+catalog.Locale,201,iku,Inuktitut
+catalog.Locale,202,ile,Interlingue;Occidental
+catalog.Locale,203,ilo,Iloko
+catalog.Locale,204,ina,Interlingua(International Auxiliary Language Association)
+catalog.Locale,205,inc,Indic languages
+catalog.Locale,206,ind,Indonesian
+catalog.Locale,207,ine,Indo-European languages
+catalog.Locale,208,inh,Ingush
+catalog.Locale,209,ipk,Inupiaq
+catalog.Locale,210,ira,Iranian languages
+catalog.Locale,211,iro,Iroquoian languages
+catalog.Locale,212,isl/ ice*,Icelandic
+catalog.Locale,213,ita,Italian
+catalog.Locale,214,jav,Javanese
+catalog.Locale,215,jbo,Lojban
+catalog.Locale,216,jpn,Japanese
+catalog.Locale,217,jpr,Judeo-Persian
+catalog.Locale,218,jrb,Judeo-Arabic
+catalog.Locale,219,kaa,Kara-Kalpak
+catalog.Locale,220,kab,Kabyle
+catalog.Locale,221,kac,Kachin;Jingpho
+catalog.Locale,222,kal,Kalaallisut;Greenlandic
+catalog.Locale,223,kam,Kamba
+catalog.Locale,224,kan,Kannada
+catalog.Locale,225,kar,Karen languages
+catalog.Locale,226,kas,Kashmiri
+catalog.Locale,227,kat/ geo*,Georgian
+catalog.Locale,228,kau,Kanuri
+catalog.Locale,229,kaw,Kawi
+catalog.Locale,230,kaz,Kazakh
+catalog.Locale,231,kbd,Kabardian
+catalog.Locale,232,kha,Khasi
+catalog.Locale,233,khi,Khoisan languages
+catalog.Locale,234,khm,Central Khmer
+catalog.Locale,235,kho,Khotanese;Sakan
+catalog.Locale,236,kik,Kikuyu;Gikuyu
+catalog.Locale,237,kin,Kinyarwanda
+catalog.Locale,238,kir,Kirghiz;Kyrgyz
+catalog.Locale,239,kmb,Kimbundu
+catalog.Locale,240,kok,Konkani
+catalog.Locale,241,kom,Komi
+catalog.Locale,242,kon,Kongo
+catalog.Locale,243,kor,Korean
+catalog.Locale,244,kos,Kosraean
+catalog.Locale,245,kpe,Kpelle
+catalog.Locale,246,krc,Karachay-Balkar
+catalog.Locale,247,krl,Karelian
+catalog.Locale,248,kro,Kru languages
+catalog.Locale,249,kru,Kurukh
+catalog.Locale,250,kua,Kuanyama;Kwanyama
+catalog.Locale,251,kum,Kumyk
+catalog.Locale,252,kur,Kurdish
+catalog.Locale,253,kut,Kutenai
+catalog.Locale,254,lad,Ladino
+catalog.Locale,255,lah,Lahnda
+catalog.Locale,256,lam,Lamba
+catalog.Locale,257,lao,Lao
+catalog.Locale,258,lat,Latin
+catalog.Locale,259,lav,Latvian
+catalog.Locale,260,lez,Lezghian
+catalog.Locale,261,lim,Limburgan;Limburger;Limburgish
+catalog.Locale,262,lin,Lingala
+catalog.Locale,263,lit,Lithuanian
+catalog.Locale,264,lol,Mongo
+catalog.Locale,265,loz,Lozi
+catalog.Locale,266,ltz,Luxembourgish;Letzeburgesch
+catalog.Locale,267,lua,Luba-Lulua
+catalog.Locale,268,lub,Luba-Katanga
+catalog.Locale,269,lug,Ganda
+catalog.Locale,270,lui,Luiseno
+catalog.Locale,271,lun,Lunda
+catalog.Locale,272,luo,Luo (Kenya and Tanzania)
+catalog.Locale,273,lus,Lushai
+catalog.Locale,274,mac* / mkd,Macedonian
+catalog.Locale,275,mad,Madurese
+catalog.Locale,276,mag,Magahi
+catalog.Locale,277,mah,Marshallese
+catalog.Locale,278,mai,Maithili
+catalog.Locale,279,mak,Makasar
+catalog.Locale,280,mal,Malayalam
+catalog.Locale,281,man,Mandingo
+catalog.Locale,282,mao* / mri,Maori
+catalog.Locale,283,map,Austronesian languages
+catalog.Locale,284,mar,Marathi
+catalog.Locale,285,mas,Masai
+catalog.Locale,286,may* / msa,Malay
+catalog.Locale,287,mdf,Moksha
+catalog.Locale,288,mdr,Mandar
+catalog.Locale,289,men,Mende
+catalog.Locale,290,mga,"Irish; Middle(900–1200)"
+catalog.Locale,291,mic,Mi'kmaq;Micmac
+catalog.Locale,292,min,Minangkabau
+catalog.Locale,293,mis,Uncoded languages
+catalog.Locale,294,mkd/ mac*,Macedonian
+catalog.Locale,295,mkh,Mon-Khmer languages
+catalog.Locale,296,mlg,Malagasy
+catalog.Locale,297,mlt,Maltese
+catalog.Locale,298,mnc,Manchu
+catalog.Locale,299,mni,Manipuri
+catalog.Locale,300,mno,Manobo languages
+catalog.Locale,301,moh,Mohawk
+catalog.Locale,302,mon,Mongolian
+catalog.Locale,303,mos,Mossi
+catalog.Locale,304,mri/ mao*,Maori
+catalog.Locale,305,msa/ may*,Malay
+catalog.Locale,306,mul,Multiple languages
+catalog.Locale,307,mun,Munda languages
+catalog.Locale,308,mus,Creek
+catalog.Locale,309,mwl,Mirandese
+catalog.Locale,310,mwr,Marwari
+catalog.Locale,311,mya/ bur*,Burmese
+catalog.Locale,312,myn,Mayan languages
+catalog.Locale,313,myv,Erzya
+catalog.Locale,314,nah,Nahuatl languages
+catalog.Locale,315,nai,North American Indian languages
+catalog.Locale,316,nap,Neapolitan
+catalog.Locale,317,nau,Nauru
+catalog.Locale,318,nav,Navajo;Navaho
+catalog.Locale,319,nbl,"Ndebele; South;South Ndebele"
+catalog.Locale,320,nde,"Ndebele; North;North Ndebele"
+catalog.Locale,321,ndo,Ndonga
+catalog.Locale,322,nds,"Low German; Low Saxon; German; Low; Saxon; Low"
+catalog.Locale,323,nep,Nepali
+catalog.Locale,324,new,Nepal Bhasa;Newari
+catalog.Locale,325,nia,Nias
+catalog.Locale,326,nic,Niger-Kordofanian languages
+catalog.Locale,327,niu,Niuean
+catalog.Locale,328,nld/ dut*,Dutch;Flemish
+catalog.Locale,329,nno,"Norwegian Nynorsk; Nynorsk; Norwegian"
+catalog.Locale,330,nob,"Bokmål; Norwegian; Norwegian Bokmål"
+catalog.Locale,331,nog,Nogai
+catalog.Locale,332,non,"Norse; Old"
+catalog.Locale,333,nor,Norwegian
+catalog.Locale,334,nqo,N'Ko
+catalog.Locale,335,nso,Pedi;Sepedi;Northern Sotho
+catalog.Locale,336,nub,Nubian languages
+catalog.Locale,337,nwc,Classical Newari;Old Newari;Classical Nepal Bhasa
+catalog.Locale,338,nya,Chichewa;Chewa;Nyanja
+catalog.Locale,339,nym,Nyamwezi
+catalog.Locale,340,nyn,Nyankole
+catalog.Locale,341,nyo,Nyoro
+catalog.Locale,342,nzi,Nzima
+catalog.Locale,343,oci,Occitan(post 1500); Provençal
+catalog.Locale,344,oji,Ojibwa
+catalog.Locale,345,ori,Oriya
+catalog.Locale,346,orm,Oromo
+catalog.Locale,347,osa,Osage
+catalog.Locale,348,oss,Ossetian;Ossetic
+catalog.Locale,349,ota,"Turkish; Ottoman(1500–1928)"
+catalog.Locale,350,oto,Otomian languages
+catalog.Locale,351,paa,Papuan languages
+catalog.Locale,352,pag,Pangasinan
+catalog.Locale,353,pal,Pahlavi
+catalog.Locale,354,pam,Pampanga;Kapampangan
+catalog.Locale,355,pan,Panjabi;Punjabi
+catalog.Locale,356,pap,Papiamento
+catalog.Locale,357,pau,Palauan
+catalog.Locale,358,peo,"Persian; Old(ca. 600–400 B.C.)"
+catalog.Locale,359,per* / fas,Persian
+catalog.Locale,360,phi,Philippine languages
+catalog.Locale,361,phn,Phoenician
+catalog.Locale,362,pli,Pali
+catalog.Locale,363,pol,Polish
+catalog.Locale,364,pon,Pohnpeian
+catalog.Locale,365,por,Portuguese
+catalog.Locale,366,pra,Prakrit languages
+catalog.Locale,367,pro,"Provençal; Old(to 1500);Old Occitan (to 1500)"
+catalog.Locale,368,pus,Pushto;Pashto
+catalog.Locale,369,qaa-qtz,Reserved for local use
+catalog.Locale,370,que,Quechua
+catalog.Locale,371,raj,Rajasthani
+catalog.Locale,372,rap,Rapanui
+catalog.Locale,373,rar,Rarotongan;Cook Islands Maori
+catalog.Locale,374,roa,Romance languages
+catalog.Locale,375,roh,Romansh
+catalog.Locale,376,rom,Romany
+catalog.Locale,377,ron/ rum*,Romanian;Moldavian;Moldovan
+catalog.Locale,378,rum* / ron,Romanian;Moldavian;Moldovan
+catalog.Locale,379,run,Rundi
+catalog.Locale,380,rup,Aromanian;Arumanian;Macedo-Romanian
+catalog.Locale,381,rus,Russian
+catalog.Locale,382,sad,Sandawe
+catalog.Locale,383,sag,Sango
+catalog.Locale,384,sah,Yakut
+catalog.Locale,385,sai,South American Indian (Other)
+catalog.Locale,386,sal,Salishan languages
+catalog.Locale,387,sam,Samaritan Aramaic
+catalog.Locale,388,san,Sanskrit
+catalog.Locale,389,sas,Sasak
+catalog.Locale,390,sat,Santali
+catalog.Locale,391,scn,Sicilian
+catalog.Locale,392,sco,Scots
+catalog.Locale,393,sel,Selkup
+catalog.Locale,394,sem,Semitic languages
+catalog.Locale,395,sga,"Irish; Old(to 900)"
+catalog.Locale,396,sgn,Sign Languages
+catalog.Locale,397,shn,Shan
+catalog.Locale,398,sid,Sidamo
+catalog.Locale,399,sin,Sinhala;Sinhalese
+catalog.Locale,400,sio,Siouan languages
+catalog.Locale,401,sit,Sino-Tibetan languages
+catalog.Locale,402,sla,Slavic languages
+catalog.Locale,403,slk/ slo*,Slovak
+catalog.Locale,404,slo* / slk,Slovak
+catalog.Locale,405,slv,Slovenian
+catalog.Locale,406,sma,Southern Sami
+catalog.Locale,407,sme,Northern Sami
+catalog.Locale,408,smi,Sami languages
+catalog.Locale,409,smj,Lule Sami
+catalog.Locale,410,smn,Inari Sami
+catalog.Locale,411,smo,Samoan
+catalog.Locale,412,sms,Skolt Sami
+catalog.Locale,413,sna,Shona
+catalog.Locale,414,snd,Sindhi
+catalog.Locale,415,snk,Soninke
+catalog.Locale,416,sog,Sogdian
+catalog.Locale,417,som,Somali
+catalog.Locale,418,son,Songhai languages
+catalog.Locale,419,sot,"Sotho; Southern"
+catalog.Locale,420,spa,Spanish;Castilian
+catalog.Locale,421,sqi/ alb*,Albanian
+catalog.Locale,422,srd,Sardinian
+catalog.Locale,423,srn,Sranan Tongo
+catalog.Locale,424,srp,Serbian
+catalog.Locale,425,srr,Serer
+catalog.Locale,426,ssa,Nilo-Saharan languages
+catalog.Locale,427,ssw,Swati
+catalog.Locale,428,suk,Sukuma
+catalog.Locale,429,sun,Sundanese
+catalog.Locale,430,sus,Susu
+catalog.Locale,431,sux,Sumerian
+catalog.Locale,432,swa,Swahili
+catalog.Locale,433,swe,Swedish
+catalog.Locale,434,syc,Classical Syriac
+catalog.Locale,435,syr,Syriac
+catalog.Locale,436,tah,Tahitian
+catalog.Locale,437,tai,Tai languages
+catalog.Locale,438,tam,Tamil
+catalog.Locale,439,tat,Tatar
+catalog.Locale,440,tel,Telugu
+catalog.Locale,441,tem,Timne
+catalog.Locale,442,ter,Tereno
+catalog.Locale,443,tet,Tetum
+catalog.Locale,444,tgk,Tajik
+catalog.Locale,445,tgl,Tagalog
+catalog.Locale,446,tha,Thai
+catalog.Locale,447,tib* / bod,Tibetan
+catalog.Locale,448,tig,Tigre
+catalog.Locale,449,tir,Tigrinya
+catalog.Locale,450,tiv,Tiv
+catalog.Locale,451,tkl,Tokelau
+catalog.Locale,452,tlh,Klingon;tlhIngan-Hol
+catalog.Locale,453,tli,Tlingit
+catalog.Locale,454,tmh,Tamashek
+catalog.Locale,455,tog,Tonga (Nyasa)
+catalog.Locale,456,ton,Tonga (Tonga Islands)
+catalog.Locale,457,tpi,Tok Pisin
+catalog.Locale,458,tsi,Tsimshian
+catalog.Locale,459,tsn,Tswana
+catalog.Locale,460,tso,Tsonga
+catalog.Locale,461,tuk,Turkmen
+catalog.Locale,462,tum,Tumbuka
+catalog.Locale,463,tup,Tupi languages
+catalog.Locale,464,tur,Turkish
+catalog.Locale,465,tut,Altaic languages
+catalog.Locale,466,tvl,Tuvalu
+catalog.Locale,467,twi,Twi
+catalog.Locale,468,tyv,Tuvinian
+catalog.Locale,469,udm,Udmurt
+catalog.Locale,470,uga,Ugaritic
+catalog.Locale,471,uig,Uighur;Uyghur
+catalog.Locale,472,ukr,Ukrainian
+catalog.Locale,473,umb,Umbundu
+catalog.Locale,474,und,Undetermined
+catalog.Locale,475,urd,Urdu
+catalog.Locale,476,uzb,Uzbek
+catalog.Locale,477,vai,Vai
+catalog.Locale,478,ven,Venda
+catalog.Locale,479,vie,Vietnamese
+catalog.Locale,480,vol,Volapük
+catalog.Locale,481,vot,Votic
+catalog.Locale,482,wak,Wakashan languages
+catalog.Locale,483,wal,Walamo
+catalog.Locale,484,war,Waray
+catalog.Locale,485,was,Washo
+catalog.Locale,486,wel* / cym,Welsh
+catalog.Locale,487,wen,Sorbian languages
+catalog.Locale,488,wln,Walloon
+catalog.Locale,489,wol,Wolof
+catalog.Locale,490,xal,Kalmyk;Oirat
+catalog.Locale,491,xho,Xhosa
+catalog.Locale,492,yao,Yao
+catalog.Locale,493,yap,Yapese
+catalog.Locale,494,yid,Yiddish
+catalog.Locale,495,yor,Yoruba
+catalog.Locale,496,ypk,Yupik languages
+catalog.Locale,497,zap,Zapotec
+catalog.Locale,498,zbl,Blissymbols;Blissymbolics;Bliss
+catalog.Locale,499,zen,Zenaga
+catalog.Locale,500,zgh,Standard Moroccan Tamazight
+catalog.Locale,501,zha,Zhuang;Chuang
+catalog.Locale,502,zho/ chi*,Chinese
+catalog.Locale,503,znd,Zande languages
+catalog.Locale,504,zul,Zulu
+catalog.Locale,505,zun,Zuni
+catalog.Locale,506,zxx,No linguistic content; Not applicable
+catalog.Locale,507,zza,Zaza;Dimili;Dimli;Kirdki;Kirmanjki;Zazaki

@@ -1,0 +1,73 @@
+app,model_ref,model,pk,name,inverted name
+catalog,RelationOrganityOrganityType,catalog.RelationOrganityOrganityType,1,Continued as,Was the continuation of
+catalog,RelationOrganityOrganityType,catalog.RelationOrganityOrganityType,2,Organised,Was organised by
+catalog,RelationOrganityOrganityType,catalog.RelationOrganityOrganityType,3,Substituted,Was subsituted by
+catalog,RelationOrganityOrganityType,catalog.RelationOrganityOrganityType,4,Was related to,Was related to
+catalog,RelationProductionOrganityType,catalog.RelationProductionOrganityType,1,Was produced by,Produced
+catalog,RelationProductionOrganityType,catalog.RelationProductionOrganityType,2,Was co-produced by,Co-produced
+catalog,RelationProductionOrganityType,catalog.RelationProductionOrganityType,3,Was supported by,Supported
+catalog,RelationShowOrganityType,catalog.RelationShowOrganityType,1,Was held at,Held
+catalog,RelationOrganityWorkType,catalog.RelationOrganityWorkType,1,Was written by,Wrote
+catalog,RelationOrganityCharacterType,catalog.RelationOrganityCharacterType,1,Played,Was played by
+catalog,RelationOrganityGenreType,catalog.RelationOrganityGenreType,1,Had as genre,Was the genre for
+catalog,RelationOrganityUrlType,catalog.RelationOrganityUrlType,1,Had as Url,Was the Url for
+catalog,RelationProductionProductionType,catalog.RelationProductionProductionType,1,Was a rerun of,Had as rerun
+catalog,RelationProductionProductionType,catalog.RelationProductionProductionType,2,Referred to,Was referred to by
+catalog,RelationShowProductionType,catalog.RelationShowProductionType,1,Was performed as,Was a performance of
+catalog,RelationProductionWorkType,catalog.RelationProductionWorkType,1,Was based on,Was the basis for
+catalog,RelationProductionCharacterType,catalog.RelationProductionCharacterType,1,Had as character,Was a character in
+catalog,RelationProductionGenreType,catalog.RelationProductionGenreType,1,Had as genre,Was the genre for
+catalog,RelationProductionUrlType,catalog.RelationProductionUrlType,1,Had as Url,Was the Url for
+catalog,RelationShowShowType,catalog.RelationShowShowType,1,Substituted,Was the substitution for
+catalog,RelationShowWorkType,catalog.RelationShowWorkType,1,Was a performance of,Was performed as
+catalog,RelationShowCharacterType,catalog.RelationShowCharacterType,1,Had as character,Was a character in
+catalog,RelationShowGenreType,catalog.RelationShowGenreType,1,Had as genre,Was the genre for
+catalog,RelationShowUrlType,catalog.RelationShowUrlType,1,Had as Url,Was the Url for
+catalog,RelationWorkWorkType,catalog.RelationWorkWorkType,1,Referred to,Was referred to by
+catalog,RelationWorkCharacterType,catalog.RelationWorkCharacterType,1,Had as character,Was a character in
+catalog,RelationWorkGenreType,catalog.RelationWorkGenreType,1,Had as genre,Was the genre for
+catalog,RelationWorkUrlType,catalog.RelationWorkUrlType,1,Had as Url,Was the Url for
+catalog,RelationCharacterCharacterType,catalog.RelationCharacterCharacterType,1,Was related to,Was related to
+catalog,RelationCharacterGenreType,catalog.RelationCharacterGenreType,1,Had as genre,Was the genre for
+catalog,RelationCharacterUrlType,catalog.RelationCharacterUrlType,1,Had as Url,Was the Url for
+catalog,RelationGenreGenreType,catalog.RelationGenreGenreType,1,Was the child of,Was the parent of
+catalog,RelationGenreGenreType,catalog.RelationGenreGenreType,2,Was similar to,Was similar to
+catalog,RelationGenreUrlType,catalog.RelationGenreUrlType,1,Had as Url,Was the Url for
+catalog,RelationUrlUrlType,catalog.RelationUrlUrlType,1,Had as Url,Was the Url for
+catalog,RelationUrlUrlType,catalog.RelationUrlUrlType,2,Was archived at,Was the archive for
+catalog,EntityOrganityType,catalog.EntityOrganityType,1,Person,
+catalog,EntityOrganityType,catalog.EntityOrganityType,2,Venue,
+catalog,EntityOrganityType,catalog.EntityOrganityType,3,Festival,
+catalog,EntityOrganityType,catalog.EntityOrganityType,4,Organisation,
+catalog,EntityOrganityType,catalog.EntityOrganityType,5,Collective,
+catalog,EntityOrganityType,catalog.EntityOrganityType,6,Director,
+catalog,EntityOrganityType,catalog.EntityOrganityType,7,Actor,
+catalog,EntityOrganityType,catalog.EntityOrganityType,8,Choreographer,
+catalog,EntityOrganityType,catalog.EntityOrganityType,9,Dancer,
+catalog,EntityOrganityType,catalog.EntityOrganityType,10,Musician,
+catalog,EntityOrganityType,catalog.EntityOrganityType,11,Composer,
+catalog,EntityOrganityType,catalog.EntityOrganityType,12,Scenographer,
+catalog,EntityOrganityType,catalog.EntityOrganityType,13,Technician,
+catalog,EntityProductionType,catalog.EntityProductionType,1,Creation,
+catalog,EntityProductionType,catalog.EntityProductionType,2,Rerun,
+catalog,EntityProductionType,catalog.EntityProductionType,3,Adaptation,
+catalog,EntityShowType,catalog.EntityShowType,1,Première,
+catalog,EntityShowType,catalog.EntityShowType,2,Try-out,
+catalog,EntityShowType,catalog.EntityShowType,3,Avant-première,
+catalog,EntityShowType,catalog.EntityShowType,4,Performance,
+catalog,EntityWorkType,catalog.EntityWorkType,1,Theater text,
+catalog,EntityWorkType,catalog.EntityWorkType,2,Concept,
+catalog,EntityCharacterType,catalog.EntityCharacterType,1,Main character,
+catalog,EntityCharacterType,catalog.EntityCharacterType,2,Character,
+catalog,EntityGenreType,catalog.EntityGenreType,1,Genre,
+catalog,EntityUrlType,catalog.EntityUrlType,1,Official website,
+catalog,EntityUrlType,catalog.EntityUrlType,2,Fanpage,
+catalog,EntityUrlType,catalog.EntityUrlType,3,Facebook,
+catalog,EntityUrlType,catalog.EntityUrlType,4,Twitter,
+catalog,EntityUrlType,catalog.EntityUrlType,5,Instagram,
+catalog,EntityUrlType,catalog.EntityUrlType,6,IMDB,
+catalog,EntityUrlType,catalog.EntityUrlType,7,TVDB,
+catalog,EntityUrlType,catalog.EntityUrlType,8,Wikidata,
+catalog,EntityUrlType,catalog.EntityUrlType,9,VIAF,
+catalog,EntityUrlType,catalog.EntityUrlType,10,ISWC,
+catalog,EntityUrlType,catalog.EntityUrlType,11,Playbill.com,

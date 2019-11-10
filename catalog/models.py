@@ -101,7 +101,7 @@ class Season(models.Model):
 
 
 class Locale(models.Model):
-    abbrevation = models.CharField(max_length=10, help_text='Enter the abbrevation for the locale', default="nl_be")
+    abbreviation = models.CharField(max_length=10, help_text='Enter the abbrevation for the locale', default="nl_be")
     name = models.CharField(max_length=100, help_text="Enter the name of the locale", default="Dutch (BE)")
     description = models.CharField(max_length=200, help_text='Describe the locale', default="Dutch as spoken in Belgium")
 
