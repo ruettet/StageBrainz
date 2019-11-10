@@ -16,7 +16,9 @@ from .views import EntityOrganityAutocomplete, EntityProductionAutocomplete, Ent
     RelationWorkWorkTypeAutocomplete, RelationWorkCharacterTypeAutocomplete, RelationWorkGenreTypeAutocomplete, \
     RelationWorkUrlTypeAutocomplete, RelationCharacterCharacterTypeAutocomplete, RelationCharacterGenreTypeAutocomplete, \
     RelationCharacterUrlTypeAutocomplete, RelationGenreGenreTypeAutocomplete, RelationGenreUrlTypeAutocomplete, \
-    RelationUrlUrlTypeAutocomplete
+    RelationUrlUrlTypeAutocomplete, EntityOrganityTypeAutocomplete, EntityProductionTypeAutocomplete, \
+    EntityCharacterTypeAutocomplete, EntityShowTypeAutocomplete, EntityWorkTypeAutocomplete, \
+    EntityGenreTypeAutocomplete, EntityUrlTypeAutocomplete, SeasonAutocomplete, LocaleAutocomplete
 from .models import EntityOrganity, EntityProduction, EntityCharacter, RelationProductionOrganityType, EntityShow, \
     RelationOrganityOrganityType, RelationShowOrganityType, EntityUrl, EntityGenre, EntityWork, \
     RelationOrganityWorkType, RelationOrganityCharacterType, RelationOrganityGenreType, RelationOrganityUrlType, \
@@ -25,7 +27,8 @@ from .models import EntityOrganity, EntityProduction, EntityCharacter, RelationP
     RelationShowWorkType, RelationShowCharacterType, RelationShowGenreType, RelationShowUrlType, RelationWorkWorkType, \
     RelationWorkCharacterType, RelationWorkGenreType, RelationWorkUrlType, RelationCharacterCharacterType, \
     RelationCharacterGenreType, RelationCharacterUrlType, RelationGenreGenreType, RelationGenreUrlType, \
-    RelationUrlUrlType
+    RelationUrlUrlType, EntityOrganityType, EntityProductionType, EntityCharacterType, EntityShowType, EntityWorkType, \
+    EntityGenreType, EntityUrlType, Season, Locale
 
 urlpatterns = [
     path('about/', TemplateView.as_view(template_name="about.html"), name='about'),
@@ -305,6 +308,15 @@ urlpatterns += [
     path('work-autocomplete/', EntityWorkAutocomplete.as_view(model=EntityWork, create_field='name'), name='work_autocomplete'),
     path('genre-autocomplete/', EntityGenreAutocomplete.as_view(model=EntityGenre), name='genre_autocomplete'),
     path('url-autocomplete/', EntityUrlAutocomplete.as_view(model=EntityUrl, create_field='name'), name='url_autocomplete'),
+    path('season-autocomplete/', SeasonAutocomplete.as_view(model=Season, create_field='name'), name='season_autocomplete'),
+    path('locale-autocomplete/', LocaleAutocomplete.as_view(model=Locale, create_field='name'), name='locale_autocomplete'),
+    path('organitytype-autocomplete/', EntityOrganityTypeAutocomplete.as_view(model=EntityOrganityType), name='organitytype_autocomplete'),
+    path('productiontype-autocomplete/', EntityProductionTypeAutocomplete.as_view(model=EntityProductionType), name='productiontype_autocomplete'),
+    path('charactertype-autocomplete/', EntityCharacterTypeAutocomplete.as_view(model=EntityCharacterType), name='charactertype_autocomplete'),
+    path('showtype-autocomplete/', EntityShowTypeAutocomplete.as_view(model=EntityShowType), name='showtype_autocomplete'),
+    path('worktype-autocomplete/', EntityWorkTypeAutocomplete.as_view(model=EntityWorkType), name='worktype_autocomplete'),
+    path('genretype-autocomplete/', EntityGenreTypeAutocomplete.as_view(model=EntityGenreType), name='genretype_autocomplete'),
+    path('urltype-autocomplete/', EntityUrlTypeAutocomplete.as_view(model=EntityUrlType), name='urltype_autocomplete'),
     path('relationorganityorganitytype-autocomplete/', RelationOrganityOrganityTypeAutocomplete.as_view(model=RelationOrganityOrganityType), name='relationorganityorganitytype_autocomplete'),
     path('relationproductionorganitytype-autocomplete/', RelationProductionOrganityTypeAutocomplete.as_view(model=RelationProductionOrganityType), name='relationproductionorganitytype_autocomplete'),
     path('relationshoworganitytype-autocomplete/', RelationShowOrganityTypeAutocomplete.as_view(model=RelationShowOrganityType), name='relationshoworganitytype_autocomplete'),

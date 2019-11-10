@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.forms import widgets
 from django import forms
 
 from catalog.models import EntityOrganity, EntityOrganityAlias, EntityProduction, EntityShow, EntityWork, \
@@ -21,11 +22,13 @@ from catalog.models import EntityOrganity, EntityOrganityAlias, EntityProduction
     RelationShowWorkType, RelationShowCharacterType, RelationShowGenreType, RelationShowUrlType, RelationWorkWorkType, \
     RelationWorkCharacterType, RelationWorkGenreType, RelationWorkUrlType, RelationCharacterCharacterType, \
     RelationCharacterGenreType, RelationCharacterUrlType, RelationGenreGenreType, RelationGenreUrlType, \
-    RelationUrlUrlType
+    RelationUrlUrlType, EntityOrganityType, EntityProductionType, EntityShowType, EntityCharacterType, EntityWorkType, \
+    EntityGenreType, EntityUrlType, Season, Locale
 
 from dal import autocomplete
 
 
+# Entities
 class EntityOrganityAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = EntityOrganity.objects.all()
@@ -82,6 +85,80 @@ class EntityUrlAutocomplete(autocomplete.Select2QuerySetView):
         return qs
 
 
+class SeasonAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Season.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class LocaleAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Locale.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+# Entity types
+class EntityOrganityTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityOrganityType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityProductionTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityProductionType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityShowTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityShowType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityCharacterTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityCharacterType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityWorkTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityWorkType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityGenreTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityGenreType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+class EntityUrlTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = EntityUrlType.objects.all()
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+        return qs
+
+
+# Relation types
 class RelationOrganityOrganityTypeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = RelationOrganityOrganityType.objects.all()
@@ -330,6 +407,26 @@ def index(request):
 
 
 # Organities
+class EntityOrganityForm(forms.ModelForm):
+    class Meta:
+        model = EntityOrganity
+        fields = ['name', 'sort_name', 'disambiguation', 'entity_type', 'entity_type_str', 'start_date', 'end_date', ]
+        labels = {
+            'name': 'Name',
+            'sort_name': 'Sort name',
+            'disambiguation': 'Disambiguation line',
+            'entity_type': 'Type of organity',
+            'entity_type_str': 'Type of organity (free text)',
+            'start_date': 'Start of organity (YYYY-MM-DD)',
+            'end_date': 'End of organity (YYYY-MM-DD)',
+        }
+        widgets = {
+            'entity_type': autocomplete.ModelSelect2Multiple(
+                url='organitytype_autocomplete'
+            ),
+        }
+
+
 class EntityOrganityListView(generic.ListView):
     model = EntityOrganity
     paginate_by = 10
@@ -340,13 +437,13 @@ class EntityOrganityDetailView(generic.DetailView):
 
 
 class EntityOrganityCreate(CreateView):
+    form_class = EntityOrganityForm
     model = EntityOrganity
-    fields = '__all__'
 
 
 class EntityOrganityUpdate(UpdateView):
+    form_class = EntityOrganityForm
     model = EntityOrganity
-    fields = '__all__'
 
 
 class EntityOrganityDelete(DeleteView):
@@ -384,6 +481,30 @@ class EntityOrganityAliasDelete(DeleteView):
 
 
 # Productions
+class EntityProductionForm(forms.ModelForm):
+    class Meta:
+        model = EntityProduction
+        fields = ['name', 'sort_name', 'disambiguation', 'season', 'entity_type', 'entity_type_str', 'start_date', 'end_date', ]
+        labels = {
+            'name': 'Name',
+            'sort_name': 'Sort name',
+            'disambiguation': 'Disambiguation line',
+            'season': 'Season',
+            'entity_type': 'Type of production',
+            'entity_type_str': 'Type of production (free text)',
+            'start_date': 'Start of production (YYYY-MM-DD)',
+            'end_date': 'End of production (YYYY-MM-DD)',
+        }
+        widgets = {
+            'entity_type': autocomplete.ModelSelect2Multiple(
+                url='productiontype_autocomplete'
+            ),
+            'season': autocomplete.ModelSelect2(
+                url='season_autocomplete'
+            ),
+        }
+
+
 class EntityProductionListView(generic.ListView):
     model = EntityProduction
     paginate_by = 10
@@ -394,13 +515,13 @@ class EntityProductionDetailView(generic.DetailView):
 
 
 class EntityProductionCreate(CreateView):
+    form_class = EntityProductionForm
     model = EntityProduction
-    fields = ['name', 'sort_name', 'disambiguation', 'entity_type', 'season']
 
 
 class EntityProductionUpdate(UpdateView):
+    form_class = EntityProductionForm
     model = EntityProduction
-    fields = ['name', 'sort_name', 'disambiguation', 'entity_type', 'season']
 
 
 class EntityProductionDelete(DeleteView):
@@ -409,6 +530,28 @@ class EntityProductionDelete(DeleteView):
 
 
 # Shows
+class EntityShowForm(forms.ModelForm):
+    class Meta:
+        model = EntityShow
+        fields = ['name', 'sort_name', 'disambiguation', 'when_date', 'when_time', 'entity_type', 'entity_type_str', ]
+        labels = {
+            'name': 'Name',
+            'sort_name': 'Sort name',
+            'disambiguation': 'Disambiguation line',
+            'when_date': 'Date of show (YYYY-MM-DD)',
+            'when_time': 'Time of show (HH:MM:SS)',
+            'entity_type': 'Type of show',
+            'entity_type_str': 'Type of show (free text)',
+
+        }
+        widgets = {
+            'entity_type': autocomplete.ModelSelect2Multiple(
+                url='showtype_autocomplete'
+            ),
+            'when_time': widgets.TimeInput()
+        }
+
+
 class EntityShowListView(generic.ListView):
     model = EntityShow
     paginate_by = 10
@@ -419,13 +562,13 @@ class EntityShowDetailView(generic.DetailView):
 
 
 class EntityShowCreate(CreateView):
+    form_class = EntityShowForm
     model = EntityShow
-    fields = '__all__'
 
 
 class EntityShowUpdate(UpdateView):
+    form_class = EntityShowForm
     model = EntityShow
-    fields = '__all__'
 
 
 class EntityShowDelete(DeleteView):
@@ -434,6 +577,25 @@ class EntityShowDelete(DeleteView):
 
 
 # Works
+class EntityWorkForm(forms.ModelForm):
+    class Meta:
+        model = EntityWork
+        fields = ['name', 'sort_name', 'disambiguation', 'entity_type', 'entity_type_str', ]
+        labels = {
+            'name': 'Name',
+            'sort_name': 'Sort name',
+            'disambiguation': 'Disambiguation line',
+            'entity_type': 'Type of work',
+            'entity_type_str': 'Type of work (free text)',
+
+        }
+        widgets = {
+            'entity_type': autocomplete.ModelSelect2Multiple(
+                url='worktype_autocomplete'
+            ),
+        }
+
+
 class EntityWorkListView(generic.ListView):
     model = EntityWork
     paginate_by = 10
@@ -444,13 +606,13 @@ class EntityWorkDetailView(generic.DetailView):
 
 
 class EntityWorkCreate(CreateView):
+    form_class = EntityWorkForm
     model = EntityWork
-    fields = '__all__'
 
 
 class EntityWorkUpdate(UpdateView):
+    form_class = EntityWorkForm
     model = EntityWork
-    fields = '__all__'
 
 
 class EntityWorkDelete(DeleteView):
@@ -459,6 +621,25 @@ class EntityWorkDelete(DeleteView):
 
 
 # Characters
+class EntityCharacterForm(forms.ModelForm):
+    class Meta:
+        model = EntityCharacter
+        fields = ['name', 'sort_name', 'disambiguation', 'entity_type', 'entity_type_str', ]
+        labels = {
+            'name': 'Name',
+            'sort_name': 'Sort name',
+            'disambiguation': 'Disambiguation line',
+            'entity_type': 'Type of character',
+            'entity_type_str': 'Type of character (free text)',
+
+        }
+        widgets = {
+            'entity_type': autocomplete.ModelSelect2Multiple(
+                url='charactertype_autocomplete'
+            ),
+        }
+
+
 class EntityCharacterListView(generic.ListView):
     model = EntityCharacter
     paginate_by = 10
@@ -469,13 +650,13 @@ class EntityCharacterDetailView(generic.DetailView):
 
 
 class EntityCharacterCreate(CreateView):
+    form_class = EntityCharacterForm
     model = EntityCharacter
-    fields = '__all__'
 
 
 class EntityCharacterUpdate(UpdateView):
+    form_class = EntityCharacterForm
     model = EntityCharacter
-    fields = '__all__'
 
 
 class EntityCharacterDelete(DeleteView):
@@ -538,14 +719,14 @@ class EntityUrlDelete(DeleteView):
 class RelationOrganityOrganityForm(forms.ModelForm):
     class Meta:
         model = RelationOrganityOrganity
-        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date', ]
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'start_date', 'end_date', ]
         labels = {
             'entity_a': 'Organity (from)',
             'entity_a_credited_as': 'Organity (from) credited as',
             'relation_type': "Relation type",
             'entity_b': 'Organity (to)',
             'entity_b_credited_as': 'Organity (to) credited as',
-            'begin_date': 'Relation start (YYYY-MM-DD)',
+            'start_date': 'Relation start (YYYY-MM-DD)',
             'end_date': 'Relation end (YYYY-MM-DD)',
         }
         widgets = {
@@ -604,7 +785,7 @@ class RelationOrganityOrganityDelete(DeleteView):
 class RelationProductionOrganityForm(forms.ModelForm):
     class Meta:
         model = RelationProductionOrganity
-        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date', 'context_of_character', 'context_of_character_str', 'highlighted_relation', ]
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'start_date', 'end_date', 'context_of_character', 'context_of_character_str', 'highlighted_relation', ]
         labels = {
             'entity_a': 'Production',
             'entity_a_credited_as': 'Production credited as',
@@ -612,7 +793,7 @@ class RelationProductionOrganityForm(forms.ModelForm):
             'relation_name': 'Relation credited as',
             'entity_b': 'Organity',
             'entity_b_credited_as': 'Organity credited as',
-            'begin_date': 'Relation start (YYYY-MM-DD)',
+            'start_date': 'Relation start (YYYY-MM-DD)',
             'end_date': 'Relation end (YYYY-MM-DD)',
             'context_of_character': 'Role',
             'context_of_character_str': 'Role credited as',
@@ -819,7 +1000,7 @@ class RelationWorkOrganityDelete(DeleteView):
 class RelationOrganityCharacterForm(forms.ModelForm):
     class Meta:
         model = RelationOrganityCharacter
-        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'begin_date', 'end_date',]
+        fields = ['entity_a', 'entity_a_credited_as', 'relation_type', 'relation_name', 'entity_b', 'entity_b_credited_as', 'start_date', 'end_date',]
         labels = {
             'entity_a': 'Organity',
             'entity_a_credited_as': 'Organity credited as',
@@ -827,7 +1008,7 @@ class RelationOrganityCharacterForm(forms.ModelForm):
             'relation_name': 'Relation credited as',
             'entity_b': 'Character',
             'entity_b_credited_as': 'Character credited as',
-            'begin_date': 'Start date',
+            'start_date': 'Start date',
             'end_date': 'End date',
         }
         widgets = {
@@ -1291,7 +1472,6 @@ class RelationProductionGenreForm(forms.ModelForm):
                 url='genre_autocomplete',
                 attrs={
                     'data-placeholder': 'Autocomplete ...',
-                    'data-minimum-input-length': 3,
                 },
             ),
             'relation_type': autocomplete.ModelSelect2Multiple(

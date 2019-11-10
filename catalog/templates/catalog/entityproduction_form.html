@@ -1,6 +1,12 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+
+<h1>Create/update a production</h1>
+
+<p>Create/update productions by following the <a href="{% url 'datainput' %}">guidelines</a>.</p>
+
+
   <form action="" method="post">
     {% csrf_token %}
     <table>

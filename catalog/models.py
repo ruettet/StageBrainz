@@ -6,9 +6,10 @@ from partial_date import PartialDateField
 # Create your models here.
 class Entity(models.Model):
     entity_type = None
-    name = models.CharField(max_length=200, help_text='Enter a name for the entity')
-    sort_name = models.CharField(max_length=200, help_text='Sort on this name')
-    disambiguation = models.CharField(max_length=200, help_text='A disambiguation line', blank=True, null=True)
+    entity_type_str = models.CharField(max_length=200, null=True, blank=True)
+    name = models.CharField(max_length=200, default="")
+    sort_name = models.CharField(max_length=200, default="")
+    disambiguation = models.CharField(max_length=200, default="")
 
     def __str__(self):
         return self.name
@@ -19,7 +20,7 @@ class Entity(models.Model):
 
 
 class EntityType(models.Model):
-    name = models.CharField(max_length=200, help_text='Enter a name for a show type')
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -32,7 +33,7 @@ class EntityAlias(models.Model):
     super_entity = None
     alias_type = None
     locale = models.ForeignKey('Locale', on_delete=models.PROTECT, null=True, blank=True)
-    name = models.CharField(max_length=200, help_text='Enter an alias for the organity')
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -42,7 +43,7 @@ class EntityAlias(models.Model):
 
 
 class EntityAliasType(models.Model):
-    name = models.CharField(max_length=200, help_text='A work alias type')
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -52,7 +53,7 @@ class EntityAliasType(models.Model):
 
 
 class EntityShow(Entity):
-    when_date = PartialDateField(blank=True, null=True, default=None)
+    when_date = PartialDateField()
     when_time = models.TimeField(blank=True, null=True)
     entity_type = models.ManyToManyField('EntityShowType', blank=True)
 
@@ -77,8 +78,10 @@ class EntityShowType(EntityType):
 
 
 class EntityProduction(Entity):
-    """"Model representing stage productions, which must be an instantiation of a work in a season"""
+    """"Model representing stage productions"""
     season = models.ForeignKey('Season', on_delete=models.PROTECT, blank=True, null=True)
+    start_date = PartialDateField(blank=True, null=True, default=None)
+    end_date = PartialDateField(blank=True, null=True, default=None)
     entity_type = models.ManyToManyField('EntityProductionType', blank=True)
 
     def get_absolute_url(self):
@@ -92,8 +95,8 @@ class EntityProductionType(EntityType):
 
 class Season(models.Model):
     """"Model representing a traditional season"""
-    name = models.CharField(max_length=200, help_text='Enter a name for the entity')
-    begin_date = PartialDateField(blank=True, null=True, default=None)
+    name = models.CharField(max_length=200)
+    start_date = PartialDateField(blank=True, null=True, default=None)
     end_date = PartialDateField(blank=True, null=True, default=None)
 
     def __str__(self):
@@ -101,9 +104,9 @@ class Season(models.Model):
 
 
 class Locale(models.Model):
-    abbreviation = models.CharField(max_length=10, help_text='Enter the abbrevation for the locale', default="nl_be")
-    name = models.CharField(max_length=100, help_text="Enter the name of the locale", default="Dutch (BE)")
-    description = models.CharField(max_length=200, help_text='Describe the locale', default="Dutch as spoken in Belgium")
+    abbreviation = models.CharField(max_length=10)
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -200,7 +203,7 @@ class EntityGenreAliasType(EntityAliasType):
 
 
 class EntityUrl(Entity):
-    name = models.URLField(max_length=200, help_text='Enter the url')
+    name = models.URLField(max_length=200)
     sort_name = None
     entity_type = models.ManyToManyField('EntityUrlType', blank=True)
 
@@ -224,7 +227,7 @@ class Relation(models.Model):
     entity_a_credited_as = models.CharField(max_length=200, blank=True, null=True)
     entity_b_credited_as = models.CharField(max_length=200, blank=True, null=True)
     relation_name = models.CharField(max_length=200, blank=True, null=True)
-    begin_date = PartialDateField(blank=True, null=True, default=None)
+    start_date = PartialDateField(blank=True, null=True, default=None)
     end_date = PartialDateField(blank=True, null=True, default=None)
     highlighted_relation = models.BooleanField(null=True, blank=True)
     inverted_relation = models.BooleanField(default=False)
@@ -269,8 +272,8 @@ class Relation(models.Model):
 
 
 class RelationType(models.Model):
-    name = models.CharField(max_length=200, help_text='A name for the x - y relation type')
-    inverted_name = models.CharField(max_length=200, help_text='A name for the y - x relation type (inverted)')
+    name = models.CharField(max_length=200)
+    inverted_name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
