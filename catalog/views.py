@@ -146,14 +146,6 @@ class RelationProductionProductionTypeAutocomplete(autocomplete.Select2QuerySetV
         return qs
 
 
-class RelationProductionShowTypeAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        qs = RelationShowProductionType.objects.all()
-        if self.q:
-            qs = qs.filter(name__icontains=self.q)
-        return qs
-
-
 class RelationProductionWorkTypeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = RelationProductionWorkType.objects.all()
