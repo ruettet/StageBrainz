@@ -6,10 +6,26 @@ from django.views.generic import TemplateView
 from .views import EntityOrganityAutocomplete, EntityProductionAutocomplete, EntityCharacterAutocomplete, \
     RelationProductionOrganityTypeAutocomplete, EntityShowAutocomplete, RelationOrganityOrganityTypeAutocomplete, \
     RelationShowOrganityTypeAutocomplete, EntityGenreAutocomplete, EntityWorkAutocomplete, EntityUrlAutocomplete, \
-    RelationOrganityWorkTypeAutocomplete, RelationOrganityCharacterTypeAutocomplete
+    RelationOrganityWorkTypeAutocomplete, RelationOrganityCharacterTypeAutocomplete, \
+    RelationOrganityGenreTypeAutocomplete, RelationOrganityUrlTypeAutocomplete, \
+    RelationProductionProductionTypeAutocomplete, \
+    RelationProductionWorkTypeAutocomplete, RelationShowProductionTypeAutocomplete, \
+    RelationProductionCharacterTypeAutocomplete, RelationProductionGenreTypeAutocomplete, \
+    RelationProductionUrlTypeAutocomplete, RelationShowShowTypeAutocomplete, RelationShowWorkTypeAutocomplete, \
+    RelationShowCharacterTypeAutocomplete, RelationShowGenreTypeAutocomplete, RelationShowUrlTypeAutocomplete, \
+    RelationWorkWorkTypeAutocomplete, RelationWorkCharacterTypeAutocomplete, RelationWorkGenreTypeAutocomplete, \
+    RelationWorkUrlTypeAutocomplete, RelationCharacterCharacterTypeAutocomplete, RelationCharacterGenreTypeAutocomplete, \
+    RelationCharacterUrlTypeAutocomplete, RelationGenreGenreTypeAutocomplete, RelationGenreUrlTypeAutocomplete, \
+    RelationUrlUrlTypeAutocomplete
 from .models import EntityOrganity, EntityProduction, EntityCharacter, RelationProductionOrganityType, EntityShow, \
     RelationOrganityOrganityType, RelationShowOrganityType, EntityUrl, EntityGenre, EntityWork, \
-    RelationOrganityWorkType, RelationOrganityCharacterType
+    RelationOrganityWorkType, RelationOrganityCharacterType, RelationOrganityGenreType, RelationOrganityUrlType, \
+    RelationProductionProductionType, RelationProductionWorkType, RelationShowProductionType, \
+    RelationProductionCharacterType, RelationProductionGenreType, RelationProductionUrlType, RelationShowShowType, \
+    RelationShowWorkType, RelationShowCharacterType, RelationShowGenreType, RelationShowUrlType, RelationWorkWorkType, \
+    RelationWorkCharacterType, RelationWorkGenreType, RelationWorkUrlType, RelationCharacterCharacterType, \
+    RelationCharacterGenreType, RelationCharacterUrlType, RelationGenreGenreType, RelationGenreUrlType, \
+    RelationUrlUrlType
 
 urlpatterns = [
     path('about/', TemplateView.as_view(template_name="about.html"), name='about'),
@@ -294,4 +310,27 @@ urlpatterns += [
     path('relationshoworganitytype-autocomplete/', RelationShowOrganityTypeAutocomplete.as_view(model=RelationShowOrganityType), name='relationshoworganitytype_autocomplete'),
     path('relationorganityworktype-autocomplete/', RelationOrganityWorkTypeAutocomplete.as_view(model=RelationOrganityWorkType), name='relationorganityworktype_autocomplete'),
     path('relationorganitycharactertype-autocomplete/', RelationOrganityCharacterTypeAutocomplete.as_view(model=RelationOrganityCharacterType), name='relationorganitycharactertype_autocomplete'),
+    path('relationorganitygenretype-autocomplete/', RelationOrganityGenreTypeAutocomplete.as_view(model=RelationOrganityGenreType), name='relationorganitygenretype_autocomplete'),
+    path('relationorganityurltype-autocomplete/', RelationOrganityUrlTypeAutocomplete.as_view(model=RelationOrganityUrlType), name='relationorganityurltype_autocomplete'),
+    path('relationproductionproductiontype-autocomplete/', RelationProductionProductionTypeAutocomplete.as_view(model=RelationProductionProductionType), name='relationproductionproductiontype_autocomplete'),
+    path('relationproductionworktype-autocomplete/', RelationProductionWorkTypeAutocomplete.as_view(model=RelationProductionWorkType), name='relationproductionworktype_autocomplete'),
+    path('relationshowproductiontype-autocomplete/', RelationShowProductionTypeAutocomplete.as_view(model=RelationShowProductionType), name='relationshowproductiontype_autocomplete'),
+    path('relationproductioncharactertype-autocomplete/', RelationProductionCharacterTypeAutocomplete.as_view(model=RelationProductionCharacterType), name='relationproductioncharactertype_autocomplete'),
+    path('relationproductiongenretype-autocomplete/', RelationProductionGenreTypeAutocomplete.as_view(model=RelationProductionGenreType), name='relationproductiongenretype_autocomplete'),
+    path('relationproductionurltype-autocomplete/', RelationProductionUrlTypeAutocomplete.as_view(model=RelationProductionUrlType), name='relationproductionurltype_autocomplete'),
+    path('relationshowshowtype-autocomplete/', RelationShowShowTypeAutocomplete.as_view(model=RelationShowShowType), name='relationshowshowtype_autocomplete'),
+    path('relationshowworktype-autocomplete/', RelationShowWorkTypeAutocomplete.as_view(model=RelationShowWorkType), name='relationshowworktype_autocomplete'),
+    path('relationshowcharactertype-autocomplete/', RelationShowCharacterTypeAutocomplete.as_view(model=RelationShowCharacterType), name='relationshowcharactertype_autocomplete'),
+    path('relationshowgenretype-autocomplete/', RelationShowGenreTypeAutocomplete.as_view(model=RelationShowGenreType), name='relationshowgenretype_autocomplete'),
+    path('relationshowurltype-autocomplete/', RelationShowUrlTypeAutocomplete.as_view(model=RelationShowUrlType), name='relationshowurltype_autocomplete'),
+    path('relationworkworktype-autocomplete/', RelationWorkWorkTypeAutocomplete.as_view(model=RelationWorkWorkType), name='relationworkworktype_autocomplete'),
+    path('relationworkcharactertype-autocomplete/', RelationWorkCharacterTypeAutocomplete.as_view(model=RelationWorkCharacterType), name='relationworkcharactertype_autocomplete'),
+    path('relationworkgenretype-autocomplete/', RelationWorkGenreTypeAutocomplete.as_view(model=RelationWorkGenreType), name='relationworkgenretype_autocomplete'),
+    path('relationworkurltype-autocomplete/', RelationWorkUrlTypeAutocomplete.as_view(model=RelationWorkUrlType), name='relationworkurltype_autocomplete'),
+    path('relationcharactercharactertype-autocomplete/', RelationCharacterCharacterTypeAutocomplete.as_view(model=RelationCharacterCharacterType), name='relationcharactercharactertype_autocomplete'),
+    path('relationcharactergenretype-autocomplete/', RelationCharacterGenreTypeAutocomplete.as_view(model=RelationCharacterGenreType), name='relationcharactergenretype_autocomplete'),
+    path('relationcharacterurltype-autocomplete/', RelationCharacterUrlTypeAutocomplete.as_view(model=RelationCharacterUrlType), name='relationcharacterurltype_autocomplete'),
+    path('relationgenregenretype-autocomplete/', RelationGenreGenreTypeAutocomplete.as_view(model=RelationGenreGenreType), name='relationgenregenretype_autocomplete'),
+    path('relationgenreurltype-autocomplete/', RelationGenreUrlTypeAutocomplete.as_view(model=RelationGenreUrlType), name='relationgenreurltype_autocomplete'),
+    path('relationurlurltype-autocomplete/', RelationUrlUrlTypeAutocomplete.as_view(model=RelationUrlUrlType), name='relationurlurltype_autocomplete'),
 ]
