@@ -1,14 +1,25 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Work: {{ entitywork.name }}</h1>
+    <h1>{{ entitywork.name }} -
+    {% for relation in entitywork.relationorganitywork_set.all %}
+            {% if relation.highlighted_relation == 1 %}
+                <a href="{% url 'organities-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+            {% endif %}
+        {% endfor %}
+    </h1>
 
-    <p><strong>Name:</strong> {{ entitywork.name }}</p>
+    <p>Date: {{ entitywork.start_date }}</p>
 
-<!-- display credits -->
+    <div style="margin-left:20px;margin-top:20px">
+        <p></p>
+    </div>
+
+    <hr>
+
+    <!-- display credits -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Credits</h4>
-        {% if perms.catalog.can_add_relation_organity_work %}<p><a href="{% url 'work_organity_create' entitywork.id %}">Add a credit to this work</a></p>{% endif %}
             <ul>
                 {% for relation in entitywork.relationorganitywork_set.all %}
                     <li>
@@ -16,8 +27,21 @@
                         <a href="{% url 'organities-detail' relation.entity_a.pk %}">
                             {{relation.entity_a.name}}
                         </a>
-                        {% if relation.context_of_character.name %}({{relation.context_of_character.name}}){% endif %}
-                        {% if perms.catalog.can_change_relation_organity_work %}[<a href="{% url 'work_organity_update' relation.pk %}">edit</a>]{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
+
+    <!-- display productions -->
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Productions</h4>
+            <ul>
+                {% for relation in entitywork.relationproductionwork_set.all %}
+                    <li>
+                        {% for reltype in relation.relation_type.all %}{{ reltype.inverted_name }}{% endfor %}
+                        <a href="{% url 'productions-detail' relation.entity_a.pk %}">
+                            {{relation.entity_a.name}}
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
