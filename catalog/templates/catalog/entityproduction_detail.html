@@ -4,12 +4,16 @@
     <h1>{{ entityproduction.name }} -
     {% for relation in entityproduction.relationproductionorganity_set.all %}
             {% if relation.highlighted_relation == 1 %}
-                <a href="{% url 'organities-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+                <a href="{% url 'organities-detail' relation.entity_b.pk %}">{{ relation.entity_b.name }}</a>
             {% endif %}
         {% endfor %}
     </h1>
+
+    <p>Season {{ entityproduction.season.name }}, {{ entityproduction.start_date }} -- {{ entityproduction.end_date }}</p>
+
+    <div style="margin-left:20px;margin-top:20px">
     <p>Production type: {{ entityproduction.entity_type.all|join:", " }}</p>
-    <p>Season: {{ entityproduction.season.name }}</p>
+
     <p>
         Related work:
         {% for relation in entityproduction.relationproductionwork_set.all %}

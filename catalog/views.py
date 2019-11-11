@@ -580,11 +580,12 @@ class EntityShowDelete(DeleteView):
 class EntityWorkForm(forms.ModelForm):
     class Meta:
         model = EntityWork
-        fields = ['name', 'sort_name', 'disambiguation', 'entity_type', 'entity_type_str', ]
+        fields = ['name', 'sort_name', 'disambiguation', 'start_date', 'entity_type', 'entity_type_str', ]
         labels = {
             'name': 'Name',
             'sort_name': 'Sort name',
             'disambiguation': 'Disambiguation line',
+            'start_date': 'Date',
             'entity_type': 'Type of work',
             'entity_type_str': 'Type of work (free text)',
 
@@ -935,7 +936,7 @@ class RelationShowOrganityDelete(DeleteView):
 class RelationWorkOrganityForm(forms.ModelForm):
     class Meta:
         model = RelationOrganityWork
-        fields = ['entity_b', 'entity_b_credited_as', 'relation_type', 'relation_name', 'entity_a', 'entity_a_credited_as',]
+        fields = ['entity_b', 'entity_b_credited_as', 'relation_type', 'relation_name', 'entity_a', 'entity_a_credited_as', 'highlighted_relation']
         labels = {
             'entity_a': 'Organity',
             'entity_a_credited_as': 'Organity credited as',
@@ -943,6 +944,7 @@ class RelationWorkOrganityForm(forms.ModelForm):
             'relation_name': 'Relation credited as',
             'entity_b': 'Work',
             'entity_b_credited_as': 'Work credited as',
+            'highlighed_relation': 'Highlighted relation',
         }
         widgets = {
             'entity_a': autocomplete.ModelSelect2(
