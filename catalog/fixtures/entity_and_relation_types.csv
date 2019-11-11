@@ -7,7 +7,7 @@ catalog,RelationProductionOrganityType,catalog.RelationProductionOrganityType,1,
 catalog,RelationProductionOrganityType,catalog.RelationProductionOrganityType,2,Was co-produced by,Co-produced
 catalog,RelationProductionOrganityType,catalog.RelationProductionOrganityType,3,Was supported by,Supported
 catalog,RelationShowOrganityType,catalog.RelationShowOrganityType,1,Was held at,Held
-catalog,RelationOrganityWorkType,catalog.RelationOrganityWorkType,1,Was written by,Wrote
+catalog,RelationOrganityWorkType,catalog.RelationOrganityWorkType,1,Wrote,Was written by
 catalog,RelationOrganityCharacterType,catalog.RelationOrganityCharacterType,1,Played,Was played by
 catalog,RelationOrganityGenreType,catalog.RelationOrganityGenreType,1,Had as genre,Was the genre for
 catalog,RelationOrganityUrlType,catalog.RelationOrganityUrlType,1,Had as Url,Was the Url for

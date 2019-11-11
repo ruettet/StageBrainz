@@ -1088,7 +1088,6 @@ class RelationOrganityGenreForm(forms.ModelForm):
                 url='genre_autocomplete',
                 attrs={
                     'data-placeholder': 'Autocomplete ...',
-                    'data-minimum-input-length': 3,
                 },
             ),
             'relation_type': autocomplete.ModelSelect2Multiple(
