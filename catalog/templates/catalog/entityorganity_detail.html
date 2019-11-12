@@ -96,6 +96,7 @@
 
     <hr>
 
+    <div style="margin-left:20px;margin-top:20px">
     <p>Sort name: {{ entityorganity.sort_name }}</p>
     <p>Disambiguation: {{ entityorganity.disambiguation }}</p>
 
@@ -126,6 +127,7 @@
             <a href="{% url 'organity_url_delete' relation.pk %}">[delete]</a>
         {% endfor %}
     </p>
+    </div>
 
     <hr>
 
