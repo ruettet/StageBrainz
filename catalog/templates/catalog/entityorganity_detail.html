@@ -37,23 +37,6 @@
 
         <p>Organity type: {{ entityorganity.entity_type.all|join:", " }}</p>
 
-        <p>Related organities:
-            {% for relation in entityorganity.organitya.all %}
-                {{relation.relation_type.all|join:", "}}
-                <a href="{% url 'organities-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
-                ({% if relation.start_date %}{{relation.start_date}}{% endif %}{% if relation.end_date %} -- {{relation.end_date}}{% endif %})
-                <a href="{% url 'organity_organity_update' relation.pk %}">[edit]</a>
-                <a href="{% url 'organity_organity_delete' relation.pk %}">[delete]</a>
-            {% endfor %}
-            {% for relation in entityorganity.organityb.all %}
-                {{relation.relation_type.all|join:", "}}
-                <a href="{% url 'organities-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
-                ({% if relation.start_date %}{{relation.start_date}}{% endif %}{% if relation.end_date %} -- {{relation.end_date}}{% endif %})
-                <a href="{% url 'organity_organity_update' relation.pk %}">[edit]</a>
-                <a href="{% url 'organity_organity_delete' relation.pk %}">[delete]</a>
-            {% endfor %}
-        </p>
-
     </div>
 
     <hr>
@@ -115,6 +98,25 @@
 
     <p>Sort name: {{ entityorganity.sort_name }}</p>
     <p>Disambiguation: {{ entityorganity.disambiguation }}</p>
+
+    <p>Related organities:
+        {% for relation in entityorganity.organitya.all %}
+            {{relation.relation_type.all|join:", "}}
+            <a href="{% url 'organities-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+            ({% if relation.start_date %}{{relation.start_date}}{% endif %}{% if relation.end_date %} -- {{relation.end_date}}{% endif %})
+            <a href="{% url 'organity_organity_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'organity_organity_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+        {% for relation in entityorganity.organityb.all %}
+            {{relation.relation_type.all|join:", "}}
+            <a href="{% url 'organities-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+            ({% if relation.start_date %}{{relation.start_date}}{% endif %}{% if relation.end_date %} -- {{relation.end_date}}{% endif %})
+            <a href="{% url 'organity_organity_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'organity_organity_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+    </p>
+
+
     <p>External links:
         {% for relation in entityorganity.relationorganityurl_set.all %}
             <a href="{{relation.entity_b.name}}">{{relation.entity_b.name}}</a>
