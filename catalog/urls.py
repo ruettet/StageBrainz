@@ -276,7 +276,7 @@ urlpatterns += [
 urlpatterns += [
     path('character_url/create/<int:characterid>', views.RelationCharacterUrlCreate.as_view(), name='character_url_create'),
     path('character_url/<int:pk>/update/', views.RelationCharacterUrlUpdate.as_view(), name='character_url_update'),
-    path('character_url/<int:pk>/delete/', views.RelationCharacterUrlDelete.as_view(), name='character_curl_delete'),
+    path('character_url/<int:pk>/delete/', views.RelationCharacterUrlDelete.as_view(), name='character_url_delete'),
 ]
 
 # genre genre

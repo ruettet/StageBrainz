@@ -2138,7 +2138,7 @@ class RelationCharacterCharacterForm(forms.ModelForm):
                 },
             ),
             'relation_type': autocomplete.ModelSelect2Multiple(
-                url='relationcharactertype_autocomplete'
+                url='relationcharactercharactertype_autocomplete'
             ),
         }
 

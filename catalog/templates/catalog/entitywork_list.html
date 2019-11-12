@@ -6,7 +6,7 @@
   <ul>
     {% for work in entitywork_list %}
       <li>
-        <a href="{{ work.get_absolute_url }}">{{ work.sort_name }}</a> ({{work.name}}{% if work.disambiguation %}, {{work.disambiguation}}{% endif %})
+        {% if work.sort_name %}{{ work.sort_name }}{% else %}No sort name provided{% endif %} (<a href="{{ work.get_absolute_url }}">{{ work.name }}</a>{% if work.disambiguation %}, <i>{{work.disambiguation}}</i>{% endif %})
       </li>
     {% endfor %}
   </ul>

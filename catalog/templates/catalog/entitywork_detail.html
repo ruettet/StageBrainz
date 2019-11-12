@@ -42,7 +42,7 @@
                 {% for relation in entitywork.relationworkcharacter_set.all %}
                     <li>
                         {% for reltype in relation.relation_type.all %}{{ reltype.name }}{% endfor %}
-                        <a href="{% url 'characters-detail' relation.entity_a.pk %}">{{relation.entity_b.name}}</a>
+                        <a href="{% url 'characters-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
                         <a href="{% url 'work_character_update' relation.pk %}">[edit]</a>
                         <a href="{% url 'work_character_delete' relation.pk %}">[delete]</a>
                     </li>
