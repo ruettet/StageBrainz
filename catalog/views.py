@@ -2007,10 +2007,9 @@ class RelationWorkGenreForm(forms.ModelForm):
                 },
             ),
             'entity_b': autocomplete.ModelSelect2(
-                url='work_autocomplete',
+                url='genre_autocomplete',
                 attrs={
                     'data-placeholder': 'Autocomplete ...',
-                    'data-minimum-input-length': 3,
                 },
             ),
             'relation_type': autocomplete.ModelSelect2Multiple(

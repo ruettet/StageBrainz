@@ -12,24 +12,43 @@
     <p>Date: {{ entitywork.start_date }}</p>
 
     <div style="margin-left:20px;margin-top:20px">
-        <p></p>
+        <p>Genre:
+        {% for relation in entitywork.relationworkgenre_set.all %}
+                {{relation.relation_type.all|join:", "}}
+                {{relation.entity_b.name}}
+                <a href="{% url 'work_genre_update' relation.pk %}">[edit]</a>
+                <a href="{% url 'work_genre_delete' relation.pk %}">[delete]</a>
+            {% endfor %}
+        </p>
+
+        <p>Work type: {{ entitywork.entity_type.all|join:", " }}</p>
+
+        <p>Related organities:
+            {% for relation in entitywork.relationorganitywork_set.all %}
+                {% for reltype in relation.relation_type.all %}{{ reltype.inverted_name }} {% endfor %}
+                <a href="{% url 'organities-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+                <a href="{% url 'work_organity_update' relation.pk %}">[edit]</a>
+                <a href="{% url 'work_organity_delete' relation.pk %}">[delete]</a>
+            {% endfor %}
+        </p>
     </div>
 
     <hr>
 
     <!-- display credits -->
     <div style="margin-left:20px;margin-top:20px">
-        <h4>Credits</h4>
+        <h4>Characters</h4>
             <ul>
-                {% for relation in entitywork.relationorganitywork_set.all %}
+                {% for relation in entitywork.relationworkcharacter_set.all %}
                     <li>
-                        {{relation.display_relation_name}}
-                        <a href="{% url 'organities-detail' relation.entity_a.pk %}">
-                            {{relation.entity_a.name}}
-                        </a>
+                        {% for reltype in relation.relation_type.all %}{{ reltype.name }}{% endfor %}
+                        <a href="{% url 'characters-detail' relation.entity_a.pk %}">{{relation.entity_b.name}}</a>
+                        <a href="{% url 'work_character_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'work_character_delete' relation.pk %}">[delete]</a>
                     </li>
                 {% endfor %}
             </ul>
+
     </div>
 
     <!-- display productions -->
@@ -39,13 +58,47 @@
                 {% for relation in entitywork.relationproductionwork_set.all %}
                     <li>
                         {% for reltype in relation.relation_type.all %}{{ reltype.inverted_name }}{% endfor %}
-                        <a href="{% url 'productions-detail' relation.entity_a.pk %}">
-                            {{relation.entity_a.name}}
-                        </a>
+                        <a href="{% url 'productions-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+                        <a href="{% url 'production_work_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'production_work_delete' relation.pk %}">[delete]</a>
                     </li>
                 {% endfor %}
             </ul>
     </div>
+
+    <hr>
+    <div>
+        <p>Disambiguation text: {{entitywork.disambiguation}}</p>
+        <p>Sort on: {{entitywork.sort_name}}</p>
+
+        <p>Related works:
+        {% for relation in entitywork.worka.all %}
+            {{relation.relation_type.all|join:", "}}
+            <a href="{% url 'works-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+            <a href="{% url 'work_work_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'work_work_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+        {% for relation in entitywork.workb.all %}
+            {{relation.relation_type.all|join:", "}}
+            <a href="{% url 'workss-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+            <a href="{% url 'work_work_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'work_work_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+    </p>
+
+
+        <p>
+            External links:
+            {% for relation in entitywork.relationworkurl_set.all %}
+                <a href="{{relation.entity_b.name}}">{{relation.entity_b.name}}</a>
+                ({{relation.entity_b.entity_type.all|join:", "}})
+                <a href="{% url 'url_update' relation.entity_b.pk %}">[edit link]</a>
+                <a href="{% url 'work_url_update' relation.pk %}">[edit]</a>
+                <a href="{% url 'work_url_delete' relation.pk %}">[delete]</a>
+            {% endfor %}
+        </p>
+    </div>
+
 
     <hr>
     <div style="margin-left:20px;margin-top:20px">
