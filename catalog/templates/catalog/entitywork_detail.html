@@ -38,6 +38,7 @@
     <!-- display credits -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Characters</h4>
+            {% if entitywork.relationworkcharacter_set.all.exists %}
             <ul>
                 {% for relation in entitywork.relationworkcharacter_set.all %}
                     <li>
@@ -48,12 +49,16 @@
                     </li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <p>No related characters.</p>
+            {% endif %}
 
     </div>
 
     <!-- display productions -->
     <div style="margin-left:20px;margin-top:20px">
         <h4>Productions</h4>
+            {% if entitywork.relationproductionwork_set.all.exists %}
             <ul>
                 {% for relation in entitywork.relationproductionwork_set.all %}
                     <li>
@@ -64,6 +69,9 @@
                     </li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <p>No related productions.</p>
+            {% endif %}
     </div>
 
     <hr>
@@ -80,7 +88,7 @@
         {% endfor %}
         {% for relation in entitywork.workb.all %}
             {{relation.relation_type.all|join:", "}}
-            <a href="{% url 'workss-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+            <a href="{% url 'works-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
             <a href="{% url 'work_work_update' relation.pk %}">[edit]</a>
             <a href="{% url 'work_work_delete' relation.pk %}">[delete]</a>
         {% endfor %}
