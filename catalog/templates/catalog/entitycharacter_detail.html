@@ -1,9 +1,81 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Character: {{ entitycharacter.name }}</h1>
+    <h1>{{ entitycharacter.name }}</h1>
 
-    <p><strong>Name:</strong> {{ entitycharacter.name }}</p>
+    <div style="margin-left:20px;margin-top:20px">
+        <p></p>
+    </div>
+
+    <hr>
+
+    <!-- display works -->
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Works</h4>
+            {% if entitycharacter.relationworkcharacter_set.all.exists %}
+                <ul>
+                    {% for relation in entitycharacter.relationworkcharacter_set.all %}
+                        <li>
+                            {% for reltype in relation.relation_type.all %}{{ reltype.inverted_name }} {% endfor %}
+                            <a href="{% url 'works-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+                            <a href="{% url 'work_character_update' relation.pk %}">[edit]</a>
+                            <a href="{% url 'work_character_delete' relation.pk %}">[delete]</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No related works</p>
+            {% endif %}
+    </div>
+
+    <!-- display productions -->
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Organities</h4>
+            {% if entitycharacter.relationorganitycharacter_set.all.exists %}
+            <ul>
+                {% for relation in entitycharacter.relationorganitycharacter_set.all %}
+                    <li>
+                        {% for reltype in relation.relation_type.all %}{{ reltype.inverted_name }} {% endfor %}
+                        <a href="{% url 'productions-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+                        <a href="{% url 'organity_character_update' relation.pk %}">[edit]</a>
+                        <a href="{% url 'organity_character_delete' relation.pk %}">[delete]</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>No related productions</p>
+            {% endif %}
+    </div>
+
+    <hr>
+
+    <p>Sort name: {{ entitycharacter.sort_name }}</p>
+    <p>Disambiguation: {{ entitycharacter.disambiguation }}</p>
+
+    <p>Related character:
+        {% for relation in entitycharacter.charactera.all %}
+            {{relation.relation_type.all|join:", "}}
+            <a href="{% url 'characters-detail' relation.entity_b.pk %}">{{relation.entity_b.name}}</a>
+            <a href="{% url 'character_character_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'character_character_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+        {% for relation in entitycharacter.characterb.all %}
+            {{relation.relation_type.all|join:", "}}
+            <a href="{% url 'characters-detail' relation.entity_a.pk %}">{{relation.entity_a.name}}</a>
+            <a href="{% url 'character_character_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'character_character_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+    </p>
+
+
+    <p>External links:
+        {% for relation in entitycharacter.relationcharacterurl_set.all %}
+            <a href="{{relation.entity_b.name}}">{{relation.entity_b.name}}</a>
+            ({{relation.entity_b.entity_type.all|join:", "}})
+            <a href="{% url 'url_update' relation.entity_b.pk %}">[edit link]</a>
+            <a href="{% url 'character_url_update' relation.pk %}">[edit]</a>
+            <a href="{% url 'character_url_delete' relation.pk %}">[delete]</a>
+        {% endfor %}
+    </p>
 
     <hr>
     <div style="margin-left:20px;margin-top:20px">
@@ -11,7 +83,7 @@
         <ul>
             {% if perms.catalog.can_edit_entity_character %}<li><a href="{% url 'character_update' entitycharacter.id %}">Update this character</a></li>{% endif %}
             {% if perms.catalog.can_delete_entity_character %}<li><a href="{% url 'character_delete' entitycharacter.id %}">Delete this character</a></li>{% endif %}
-            {% if perms.catalog.can_add_relation_character_character %}<li><a href="{% url 'production_character_create' entitycharacter.id %}">Relate a character to this character</a></li>{% endif %}
+            {% if perms.catalog.can_add_relation_character_character %}<li><a href="{% url 'character_character_create' entitycharacter.id %}">Relate a character to this character</a></li>{% endif %}
             {% if perms.catalog.can_add_relation_character_genre %}<li><a href="{% url 'character_genre_create' entitycharacter.id %}">Relate a genre to this character</a></li>{% endif %}
             {% if perms.catalog.can_add_relation_character_url %}<li><a href="{% url 'character_url_create' entitycharacter.id %}">Relate a url to this character</a></li>{% endif %}
         </ul>
