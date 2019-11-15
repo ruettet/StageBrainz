@@ -6,7 +6,11 @@
   <ul>
     {% for show in entityshow_list %}
       <li>
-        <a href="{{ show.get_absolute_url }}">{{ show.name }}</a> ({{show.when_date}})
+        {% if show.when_date %}{{ show.when_date }}{% else %}No date provided{% endif %}
+        {% if show.when_time %}, {{ show.when_time }}{% endif %}
+        {% if show.sort_name %}, {{ show.sort_name }}{% else %}No sort name provided{% endif %}
+        (<a href="{{ show.get_absolute_url }}">{{ show.name }}</a>
+        {% if show.disambiguation %}, <i>{{show.disambiguation}}</i>{% endif %})
       </li>
     {% endfor %}
   </ul>

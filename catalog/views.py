@@ -1253,7 +1253,7 @@ class RelationProductionProductionDelete(DeleteView):
 
 
 # Production to Show
-class RelationProductionShowForm(forms.ModelForm):
+class RelationShowProductionForm(forms.ModelForm):
     class Meta:
         model = RelationShowProduction
         fields = ['entity_b', 'entity_b_credited_as', 'relation_type', 'relation_name', 'entity_a', 'entity_a_credited_as',]
@@ -1286,8 +1286,8 @@ class RelationProductionShowForm(forms.ModelForm):
         }
 
 
-class RelationProductionShowCreate(CreateView):
-    form_class = RelationProductionShowForm
+class RelationShowProductionCreate(CreateView):
+    form_class = RelationShowProductionForm
     model = RelationShowProduction
 
     def get_initial(self):
@@ -1301,8 +1301,8 @@ class RelationProductionShowCreate(CreateView):
         return reverse_lazy('productions-detail', kwargs={"pk": self.kwargs.get("productionid")})
 
 
-class RelationProductionShowUpdate(UpdateView):
-    form_class = RelationProductionShowForm
+class RelationShowProductionUpdate(UpdateView):
+    form_class = RelationShowProductionForm
     model = RelationShowProduction
 
     def get_success_url(self):
@@ -1310,7 +1310,7 @@ class RelationProductionShowUpdate(UpdateView):
         return reverse_lazy('productions-detail', kwargs={"pk": relation.entity_b.id})
 
 
-class RelationProductionShowDelete(DeleteView):
+class RelationShowProductionDelete(DeleteView):
     model = RelationShowProduction
 
     def get_success_url(self):
