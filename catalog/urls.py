@@ -162,9 +162,9 @@ urlpatterns += [
 
 # production show
 urlpatterns += [
-    path('production_show/create/<int:productionid>', views.RelationProductionShowCreate.as_view(), name='production_show_create'),
-    path('production_show/<int:pk>/update/', views.RelationProductionShowUpdate.as_view(), name='production_show_update'),
-    path('production_show/<int:pk>/delete/', views.RelationProductionShowDelete.as_view(), name='production_show_delete'),
+    path('production_show/create/<int:productionid>', views.RelationShowProductionCreate.as_view(), name='production_show_create'),
+    path('production_show/<int:pk>/update/', views.RelationShowProductionUpdate.as_view(), name='production_show_update'),
+    path('production_show/<int:pk>/delete/', views.RelationShowProductionDelete.as_view(), name='production_show_delete'),
 ]
 
 # production work

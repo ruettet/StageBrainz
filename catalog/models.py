@@ -53,7 +53,7 @@ class EntityAliasType(models.Model):
 
 
 class EntityShow(Entity):
-    when_date = PartialDateField()
+    when_date = PartialDateField(blank=True, null=True)
     when_time = models.TimeField(blank=True, null=True)
     entity_type = models.ManyToManyField('EntityShowType', blank=True)
 
