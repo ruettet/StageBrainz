@@ -1,6 +1,9 @@
 from django.db import models
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 from partial_date import PartialDateField
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -567,3 +570,30 @@ class RelationUrlUrl(Relation):
 
 class RelationUrlUrlType(RelationType):
     pass
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+
+class EntityProductionCollection(models.Model):
+    name = models.CharField(max_length=200, null=True, blank=True, default="not named")
+    owner = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    productions = models.ManyToManyField(EntityProduction)
+
+    def __str__(self):
+        return self.name
+    
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
