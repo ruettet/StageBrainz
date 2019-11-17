@@ -34,8 +34,7 @@ from catalog.models import EntityShow, EntityShowType, \
     RelationCharacterUrl, RelationCharacterUrlType, \
     RelationGenreGenre, RelationGenreGenreType, \
     RelationGenreUrl, RelationGenreUrlType, \
-    RelationUrlUrl, RelationUrlUrlType, \
-    Profile, EntityProductionCollection
+    RelationUrlUrl, RelationUrlUrlType
 
 
 # Register your models here.
@@ -364,17 +363,6 @@ class EntityUrlAdmin(admin.ModelAdmin):
 class EntityUrlTypeAdmin(admin.ModelAdmin):
     pass
 
-
-class ProfileAdmin(admin.ModelAdmin):
-    pass
-
-
-class EntityProductionCollectionAdmin(admin.ModelAdmin):
-    pass
-
-
-admin.site.register(Profile, ProfileAdmin)
-admin.site.register(EntityProductionCollection, EntityProductionCollectionAdmin)
 
 # Register the admin class with the associated model
 # shows
