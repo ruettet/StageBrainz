@@ -111,3 +111,4 @@ venv.bak/
 .idea/
 
 catalog/fixtures/db.cfg
+catalog/fixtures/data_kunsten_be.json
