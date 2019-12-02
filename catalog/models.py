@@ -145,6 +145,7 @@ class EntityOrganityAliasType(EntityAliasType):
 class EntityWork(Entity):
     entity_type = models.ManyToManyField('EntityWorkType', blank=True)
     start_date = models.CharField(max_length=10, default="")
+    isbn = models.CharField(max_length=20, null=True, blank=True)
 
     def get_absolute_url(self):
         """"Returns the url to access a detail record for this venue"""
