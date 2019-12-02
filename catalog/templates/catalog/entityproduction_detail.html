@@ -31,6 +31,8 @@
             <a href="{% url 'production_genre_delete' relation.pk %}">[delete]</a>
         {% endfor %}
     </p>
+    </div>
+
     <hr>
 
     <!-- display credits -->
@@ -89,7 +91,7 @@
                 <a href="{% url 'production_production_delete' relation.pk %}">[delete]</a>
             {% endfor %}
             {% for relation in entityproduction.productionb.all %}
-                {{relation.relation_type.all|join:", "}}
+                {{relation.relation_type.all|join:", "}} {% comment %}TODO{% endcomment %}
                 <a href="{% url 'productions-detail' relation.entity_b.pk %}">{{relation.entity_a.name}}</a>
                 <a href="{% url 'production_production_update' relation.pk %}">[edit]</a>
                 <a href="{% url 'production_production_delete' relation.pk %}">[delete]</a>
