@@ -2,32 +2,48 @@
     {
         "pk": "1",
         "fields": {
-            "inverted_name": "Was the continuation of",
-            "name": "Continued as"
+            "inverted_name": "Part of",
+            "name": "Has components"
         },
         "model": "catalog.RelationOrganityOrganityType"
     },
     {
         "pk": "2",
         "fields": {
-            "inverted_name": "Was organised by",
-            "name": "Organised"
+            "inverted_name": "Schism of",
+            "name": "Divided in"
         },
         "model": "catalog.RelationOrganityOrganityType"
     },
     {
         "pk": "3",
         "fields": {
-            "inverted_name": "Was subsituted by",
-            "name": "Substituted"
+            "inverted_name": "Continuance of",
+            "name": "Continued as"
         },
         "model": "catalog.RelationOrganityOrganityType"
     },
     {
         "pk": "4",
         "fields": {
-            "inverted_name": "Was related to",
-            "name": "Was related to"
+            "inverted_name": "Festival by",
+            "name": "Has a festival"
+        },
+        "model": "catalog.RelationOrganityOrganityType"
+    },
+    {
+        "pk": "5",
+        "fields": {
+            "inverted_name": "Coaction with",
+            "name": "Coaction with"
+        },
+        "model": "catalog.RelationOrganityOrganityType"
+    },
+    {
+        "pk": "6",
+        "fields": {
+            "inverted_name": "Fusion of",
+            "name": "Merged into"
         },
         "model": "catalog.RelationOrganityOrganityType"
     },
